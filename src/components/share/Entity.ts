@@ -51,6 +51,7 @@ class col {
     Description = ""
     Standard = ""
     Elements: string[] = []
+    BusinessRules: string[] = []
     DefinitionModification = ""
 }
 

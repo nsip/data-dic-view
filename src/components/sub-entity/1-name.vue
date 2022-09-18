@@ -3,6 +3,7 @@
         <span class="category">Name:</span>
         <span class="content">{{ selEntity.Entity }}</span>
     </div>
+    <hr>
 </template>
 
 <script lang="ts">

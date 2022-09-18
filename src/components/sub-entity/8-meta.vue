@@ -1,61 +1,65 @@
 <template>
     <div class="area">
-        <span class="category">Other Standards:</span>
+        <span class="category">Metadata:</span>
         <span class="content-flex">
-            <div v-for="(item, idx) in selEntity.OtherStandards" :key="idx">
+            <div v-for="(item, idx) in [selEntity.Metadata]" :key="idx">
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Standard:</span>
-                    <span class="sub-val">{{item.Standard}}</span>
-                </div>
+                <div class="cat-val-flex" v-if="isNotEmpty(item.Identifier)">
+                    <span class="sub-cat">Identifier:</span>
+                    <span class="sub-val">{{item.Identifier}}</span>                    
+                </div>                
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Link:</span>
+                <div class="cat-val-flex" v-if="isNotEmpty(item.Type)">
+                    <span class="sub-cat">Type:</span>
+                    <span class="sub-val">{{item.Type}}</span>
+                </div>                
+
+                <div class="cat-val-flex" v-if="isNotEmpty(item.ExpectedAttributes)">
+                    <span class="sub-cat">Expected Attributes:</span>
                     <div class="sub-val">
-                        <div v-for="(subitem, i) in item.Link" :key="i">
+                        <div v-for="(subitem, i) in item.ExpectedAttributes" :key="i">
+                            <span>{{subitem}}</span>
+                            <br>
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="cat-val-flex" v-if="isNotEmpty(item.Superclass)">
+                    <span class="sub-cat">Superclass:</span>
+                    <div class="sub-val">
+                        <div v-for="(subitem, i) in item.Superclass" :key="i">
+                            <span>{{subitem}}</span>
+                            <br>
+                        </div>
+                    </div>
+                </div>                
+
+                <div class="cat-val-flex" v-if="isNotEmpty(item.CrossrefEntities)">
+                    <span class="sub-cat">CrossRef Entities:</span>
+                    <div class="sub-val">
+                        <div v-for="(subitem, i) in item.CrossrefEntities" :key="i">
                             <span>{{subitem}}</span>
                             <br>
                         </div>
                     </div>
                 </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Path:</span>
-                    <div class="sub-val">
-                        <div v-for="(subitem, i) in item.Path" :key="i">
-                            <span>{{subitem}}</span>
-                            <br>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Definition:</span>
-                    <span class="sub-val">{{item.Definition}}</span>
-                </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Commentary:</span>
-                    <span class="sub-val">{{item.Commentary}}</span>
-                </div>
-
-                <hr v-if="idx != selEntity.OtherStandards.length - 1">
 
             </div>
         </span>
     </div>
-    <hr>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { selEntity } from '../share/Entity'
+import { isNotEmpty } from '../share/util'
 
 export default defineComponent({
-    name: 'OtherStds',
+    name: 'MetaData',
     setup() {
         return {
-            selEntity
+            selEntity,
+            isNotEmpty
         }
     }
 });

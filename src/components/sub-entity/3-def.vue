@@ -1,8 +1,9 @@
 <template>
     <div class="area">
-        <span class="category">Name:</span>
+        <span class="category">Definition:</span>
         <span class="content" v-html="selEntity.Definition"></span>
     </div>
+    <hr>
 </template>
 
 <script lang="ts">

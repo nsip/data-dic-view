@@ -7,6 +7,7 @@
             </span>
         </span>
     </div>
+    <hr>
 </template>
 
 <script lang="ts">

@@ -1,22 +1,27 @@
 <template>
     <div class="area">
-        <span class="category">SIF:</span>
+        <span class="category">Legal Definitions:</span>
         <span class="content-flex">
-            <div v-for="(item, idx) in selEntity.SIF" :key="idx">
+            <div v-for="(item, idx) in selEntity.LegalDefinitions" :key="idx">
 
                 <div class="cat-val-flex">
-                    <span class="sub-cat">XPath:</span>
-                    <div class="sub-val">
-                        <div v-for="(subitem, i) in item.XPath" :key="i">
-                            <span>{{subitem}}</span>
-                            <br>
-                        </div>
-                    </div>
+                    <span class="sub-cat">Legislation Name:</span>
+                    <span class="sub-val">{{item.LegislationName}}</span>
+                </div>
+
+                <div class="cat-val-flex">
+                    <span class="sub-cat">Citation:</span>
+                    <span class="sub-val">{{item.Citation}}</span>
+                </div>
+
+                <div class="cat-val-flex">
+                    <span class="sub-cat">Link:</span>
+                    <span class="sub-val">{{item.Link}}</span>
                 </div>
 
                 <div class="cat-val-flex">
                     <span class="sub-cat">Definition:</span>
-                    <span class="sub-val">{{item.Definition}}</span>
+                    <span class="sub-val" v-html="item.Definition"></span>
                 </div>
 
                 <div class="cat-val-flex">
@@ -29,6 +34,8 @@
                     <span class="sub-val">{{item.Datestamp}}</span>
                 </div>
 
+                <hr v-if="idx != selEntity.LegalDefinitions.length - 1">
+
             </div>
         </span>
     </div>
@@ -40,7 +47,7 @@ import { defineComponent } from 'vue';
 import { selEntity } from '../share/Entity'
 
 export default defineComponent({
-    name: 'ItemSIF',
+    name: 'LegalDefs',
     setup() {
         return {
             selEntity
@@ -81,7 +88,8 @@ export default defineComponent({
 .cat-val-flex {
     display: flex;
     flex-direction: row;
-    margin-bottom: 1%;
+    margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .sub-cat {

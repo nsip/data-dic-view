@@ -1,13 +1,28 @@
 <template>
     <div class="area">
-        <span class="category">SIF:</span>
+        <span class="category">Collections:</span>
         <span class="content-flex">
-            <div v-for="(item, idx) in selEntity.SIF" :key="idx">
+            <div v-for="(item, idx) in selEntity.Collections" :key="idx">
 
                 <div class="cat-val-flex">
-                    <span class="sub-cat">XPath:</span>
+                    <span class="sub-cat">Name:</span>
+                    <span class="sub-val">{{item.Name}}</span>
+                </div>
+
+                <div class="cat-val-flex">
+                    <span class="sub-cat">Description:</span>
+                    <span class="sub-val">{{item.Description}}</span>
+                </div>
+
+                <div class="cat-val-flex">
+                    <span class="sub-cat">Standard:</span>
+                    <span class="sub-val">{{item.Standard}}</span>
+                </div>
+
+                <div class="cat-val-flex">
+                    <span class="sub-cat">Elements:</span>
                     <div class="sub-val">
-                        <div v-for="(subitem, i) in item.XPath" :key="i">
+                        <div v-for="(subitem, i) in item.Elements" :key="i">
                             <span>{{subitem}}</span>
                             <br>
                         </div>
@@ -15,19 +30,21 @@
                 </div>
 
                 <div class="cat-val-flex">
-                    <span class="sub-cat">Definition:</span>
-                    <span class="sub-val">{{item.Definition}}</span>
+                    <span class="sub-cat">Business Rules:</span>
+                    <div class="sub-val">
+                        <div v-for="(subitem, i) in item.BusinessRules" :key="i">
+                            <span>{{subitem}}</span>
+                            <br>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="cat-val-flex">
-                    <span class="sub-cat">Commentary:</span>
-                    <span class="sub-val">{{item.Commentary}}</span>
+                    <span class="sub-cat">Definition Modification:</span>
+                    <span class="sub-val">{{item.DefinitionModification}}</span>
                 </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Datestamp:</span>
-                    <span class="sub-val">{{item.Datestamp}}</span>
-                </div>
+                
+                <hr v-if="idx != selEntity.Collections.length - 1">
 
             </div>
         </span>
@@ -40,7 +57,7 @@ import { defineComponent } from 'vue';
 import { selEntity } from '../share/Entity'
 
 export default defineComponent({
-    name: 'ItemSIF',
+    name: 'ItemCols',
     setup() {
         return {
             selEntity
