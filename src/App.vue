@@ -7,7 +7,8 @@
             <ItemList />
         </div>
         <div id="right">
-            <EntityContent />
+            <EntityContent v-if="sel == 'entity'" />
+            <CollectionContent v-if="sel == 'collection'" />
         </div>
     </div>
 </template>
@@ -17,13 +18,16 @@ import { defineComponent, onMounted } from 'vue';
 import MainTitle from './components/Title.vue';
 import ItemList from './components/List.vue';
 import EntityContent from './components/Entity.vue';
+import CollectionContent from './components/Collection.vue'
+import { sel } from './components/share/share'
 
 export default defineComponent({
     name: 'App',
     components: {
         MainTitle,
         ItemList,
-        EntityContent
+        EntityContent,
+        CollectionContent
     },
     setup() {
 
@@ -43,6 +47,7 @@ export default defineComponent({
         return {
             Width,
             Height,
+            sel
         }
     }
 });
@@ -62,7 +67,7 @@ export default defineComponent({
 
 #container {
     width: 100%;
-    height: v-bind('Height');  
+    height: v-bind('Height');
     display: flex;
     /* margin-top: -10px; */
 }

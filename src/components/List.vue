@@ -11,6 +11,8 @@
 import { defineComponent, ref, reactive } from 'vue';
 import { fetchNoBody, mEmpty } from './share/fetch'
 import { selEntity } from './share/Entity'
+import { selCollection } from './share/Collection';
+import { sel } from './share/share'
 
 export default defineComponent({
     name: 'ItemList',
@@ -49,14 +51,12 @@ export default defineComponent({
                 return
             }
 
+            sel.value = type
+            
             if (type == 'entity') {
-
                 selEntity.SetContent(rt[0])
-                // console.log(rt[0])
-
             } else if (type == 'collection') {
-
-                alert('TODO: collection')
+                selCollection.SetContent(rt[0])
             }
         }
 
@@ -65,6 +65,7 @@ export default defineComponent({
         return {
             entities,
             collections,
+            sel,
             loadItem
         }
     }

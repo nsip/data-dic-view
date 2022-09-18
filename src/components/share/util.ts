@@ -17,3 +17,23 @@ export const isEmpty = (val: any) => {
 export const isNotEmpty = (val: any) => {
     return !isEmpty(val)
 }
+
+export const linkify = (s: any, lf: boolean) => {
+    if (Array.isArray(s)) {
+        const ret = []
+        for (let i = 0; i < s.length; i++) {
+            let linkstr = `<a href="${s[i]}">${s[i]}</a>`
+            if (lf) {
+                linkstr += '<br>'
+            }
+            ret.push(linkstr)
+        }
+        return ret
+    } else if (typeof s === 'string') {
+        let linkstr = `<a href="${s}">${s}</a>`
+        if (lf) {
+            linkstr += '<br>'
+        }
+        return linkstr
+    }
+}
