@@ -54,9 +54,6 @@ export default defineComponent({
                 selEntity.SetContent(rt[0])
                 // console.log(rt[0])
 
-                // alert(selEntity.Entity)
-                // alert(selEntity.Definition)
-
             } else if (type == 'collection') {
 
                 alert('TODO: collection')

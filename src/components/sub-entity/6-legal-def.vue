@@ -88,8 +88,7 @@ export default defineComponent({
 .cat-val-flex {
     display: flex;
     flex-direction: row;
-    margin-top: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 1%;
 }
 
 .sub-cat {
