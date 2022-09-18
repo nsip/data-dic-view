@@ -1,13 +1,13 @@
 import { reactive } from 'vue';
 
 class entityType {
-    Entity = "";
+    Entity = "select one item from left panel"
     OtherNames: string[] = []
-    Definition = "";
-    SIF: sif[] = [new sif()]
-    OtherStandards: otherStd[] = [new otherStd()]
-    LegalDefinitions: legalDef[] = [new legalDef()]
-    Collections: col[] = [new col()]
+    Definition = ""
+    SIF: sif[] = []
+    OtherStandards: otherStd[] = []
+    LegalDefinitions: legalDef[] = []
+    Collections: col[] = []
     Metadata: meta = new meta()
 
     SetContent(object: any) {

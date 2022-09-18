@@ -8,7 +8,7 @@ export const isEmpty = (val: any) => {
     if (Array.isArray(val)) {
         return val.length == 0
     }
-    if (val instanceof String) {
+    if (typeof val === 'string') {
         return val.length == 0
     }
     return false

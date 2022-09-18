@@ -85,7 +85,7 @@ export default defineComponent({
 }
 
 .content-flex {
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(255, 255, 255); */
     margin-top: 2.5%;
     margin-left: -15%;
     width: 100%;
@@ -103,13 +103,13 @@ export default defineComponent({
 .sub-cat {
     text-align: left;
     font-weight: bold;
-    width: 20%;
-    background-color: rgb(172, 180, 178);
+    width: 25%;
+    /* background-color: rgb(172, 180, 178); */
     cursor: default;
 }
 
 .sub-val {
-    background-color: rgb(0, 230, 220);
+    /* background-color: rgb(0, 230, 220); */
     text-align: left;
     color: black;
     width: 100%;

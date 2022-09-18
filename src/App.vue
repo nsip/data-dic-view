@@ -61,27 +61,27 @@ export default defineComponent({
 /* layout */
 
 #container {
-    height: 100%;
     width: 100%;
+    height: v-bind('Height');  
     display: flex;
     /* margin-top: -10px; */
 }
 
 #left {
     width: 25%;
-    height: v-bind('Height');
+    height: 92%;
     margin-right: 1%;
-    background-color: rgb(189, 206, 238);
-    overflow: scroll;
-    /*   display: flex;
+    background-color: rgb(200, 200, 200);
+    /* overflow: scroll;
+    display: flex;
      flex-direction: column; */
 }
 
 #right {
     width: 75%;
-    height: v-bind('Height');
+    height: 92%;
     margin-left: 0%;
-    background-color: rgb(211, 240, 203);
+    background-color: rgb(200, 200, 200);
     overflow: scroll;
     /* display: flex;
     flex-direction: column; */

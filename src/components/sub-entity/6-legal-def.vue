@@ -1,56 +1,60 @@
 <template>
-    <div class="area">
-        <span class="category">Legal Definitions:</span>
-        <span class="content-flex">
-            <div v-for="(item, idx) in selEntity.LegalDefinitions" :key="idx">
+    <div v-if="isNotEmpty(selEntity.LegalDefinitions)">
+        <div class="area">
+            <span class="category">Legal Definitions:</span>
+            <span class="content-flex">
+                <div v-for="(item, idx) in selEntity.LegalDefinitions" :key="idx">
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Legislation Name:</span>
-                    <span class="sub-val">{{item.LegislationName}}</span>
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.LegislationName)">
+                        <span class="sub-cat">Legislation Name:</span>
+                        <span class="sub-val">{{item.LegislationName}}</span>
+                    </div>
+
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Citation)">
+                        <span class="sub-cat">Citation:</span>
+                        <span class="sub-val">{{item.Citation}}</span>
+                    </div>
+
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Link)">
+                        <span class="sub-cat">Link:</span>
+                        <span class="sub-val">{{item.Link}}</span>
+                    </div>
+
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Definition)">
+                        <span class="sub-cat">Definition:</span>
+                        <span class="sub-val" v-html="item.Definition"></span>
+                    </div>
+
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Commentary)">
+                        <span class="sub-cat">Commentary:</span>
+                        <span class="sub-val">{{item.Commentary}}</span>
+                    </div>
+
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Datestamp)">
+                        <span class="sub-cat">Datestamp:</span>
+                        <span class="sub-val">{{item.Datestamp}}</span>
+                    </div>
+
+                    <hr v-if="idx != selEntity.LegalDefinitions.length - 1">
+
                 </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Citation:</span>
-                    <span class="sub-val">{{item.Citation}}</span>
-                </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Link:</span>
-                    <span class="sub-val">{{item.Link}}</span>
-                </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Definition:</span>
-                    <span class="sub-val" v-html="item.Definition"></span>
-                </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Commentary:</span>
-                    <span class="sub-val">{{item.Commentary}}</span>
-                </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Datestamp:</span>
-                    <span class="sub-val">{{item.Datestamp}}</span>
-                </div>
-
-                <hr v-if="idx != selEntity.LegalDefinitions.length - 1">
-
-            </div>
-        </span>
+            </span>
+        </div>
+        <hr>
     </div>
-    <hr>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { selEntity } from '../share/Entity'
+import { isNotEmpty } from '../share/util'
 
 export default defineComponent({
     name: 'LegalDefs',
     setup() {
         return {
-            selEntity
+            selEntity,
+            isNotEmpty
         }
     }
 });
@@ -76,7 +80,7 @@ export default defineComponent({
 }
 
 .content-flex {
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(255, 255, 255); */
     margin-top: 2.5%;
     margin-left: -15%;
     width: 100%;
@@ -94,13 +98,13 @@ export default defineComponent({
 .sub-cat {
     text-align: left;
     font-weight: bold;
-    width: 20%;
-    background-color: rgb(172, 180, 178);
+    width: 25%;
+    /* background-color: rgb(172, 180, 178); */
     cursor: default;
 }
 
 .sub-val {
-    background-color: rgb(0, 230, 220);
+    /* background-color: rgb(0, 230, 220); */
     text-align: left;
     color: black;
     width: 100%;

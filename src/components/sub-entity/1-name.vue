@@ -1,20 +1,24 @@
 <template>
-    <div class="area">
-        <span class="category">Name:</span>
-        <span class="content">{{ selEntity.Entity }}</span>
+    <div v-if="isNotEmpty(selEntity.Entity)">
+        <div class="area">
+            <span class="category">Name:</span>
+            <span class="content">{{ selEntity.Entity }}</span>
+        </div>
+        <hr>
     </div>
-    <hr>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { selEntity } from '../share/Entity'
+import { isNotEmpty } from '../share/util';
 
 export default defineComponent({
     name: 'ItemName',
     setup() {
         return {
-            selEntity
+            selEntity,
+            isNotEmpty,
         }
     }
 });
@@ -33,7 +37,7 @@ export default defineComponent({
 
 .category {
     text-align: left;
-    width: 20%;
+    width: 25%;
     font-size: 18;
     font-weight: bold;
     margin-left: 2%;

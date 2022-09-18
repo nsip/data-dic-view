@@ -1,49 +1,53 @@
 <template>
-    <div class="area">
-        <span class="category">SIF:</span>
-        <span class="content-flex">
-            <div v-for="(item, idx) in selEntity.SIF" :key="idx">
+    <div v-if="isNotEmpty(selEntity.SIF)">
+        <div class="area">
+            <span class="category">SIF:</span>
+            <span class="content-flex">
+                <div v-for="(item, idx) in selEntity.SIF" :key="idx">
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">XPath:</span>
-                    <div class="sub-val">
-                        <div v-for="(subitem, i) in item.XPath" :key="i">
-                            <span>{{subitem}}</span>
-                            <br>
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.XPath)">
+                        <span class="sub-cat">XPath:</span>
+                        <div class="sub-val">
+                            <div v-for="(subitem, i) in item.XPath" :key="i">
+                                <span>{{subitem}}</span>
+                                <br>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Definition:</span>
-                    <span class="sub-val">{{item.Definition}}</span>
-                </div>
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Definition)">
+                        <span class="sub-cat">Definition:</span>
+                        <span class="sub-val">{{item.Definition}}</span>
+                    </div>
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Commentary:</span>
-                    <span class="sub-val">{{item.Commentary}}</span>
-                </div>
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Commentary)">
+                        <span class="sub-cat">Commentary:</span>
+                        <span class="sub-val">{{item.Commentary}}</span>
+                    </div>
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Datestamp:</span>
-                    <span class="sub-val">{{item.Datestamp}}</span>
-                </div>
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Datestamp)">
+                        <span class="sub-cat">Datestamp:</span>
+                        <span class="sub-val">{{item.Datestamp}}</span>
+                    </div>
 
-            </div>
-        </span>
+                </div>
+            </span>
+        </div>
+        <hr>
     </div>
-    <hr>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { selEntity } from '../share/Entity'
+import { isNotEmpty } from '../share/util'
 
 export default defineComponent({
     name: 'ItemSIF',
     setup() {
         return {
-            selEntity
+            selEntity,
+            isNotEmpty
         }
     }
 });
@@ -69,7 +73,7 @@ export default defineComponent({
 }
 
 .content-flex {
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(255, 255, 255); */
     margin-top: 2.5%;
     margin-left: -15%;
     width: 100%;
@@ -87,13 +91,13 @@ export default defineComponent({
 .sub-cat {
     text-align: left;
     font-weight: bold;
-    width: 20%;
-    background-color: rgb(172, 180, 178);
+    width: 25%;
+    /* background-color: rgb(172, 180, 178); */
     cursor: default;
 }
 
 .sub-val {
-    background-color: rgb(0, 230, 220);
+    /* background-color: rgb(0, 230, 220); */
     text-align: left;
     color: black;
     width: 100%;

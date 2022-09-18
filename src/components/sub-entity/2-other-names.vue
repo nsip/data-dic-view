@@ -1,24 +1,28 @@
 <template>
-    <div class="area">
-        <span class="category">Other Names:</span>
-        <span class="content">
-            <span v-for="(item, idx) in selEntity.OtherNames" :key="idx">
-                {{ item }}&nbsp;&emsp;
+    <div v-if="isNotEmpty(selEntity.OtherNames)">
+        <div class="area">
+            <span class="category">Other Names:</span>
+            <span class="content">
+                <span v-for="(item, idx) in selEntity.OtherNames" :key="idx">
+                    {{ item }}&nbsp;&emsp;
+                </span>
             </span>
-        </span>
+        </div>
+        <hr>
     </div>
-    <hr>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { selEntity } from '../share/Entity'
+import { isNotEmpty } from '../share/util';
 
 export default defineComponent({
     name: 'OtherNames',
     setup() {
         return {
-            selEntity
+            selEntity,
+            isNotEmpty
         } 
     }
 });
@@ -37,7 +41,7 @@ export default defineComponent({
 
 .category {
     text-align: left;
-    width: 20%;
+    width: 25%;
     font-size: 18;
     font-weight: bold;
     margin-left: 2%;

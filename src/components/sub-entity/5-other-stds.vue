@@ -1,61 +1,65 @@
 <template>
-    <div class="area">
-        <span class="category">Other Standards:</span>
-        <span class="content-flex">
-            <div v-for="(item, idx) in selEntity.OtherStandards" :key="idx">
+    <div v-if="isNotEmpty(selEntity.OtherStandards)">
+        <div class="area">
+            <span class="category">Other Standards:</span>
+            <span class="content-flex">
+                <div v-for="(item, idx) in selEntity.OtherStandards" :key="idx">
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Standard:</span>
-                    <span class="sub-val">{{item.Standard}}</span>
-                </div>
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Standard)">
+                        <span class="sub-cat">Standard:</span>
+                        <span class="sub-val">{{item.Standard}}</span>
+                    </div>
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Link:</span>
-                    <div class="sub-val">
-                        <div v-for="(subitem, i) in item.Link" :key="i">
-                            <span>{{subitem}}</span>
-                            <br>
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Link)">
+                        <span class="sub-cat">Link:</span>
+                        <div class="sub-val">
+                            <div v-for="(subitem, i) in item.Link" :key="i">
+                                <span>{{subitem}}</span>
+                                <br>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Path:</span>
-                    <div class="sub-val">
-                        <div v-for="(subitem, i) in item.Path" :key="i">
-                            <span>{{subitem}}</span>
-                            <br>
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Path)">
+                        <span class="sub-cat">Path:</span>
+                        <div class="sub-val">
+                            <div v-for="(subitem, i) in item.Path" :key="i">
+                                <span>{{subitem}}</span>
+                                <br>
+                            </div>
                         </div>
                     </div>
+
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Definition)">
+                        <span class="sub-cat">Definition:</span>
+                        <span class="sub-val" v-html="item.Definition"></span>
+                    </div>
+
+                    <div class="cat-val-flex" v-if="isNotEmpty(item.Commentary)">
+                        <span class="sub-cat">Commentary:</span>
+                        <span class="sub-val">{{item.Commentary}}</span>
+                    </div>
+
+                    <hr v-if="idx != selEntity.OtherStandards.length - 1">
+
                 </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Definition:</span>
-                    <span class="sub-val">{{item.Definition}}</span>
-                </div>
-
-                <div class="cat-val-flex">
-                    <span class="sub-cat">Commentary:</span>
-                    <span class="sub-val">{{item.Commentary}}</span>
-                </div>
-
-                <hr v-if="idx != selEntity.OtherStandards.length - 1">
-
-            </div>
-        </span>
+            </span>
+        </div>
+        <hr>
     </div>
-    <hr>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { selEntity } from '../share/Entity'
+import { isNotEmpty } from '../share/util'
 
 export default defineComponent({
     name: 'OtherStds',
     setup() {
         return {
-            selEntity
+            selEntity,
+            isNotEmpty
         }
     }
 });
@@ -81,7 +85,7 @@ export default defineComponent({
 }
 
 .content-flex {
-    background-color: rgb(255, 255, 255);
+    /* background-color: rgb(255, 255, 255); */
     margin-top: 2.5%;
     margin-left: -15%;
     width: 100%;
@@ -99,13 +103,13 @@ export default defineComponent({
 .sub-cat {
     text-align: left;
     font-weight: bold;
-    width: 20%;
-    background-color: rgb(172, 180, 178);
+    width: 25%;
+    /* background-color: rgb(172, 180, 178); */
     cursor: default;
 }
 
 .sub-val {
-    background-color: rgb(0, 230, 220);
+    /* background-color: rgb(0, 230, 220); */
     text-align: left;
     color: black;
     width: 100%;

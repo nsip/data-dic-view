@@ -74,10 +74,9 @@ export default defineComponent({
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 ul.list-entity {
-    background-color: rgb(240, 240, 100);
+    /* background-color: rgb(240, 240, 100); */
     width: 88%;
-    height: 600px;
-    max-height: 600px;
+    max-height: 80%;
     /* display: inline-block; */
     overflow: scroll;
     font-size: 15px;
@@ -90,7 +89,7 @@ ul.list-entity {
 }
 
 ul.list-entity li.ellip {
-    background-color: rgb(210, 210, 210);
+    background-color: rgb(200, 200, 200);
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
@@ -112,10 +111,9 @@ ul.list-entity li.link:hover {
 /* ******************************************* */
 
 ul.list-collection {
-    background-color: rgb(240, 100, 240);
+    /* background-color: rgb(240, 100, 240); */
     width: 88%;
-    height: 300;
-    max-height: 300px;
+    max-height: 20%;
     /* display: inline-block; */
     overflow: scroll;
     font-size: 15px;
@@ -128,7 +126,7 @@ ul.list-collection {
 }
 
 ul.list-collection li.ellip {
-    background-color: rgb(210, 210, 210);
+    background-color: rgb(200, 200, 200);
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
