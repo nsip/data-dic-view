@@ -17,6 +17,7 @@
             </div>
         </span>
     </div>
+    <hr>
 </template>
 
 <script lang="ts">

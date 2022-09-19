@@ -3,6 +3,7 @@
     <ItemDef />
     <URL />
     <MetaData />
+    <ColEntities />
 </template>
 
 <script lang="ts">
@@ -11,6 +12,7 @@ import ItemName from './sub-collection/1-name.vue'
 import ItemDef from './sub-collection/2-def.vue'
 import URL from './sub-collection/3-url.vue'
 import MetaData from './sub-collection/4-meta.vue'
+import ColEntities from './sub-collection/5-entities.vue'
 
 export default defineComponent({
     name: 'CollectionContent',
@@ -21,7 +23,8 @@ export default defineComponent({
         ItemName,
         ItemDef,
         URL,
-        MetaData
+        MetaData,
+        ColEntities
     },
     setup() {
         let title = "CollectionContent"

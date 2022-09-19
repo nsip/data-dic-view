@@ -43,7 +43,7 @@ export default defineComponent({
         /////////////////////        
 
         const loadItem = async (name: any, type: string) => {
-            const mParam: Map<string, any> = new Map<string, any>([["name", name]])
+            const mParam = new Map<string, any>([["name", name]])
             const rt = await fetchNoBody(`api/dictionary/one`, "GET", mParam) as any[]
 
             if (rt[1] != 200) {
@@ -52,11 +52,24 @@ export default defineComponent({
             }
 
             sel.value = type
-            
+
             if (type == 'entity') {
+
                 selEntity.SetContent(rt[0])
+
             } else if (type == 'collection') {
+
                 selCollection.SetContent(rt[0])
+
+                // get collection entities
+                const mParam4CE = new Map<string, any>([["colname", selCollection.Entity]])
+                const rtCE = await fetchNoBody(`api/dictionary/colentities`, "GET", mParam4CE) as any[]
+
+                if (rtCE[1] != 200) {
+                    alert(rtCE[0])
+                    return
+                }
+                selCollection.SetEntities(rtCE[0])
             }
         }
 
