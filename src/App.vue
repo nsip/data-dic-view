@@ -4,6 +4,7 @@
     <MainTitle />
     <div id="container">
         <div id="left">
+            <ListFilter />
             <ItemList />
         </div>
         <div id="right">
@@ -17,6 +18,7 @@
 import { defineComponent, onMounted } from 'vue';
 import MainTitle from './components/Title.vue';
 import ItemList from './components/List.vue';
+import ListFilter from './components/Filter.vue';
 import EntityContent from './components/Entity.vue';
 import CollectionContent from './components/Collection.vue'
 import { sel } from './components/share/share'
@@ -26,6 +28,7 @@ export default defineComponent({
     components: {
         MainTitle,
         ItemList,
+        ListFilter,
         EntityContent,
         CollectionContent
     },

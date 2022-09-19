@@ -12,7 +12,7 @@ import { defineComponent, ref, reactive } from 'vue';
 import { fetchNoBody, mEmpty } from './share/fetch'
 import { selEntity } from './share/Entity'
 import { selCollection } from './share/Collection';
-import { sel } from './share/share'
+import { sel, aim, entities, collections } from './share/share'
 
 export default defineComponent({
     name: 'ItemList',
@@ -20,9 +20,6 @@ export default defineComponent({
     //     msg: String,
     // },
     setup() {
-
-        let entities = ref([])
-        let collections = ref([])
 
         const listItem = async (itemType: string) => {
             const rt = (await fetchNoBody(`api/dictionary/list/${itemType}`, "GET", mEmpty)) as any[]
@@ -43,6 +40,9 @@ export default defineComponent({
         /////////////////////        
 
         const loadItem = async (name: any, type: string) => {
+
+            aim.value = name // selected for searching
+
             const mParam = new Map<string, any>([["name", name]])
             const rt = await fetchNoBody(`api/dictionary/one`, "GET", mParam) as any[]
 
@@ -51,7 +51,7 @@ export default defineComponent({
                 return
             }
 
-            sel.value = type
+            sel.value = type // selected kind
 
             if (type == 'entity') {
 
@@ -79,6 +79,7 @@ export default defineComponent({
             entities,
             collections,
             sel,
+            aim,
             loadItem
         }
     }
@@ -89,8 +90,9 @@ export default defineComponent({
 <style scoped>
 ul.list-entity {
     /* background-color: rgb(240, 240, 100); */
-    width: 88%;
+    width: 87%;
     max-height: 80%;
+    margin-left: 2%;
     /* display: inline-block; */
     overflow: scroll;
     font-size: 15px;
@@ -126,8 +128,10 @@ ul.list-entity li.link:hover {
 
 ul.list-collection {
     /* background-color: rgb(240, 100, 240); */
-    width: 88%;
+    width: 87%;
     max-height: 20%;
+    margin-top: -1%;
+    margin-left: 2%;
     /* display: inline-block; */
     overflow: scroll;
     font-size: 15px;
@@ -157,5 +161,10 @@ ul.list-collection li.link:hover {
     color: blue;
     text-decoration: underline;
     cursor: pointer;
+}
+
+hr {
+    margin-top: -1%;
+    margin-bottom: 1%;
 }
 </style>
