@@ -1,34 +1,28 @@
 <template>
     <div class="class">
-        <span v-for="(item, idx) in selclspath" :key="idx" @click="onPathClick(item)">
-            <span class="ea"> {{ item }}</span>
-            <span v-if="idx < selclspath.length-1"> / </span>            
+        <span v-for="(item, idx) in selClsPath" :key="idx"> 
+            <span class="ea" @click="RefreshPage(item)"> {{ item }}</span>
+            <span v-if="idx < selClsPath.length-1"> / </span>            
         </span>
-        <span v-if="selchildren.length > 0"> / </span>
-        <select v-if="selchildren.length > 0" name="children" id="">
+        <span v-if="selChildren.length > 0"> / </span>
+        <select v-if="selChildren.length > 0" name="children" id="">
             <option value="-1">--subclass--</option>
-            <option v-for="(item, idx) in selchildren" :key="idx">{{ item }}</option>
+            <option v-for="(item, idx) in selChildren" :key="idx" @click="RefreshPage(item)" >{{ item }}</option>
         </select>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { aim, selclspath, selchildren } from './share/share'
+import { selClsPath, selChildren, RefreshPage } from './share/share'
 
 export default defineComponent({
     name: 'ClassNav',
     setup() {
-
-        const onPathClick = (item: string) => {
-            aim.value = item
-        }
-
-        return {
-            aim,
-            selclspath,
-            selchildren,
-            onPathClick
+        return {            
+            selClsPath,
+            selChildren,
+            RefreshPage            
         }
     }
 });

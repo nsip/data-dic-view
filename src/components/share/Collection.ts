@@ -1,6 +1,4 @@
-import { reactive } from 'vue';
-
-class collectionType {
+export class collectionType {
     Entity = "select one item from left panel"
     Definition = ""
     URL: string[] = []
@@ -24,4 +22,3 @@ class meta {
     Type = ""
 }
 
-export const selCollection = reactive(new collectionType())

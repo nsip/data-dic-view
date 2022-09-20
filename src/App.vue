@@ -9,8 +9,8 @@
             <ItemList />
         </div>
         <div id="right">
-            <EntityContent v-if="selkind == 'entity'" />
-            <CollectionContent v-if="selkind == 'collection'" />
+            <EntityContent v-if="selKind == 'entity'" />
+            <CollectionContent v-if="selKind == 'collection'" />
         </div>
     </div>
 </template>
@@ -23,7 +23,7 @@ import ListFilter from './components/Filter.vue';
 import EntityContent from './components/Entity.vue';
 import CollectionContent from './components/Collection.vue'
 import ClassNav from './components/ClassNav.vue'
-import { selkind } from './components/share/share'
+import { selKind } from './components/share/share'
 
 export default defineComponent({
     name: 'App',
@@ -53,7 +53,7 @@ export default defineComponent({
         return {
             Width,
             Height,
-            selkind,
+            selKind,
         }
     }
 });

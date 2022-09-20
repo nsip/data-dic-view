@@ -22,9 +22,6 @@ import MetaData from './sub-entity/8-meta.vue'
 
 export default defineComponent({
     name: 'EntityContent',
-    // props: {
-    //     msg: String,
-    // },
     components: {
         ItemName,
         OtherNames,

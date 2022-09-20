@@ -1,98 +1,32 @@
 <template>
     <ul class="list-entity">
-        <li class="link ellip" v-for="(item, idx) in entities" :key="idx" :title="item" @click="loadItem(item, 'entity')">{{item}} </li>
+        <li class="link ellip" v-for="(item, idx) in listEntity" :key="idx" :title="item" @click="RefreshPage(item)">{{item}} </li>
     </ul>
     <ul class="list-collection">
-        <li class="link ellip" v-for="(item, idx) in collections" :key="idx" :title="item" @click="loadItem(item, 'collection')">{{item}}</li>
+        <li class="link ellip" v-for="(item, idx) in listCollection" :key="idx" :title="item" @click="RefreshPage(item)">{{item}}</li>
     </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue';
-import { fetchNoBody, mEmpty } from './share/fetch'
-import { selEntity } from './share/Entity'
-import { selCollection } from './share/Collection';
-import { selkind, aim, entities, collections, selclspath, selchildren } from './share/share'
+import { defineComponent } from 'vue';
+import { selKind, aim, listEntity, listCollection, selClsPath, selChildren, LoadList, RefreshPage } from './share/share'
 
 export default defineComponent({
     name: 'ItemList',
     setup() {
 
-        const listItem = async (itemType: string) => {
-            const rt = (await fetchNoBody(`api/dictionary/list/${itemType}`, "GET", mEmpty)) as any[]
-            if (rt[1] != 200) {
-                alert(rt[0])
-                return
-            }
-            if (itemType == "entity") {
-                entities.value = rt[0]
-            } else if (itemType == "collection") {
-                collections.value = rt[0]
-            }
-        }
-
-        listItem('entity')
-        listItem('collection')
-
-        /////////////////////        
-
-        const loadItem = async (name: any, type: string) => {
-
-            // selected for searching
-            aim.value = name
-
-            // selected kind
-            selkind.value = type
-
-            // get content
-            const mParam = new Map<string, any>([["name", name]])
-            const rt = await fetchNoBody(`api/dictionary/one`, "GET", mParam) as any[]
-            if (rt[1] != 200) {
-                alert(rt[0])
-                return
-            }
-
-            // set content to shared variables
-            if (type == 'entity') {
-
-                selEntity.SetContent(rt[0])
-
-            } else if (type == 'collection') {
-
-                selCollection.SetContent(rt[0])
-
-                // get collection entities
-                const mParam4CE = new Map<string, any>([["colname", selCollection.Entity]])
-                const rtCE = await fetchNoBody(`api/dictionary/colentities`, "GET", mParam4CE) as any[]
-                if (rtCE[1] != 200) {
-                    alert(rtCE[0])
-                    return
-                }
-                // set collection entities to shared variable
-                selCollection.SetEntities(rtCE[0])
-            }
-
-            // get class info
-            const mParam4Cls = new Map<string, any>([["entname", name]])
-            const rtCls = await fetchNoBody(`api/dictionary/entclasses`, "GET", mParam4Cls) as any[]
-            if (rtCls[1] != 200) {
-                alert(rtCls[0])
-                return
-            }
-            selclspath.value = rtCls[0].DerivedPath
-            selchildren.value = rtCls[0].Children
-        }
-
-        /////////////////////
+        LoadList('entity')
+        LoadList('collection')
 
         return {
-            entities,
-            collections,
-            selkind,
+            listEntity,
+            listCollection,
+            selKind,
             aim,
-            selclspath,
-            selchildren,
-            loadItem
+            selClsPath,
+            selChildren,
+            LoadList,
+            RefreshPage,
         }
     }
 });

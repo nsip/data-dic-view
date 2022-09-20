@@ -1,34 +1,18 @@
 <template>
     <input class="search-box" type="text" id="search" name="search" placeholder="searching ..." v-model="aim">
-    <button class="search-btn" @click="search()"> filter </button>
+    <button class="search-btn" @click="Search()"> filter </button>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { aim, entities, collections } from './share/share'
-import { fetchNoBody } from './share/fetch'
+import { aim, Search } from './share/share'
 
 export default defineComponent({
     name: 'ListFilter',
     setup() {
-        const search = async () => {
-
-            aim.value = aim.value.trim()
-            const mParam = new Map<string, any>([["aim", aim.value], ["ignorecase", true]])
-            const rt = (await fetchNoBody(`api/dictionary/search`, "GET", mParam)) as any[]
-            if (rt[1] != 200) {
-                alert(rt[0])
-                return
-            }
-            
-            entities.value = (rt[0]).Entities
-            collections.value = (rt[0]).Collections
-        }
         return {
-            aim,
-            entities,
-            collections,
-            search
+            aim,            
+            Search
         }
     }
 });

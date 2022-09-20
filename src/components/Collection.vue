@@ -16,9 +16,6 @@ import ColEntities from './sub-collection/5-entities.vue'
 
 export default defineComponent({
     name: 'CollectionContent',
-    // props: {
-    //     msg: String,
-    // },
     components: {
         ItemName,
         ItemDef,

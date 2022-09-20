@@ -22,7 +22,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { selCollection } from '../share/Collection'
+import { selCollection } from '../share/share'
 import { isNotEmpty } from '../share/util'
 
 export default defineComponent({

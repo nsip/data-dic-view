@@ -1,6 +1,4 @@
-import { reactive } from 'vue';
-
-class entityType {
+export class entityType {
     Entity = "select one item from left panel"
     OtherNames: string[] = []
     Definition = ""
@@ -63,4 +61,3 @@ class meta {
     CrossrefEntities: string[] = []
 }
 
-export const selEntity = reactive(new entityType())
