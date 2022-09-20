@@ -12,13 +12,10 @@ import { defineComponent, ref, reactive } from 'vue';
 import { fetchNoBody, mEmpty } from './share/fetch'
 import { selEntity } from './share/Entity'
 import { selCollection } from './share/Collection';
-import { sel, aim, entities, collections } from './share/share'
+import { selkind, aim, entities, collections, selclspath, selchildren } from './share/share'
 
 export default defineComponent({
     name: 'ItemList',
-    // props: {
-    //     msg: String,
-    // },
     setup() {
 
         const listItem = async (itemType: string) => {
@@ -41,18 +38,21 @@ export default defineComponent({
 
         const loadItem = async (name: any, type: string) => {
 
-            aim.value = name // selected for searching
+            // selected for searching
+            aim.value = name
 
+            // selected kind
+            selkind.value = type
+
+            // get content
             const mParam = new Map<string, any>([["name", name]])
             const rt = await fetchNoBody(`api/dictionary/one`, "GET", mParam) as any[]
-
             if (rt[1] != 200) {
                 alert(rt[0])
                 return
             }
 
-            sel.value = type // selected kind
-
+            // set content to shared variables
             if (type == 'entity') {
 
                 selEntity.SetContent(rt[0])
@@ -64,13 +64,23 @@ export default defineComponent({
                 // get collection entities
                 const mParam4CE = new Map<string, any>([["colname", selCollection.Entity]])
                 const rtCE = await fetchNoBody(`api/dictionary/colentities`, "GET", mParam4CE) as any[]
-
                 if (rtCE[1] != 200) {
                     alert(rtCE[0])
                     return
                 }
+                // set collection entities to shared variable
                 selCollection.SetEntities(rtCE[0])
             }
+
+            // get class info
+            const mParam4Cls = new Map<string, any>([["entname", name]])
+            const rtCls = await fetchNoBody(`api/dictionary/entclasses`, "GET", mParam4Cls) as any[]
+            if (rtCls[1] != 200) {
+                alert(rtCls[0])
+                return
+            }
+            selclspath.value = rtCls[0].DerivedPath
+            selchildren.value = rtCls[0].Children
         }
 
         /////////////////////
@@ -78,8 +88,10 @@ export default defineComponent({
         return {
             entities,
             collections,
-            sel,
+            selkind,
             aim,
+            selclspath,
+            selchildren,
             loadItem
         }
     }

@@ -2,14 +2,15 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
     <MainTitle />
+    <ClassNav />
     <div id="container">
         <div id="left">
             <ListFilter />
             <ItemList />
         </div>
         <div id="right">
-            <EntityContent v-if="sel == 'entity'" />
-            <CollectionContent v-if="sel == 'collection'" />
+            <EntityContent v-if="selkind == 'entity'" />
+            <CollectionContent v-if="selkind == 'collection'" />
         </div>
     </div>
 </template>
@@ -21,16 +22,18 @@ import ItemList from './components/List.vue';
 import ListFilter from './components/Filter.vue';
 import EntityContent from './components/Entity.vue';
 import CollectionContent from './components/Collection.vue'
-import { sel } from './components/share/share'
+import ClassNav from './components/ClassNav.vue'
+import { selkind } from './components/share/share'
 
 export default defineComponent({
     name: 'App',
     components: {
         MainTitle,
-        ItemList,
+        ClassNav,
         ListFilter,
+        ItemList,        
         EntityContent,
-        CollectionContent
+        CollectionContent,        
     },
     setup() {
 
@@ -50,7 +53,7 @@ export default defineComponent({
         return {
             Width,
             Height,
-            sel
+            selkind,
         }
     }
 });
