@@ -110,7 +110,8 @@ ul.list-entity li.ellip {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-left: -20px;
+    margin-left: -8%;
+    padding-top: 0.5%;
 }
 
 ul.list-entity li.link {
@@ -149,7 +150,8 @@ ul.list-collection li.ellip {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-left: -20px;
+    margin-left: -8%;
+    padding-top: 0.5%;
 }
 
 ul.list-collection li.link {
