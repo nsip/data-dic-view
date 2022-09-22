@@ -11,6 +11,7 @@
         <div id="right">
             <EntityContent v-if="selKind == 'entity'" />
             <CollectionContent v-if="selKind == 'collection'" />
+            <FloatBtn />
         </div>
     </div>
 </template>
@@ -23,6 +24,7 @@ import ListFilter from './components/Filter.vue';
 import EntityContent from './components/Entity.vue';
 import CollectionContent from './components/Collection.vue'
 import ClassNav from './components/ClassNav.vue'
+import FloatBtn from './components/FloatBtn.vue'
 import { selKind } from './components/share/share'
 
 export default defineComponent({
@@ -33,7 +35,8 @@ export default defineComponent({
         ListFilter,
         ItemList,        
         EntityContent,
-        CollectionContent,        
+        CollectionContent,
+        FloatBtn,
     },
     setup() {
 
