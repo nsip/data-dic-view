@@ -18,7 +18,7 @@ export const selChildren = ref([])                          // current selected 
 
 export const getItemKind = async (name: string) => {
     const mParam = new Map<string, any>([["name", name]])
-    const rt = await fetchNoBody(`api/dictionary/kind`, "GET", mParam) as any[]
+    const rt = await fetchNoBody(`api/dictionary/pub/kind`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
         return
@@ -28,7 +28,7 @@ export const getItemKind = async (name: string) => {
 
 export const getContent = async (name: string) => {
     const mParam = new Map<string, any>([["name", name]])
-    const rt = await fetchNoBody(`api/dictionary/one`, "GET", mParam) as any[]
+    const rt = await fetchNoBody(`api/dictionary/pub/one`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
         return
@@ -38,7 +38,7 @@ export const getContent = async (name: string) => {
 
 export const getColEntities = async (name: string) => {
     const mParam = new Map<string, any>([["colname", name]])
-    const rt = await fetchNoBody(`api/dictionary/colentities`, "GET", mParam) as any[]
+    const rt = await fetchNoBody(`api/dictionary/pub/colentities`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
         return
@@ -48,7 +48,7 @@ export const getColEntities = async (name: string) => {
 
 export const getClsInfo = async (name: string) => {
     const mParam = new Map<string, any>([["entname", name]])
-    const rt = await fetchNoBody(`api/dictionary/entclasses`, "GET", mParam) as any[]
+    const rt = await fetchNoBody(`api/dictionary/pub/entclasses`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
         return
@@ -57,7 +57,7 @@ export const getClsInfo = async (name: string) => {
 }
 
 export const getList = async (kind: string) => {
-    const rt = (await fetchNoBody(`api/dictionary/list/${kind}`, "GET", mEmpty)) as any[]
+    const rt = await fetchNoBody(`api/dictionary/pub/list/${kind}`, "GET", mEmpty, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
         return
@@ -66,8 +66,11 @@ export const getList = async (kind: string) => {
 }
 
 export const getSearch = async (lookfor: string) => {
-    const mParam = new Map<string, any>([["aim", lookfor], ["ignorecase", true]])
-    const rt = (await fetchNoBody(`api/dictionary/search`, "GET", mParam)) as any[]
+    const mParam = new Map<string, any>([
+        ["aim", lookfor],
+        ["ignorecase", true]
+    ])
+    const rt = await fetchNoBody(`api/dictionary/pub/search`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
         return
