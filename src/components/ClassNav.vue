@@ -1,28 +1,45 @@
 <template>
     <div class="class">
-        <span v-for="(item, idx) in selClsPath" :key="idx"> 
+        <span v-for="(item, idx) in selClsPath" :key="idx">
             <span class="ea" @click="RefreshPage(item)"> {{ item }}</span>
-            <span v-if="idx < selClsPath.length-1"> / </span>            
+            <span v-if="idx < selClsPath.length-1"> / </span>
         </span>
         <span v-if="selChildren.length > 0"> / </span>
-        <select v-if="selChildren.length > 0" name="children" id="">
-            <option value="-1">--subclass--</option>
-            <option v-for="(item, idx) in selChildren" :key="idx" @click="RefreshPage(item)" >{{ item }}</option>
+        <select ref="childSelect" v-if="selChildren.length > 0" @change="switchSelect($event)">
+            <option value="-1" class="firstOpt">--- subclass ---</option>
+            <option v-for="(item, idx) in selChildren" :key="idx">{{ item }}</option>
         </select>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { selClsPath, selChildren, RefreshPage } from './share/share'
 
 export default defineComponent({
     name: 'ClassNav',
     setup() {
-        return {            
+
+        const childSelect = ref(null)
+
+        const switchSelect = (event: any) => {
+            if (event.target.value != "-1") {
+                
+                RefreshPage(event.target.value)
+
+                const select = childSelect.value as HTMLSelectElement | null
+                if (select != null) {
+                    select.selectedIndex = 0
+                }
+            }
+        }
+
+        return {
+            childSelect,
             selClsPath,
             selChildren,
-            RefreshPage            
+            switchSelect,
+            RefreshPage,            
         }
     }
 });
@@ -47,5 +64,9 @@ hr {
     color: blue;
     text-decoration: underline;
     cursor: pointer;
+}
+
+.firstOpt {
+    text-align: center;
 }
 </style>

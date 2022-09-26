@@ -34,13 +34,18 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+ul.list-entity::-webkit-scrollbar {
+    display: none;
+}
+
 ul.list-entity {
     /* background-color: rgb(240, 240, 100); */
-    width: 87%;
+    width: 85%;
     max-height: 80%;
     margin-left: 2%;
     /* display: inline-block; */
     overflow: scroll;
+    scrollbar-width: none;
     font-size: 15px;
     font-weight: normal;
     font-family: Arial, Helvetica, sans-serif;
@@ -73,14 +78,19 @@ ul.list-entity li.link:hover {
 
 /* ******************************************* */
 
+ul.list-collection::-webkit-scrollbar {
+    display: none;
+}
+
 ul.list-collection {
     /* background-color: rgb(240, 100, 240); */
-    width: 87%;
+    width: 85%;
     max-height: 20%;
     margin-top: -1%;
     margin-left: 2%;
     /* display: inline-block; */
     overflow: scroll;
+    scrollbar-width: none;
     font-size: 15px;
     font-weight: normal;
     font-family: Arial, Helvetica, sans-serif;
