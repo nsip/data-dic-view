@@ -1,5 +1,5 @@
 <template>
-    <a href="http://localhost:8080/" target="_blank" class="float">
+    <a href="http://127.0.0.1:8888/" target="_blank" class="float">
         <font-awesome-icon icon="plus" class="floating" />
     </a>
 </template>

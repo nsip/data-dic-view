@@ -1,4 +1,4 @@
-const ip = "http://192.168.31.8:1323/"
+const ip = "http://127.0.0.1:1323/"
 
 export const mEmpty = new Map<string, any>()
 
