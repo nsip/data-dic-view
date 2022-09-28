@@ -1,4 +1,7 @@
-const ip = "http://127.0.0.1:1323/"
+export const IP_API = "http://127.0.0.1:1323/"
+export const IP_CMS = "http://127.0.0.1:8888/"
+
+const ip = IP_API
 
 export const mEmpty = new Map<string, any>()
 
@@ -23,10 +26,8 @@ export const fetchBodyForm = async (path: string, method: string, mQuery: Map<st
 
         const headers = {
             "Accept": 'application/json',
-            // "Content-Type": "application/json",
             "Authorization": auth
         };
-
         const resp = await fetch(url, {
             method: method,
             headers: headers,
@@ -35,9 +36,9 @@ export const fetchBodyForm = async (path: string, method: string, mQuery: Map<st
         });
 
         if (!resp.ok) {
-            // alert('Failed to fetch successfully, got status ' + resp.status)
             const text = await resp.text()
             return new Promise((resolve, reject) => {
+                // alert('Failed to fetch, got status ' + resp.status + ' @ ' + text)
                 resolve([text, resp.status]);
             })
         }
@@ -72,10 +73,8 @@ export const fetchBodyJsonStr = async (path: string, method: string, mQuery: Map
 
         const headers = {
             "Accept": 'application/json',
-            // "Content-Type": "application/json",
             "Authorization": auth
         };
-
         const resp = await fetch(url, {
             method: method,
             headers: headers,
@@ -84,9 +83,9 @@ export const fetchBodyJsonStr = async (path: string, method: string, mQuery: Map
         });
 
         if (!resp.ok) {
-            // alert('Failed to fetch successfully, got status ' + resp.status)
             const text = await resp.text()
             return new Promise((resolve, reject) => {
+                // alert('Failed to fetch, got status ' + resp.status + ' @ ' + text)
                 resolve([text, resp.status]);
             })
         }
@@ -123,10 +122,8 @@ export const fetchBodyObject = async (path: string, method: string, mQuery: Map<
 
         const headers = {
             "Accept": 'application/json',
-            // "Content-Type": "application/json",
             "Authorization": auth
         };
-
         const resp = await fetch(url, {
             method: method,
             headers: headers,
@@ -135,9 +132,9 @@ export const fetchBodyObject = async (path: string, method: string, mQuery: Map<
         });
 
         if (!resp.ok) {
-            // alert('Failed to fetch successfully, got status ' + resp.status)
             const text = await resp.text()
             return new Promise((resolve, reject) => {
+                // alert('Failed to fetch, got status ' + resp.status + ' @ ' + text)
                 resolve([text, resp.status]);
             })
         }
@@ -162,16 +159,12 @@ export const fetchNoBody = async (path: string, method: string, mQuery: Map<stri
         url += "?" + qryParams
     }
 
-    // alert(url)
-
     try {
 
         const headers = {
             "Accept": 'application/json',
-            // "Content-Type": "application/json",
             "Authorization": auth
         };
-
         const resp = await fetch(url, {
             method: method,
             headers: headers,
@@ -179,9 +172,9 @@ export const fetchNoBody = async (path: string, method: string, mQuery: Map<stri
         });
 
         if (!resp.ok) {
-            // alert('Failed to fetch successfully, got status ' + resp.status)
             const text = await resp.text()
             return new Promise((resolve, reject) => {
+                // alert('Failed to fetch, got status ' + resp.status + ' @ ' + text)
                 resolve([text, resp.status]);
             })
         }

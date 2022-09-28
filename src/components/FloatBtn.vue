@@ -1,16 +1,18 @@
 <template>
-    <a href="http://127.0.0.1:8888/" target="_blank" class="float">
+    <a :href="IP_CMS" target="_blank" class="float">
         <font-awesome-icon icon="plus" class="floating" />
     </a>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, ref } from 'vue';
+import { IP_CMS } from './share/fetch';
 
 export default defineComponent({
     name: 'FloatBtn',
     setup() {
         return {
+            IP_CMS
         }
     }
 });

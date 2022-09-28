@@ -26,6 +26,7 @@ import CollectionContent from './components/Collection.vue'
 import ClassNav from './components/ClassNav.vue'
 import FloatBtn from './components/FloatBtn.vue'
 import { selKind } from './components/share/share'
+import { ping } from './components/share/ping'
 
 export default defineComponent({
     name: 'App',
@@ -33,12 +34,19 @@ export default defineComponent({
         MainTitle,
         ClassNav,
         ListFilter,
-        ItemList,        
+        ItemList,
         EntityContent,
         CollectionContent,
         FloatBtn,
     },
     setup() {
+
+        onMounted(async () => {
+            const ok = await ping()
+            if (!ok) {
+                alert('backed api service is not available')
+            }
+        })
 
         let Width = window.innerWidth + 'px';
         let Height = window.innerHeight + 'px';
