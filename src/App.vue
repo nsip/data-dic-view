@@ -2,20 +2,22 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
 
-    <SignPage v-if="!loginOK" />
-
-    <div v-if="loginOK">
-        <MainTitle />
-        <ClassNav />
-        <div id="container">
-            <div id="left">
-                <ListFilter />
-                <ItemList />
-            </div>
-            <div id="right">
-                <EntityContent v-if="selKind == 'entity'" />
-                <CollectionContent v-if="selKind == 'collection'" />
-                <FloatBtn />
+    <div v-if="disp">
+        <!-- in future, SignPage will be an independent service -->
+        <SignPage v-if="!loginOK" />
+        <div v-if="loginOK">
+            <MainTitle />
+            <ClassNav />
+            <div id="container">
+                <div id="left">
+                    <ListFilter />
+                    <ItemList />
+                </div>
+                <div id="right">
+                    <EntityContent v-if="selKind == 'entity'" />
+                    <CollectionContent v-if="selKind == 'collection'" />
+                    <FloatBtn />
+                </div>
             </div>
         </div>
     </div>
@@ -23,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import { loginOK } from './components/share/share'
 import SignPage from './components/SignPage.vue';
 import MainTitle from './components/Title.vue';
@@ -60,10 +62,12 @@ export default defineComponent({
             console.log('Height:', Height)
         }
 
+        let disp = ref(false)
+
         onMounted(async () => {
-            // test api available
-            const ok = await ping()
-            if (!ok) {
+            // test backend api available
+            disp.value = await ping()
+            if (!disp.value) {
                 alert('backed api service is not available')
             }
 
@@ -71,12 +75,12 @@ export default defineComponent({
             window.addEventListener('resize', onResize)
         })
 
-
         return {
             Width,
             Height,
             selKind,
             loginOK,
+            disp
         }
     }
 });
