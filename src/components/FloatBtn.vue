@@ -1,18 +1,19 @@
 <template>
-    <a :href="IP_CMS" target="_blank" class="float">
+    <a :href="IP_CMS + loginToken" target="_blank" class="float">
         <font-awesome-icon icon="plus" class="floating" />
     </a>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { IP_CMS } from './share/fetch';
+import { defineComponent } from 'vue';
+import { IP_CMS, loginToken } from './share/share';
 
 export default defineComponent({
     name: 'FloatBtn',
     setup() {
         return {
-            IP_CMS
+            IP_CMS,
+            loginToken
         }
     }
 });

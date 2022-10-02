@@ -8,8 +8,8 @@
             "_ToIP": "change current 'localhost' to which IP?",
             "OnlyFirst": false,
             "Files": [
-                "./src/components/FloatBtn.vue",
-                "./src/components/share/fetch.ts"
+                "./src/components/share/fetch.ts",
+                "./src/components/share/share.ts"
             ]
         }
     ],

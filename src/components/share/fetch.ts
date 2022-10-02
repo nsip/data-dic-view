@@ -1,5 +1,5 @@
 export const IP_API = "http://127.0.0.1:1323/"
-export const IP_CMS = "http://127.0.0.1:8888/"
+// export const IP_CMS = "http://127.0.0.1:8888/"
 
 const ip = IP_API
 

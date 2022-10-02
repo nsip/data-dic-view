@@ -1,9 +1,9 @@
 <template>
     <ul class="list-entity">
-        <li class="link ellip" v-for="(item, idx) in listEntity" :key="idx" :title="item" @click="RefreshPage(item)">{{item}} </li>
+        <li class="link ellip" v-for="(item, idx) in listEntity" :key="idx" :title="item" @click="RefreshPage(item, 'existing')">{{item}} </li>
     </ul>
     <ul class="list-collection">
-        <li class="link ellip" v-for="(item, idx) in listCollection" :key="idx" :title="item" @click="RefreshPage(item)">{{item}}</li>
+        <li class="link ellip" v-for="(item, idx) in listCollection" :key="idx" :title="item" @click="RefreshPage(item, 'existing')">{{item}}</li>
     </ul>
 </template>
 
@@ -15,8 +15,8 @@ export default defineComponent({
     name: 'ItemList',
     setup() {
 
-        LoadList('entity')
-        LoadList('collection')
+        LoadList('entity', 'existing')
+        LoadList('collection', 'existing')
 
         return {
             listEntity,

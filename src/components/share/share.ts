@@ -1,9 +1,15 @@
 import { ref, reactive } from 'vue';
-import { fetchNoBody, mEmpty } from './fetch';
+import { fetchNoBody, fetchBodyForm, mEmpty } from './fetch';
 import { entityType } from './Entity';
 import { collectionType } from './Collection';
 
 //////////////////////////////////////////////////////////////////////////////////////
+
+export const IP_CMS = "http://127.0.0.1:8888/"
+
+export const loginOK = ref(false)
+export const loginUser = ref('')
+export const loginToken = ref('') // without 'Bearer '
 
 export const selKind = ref('entity')                        // which kind for current selection 'entity' or 'collection'
 export const selEntity = reactive(new entityType())         // entity content
@@ -13,6 +19,39 @@ export const listEntity = ref([])                           // name list of enti
 export const listCollection = ref([])                       // name list of collection 
 export const selClsPath = ref([])                           // current selected item's class path
 export const selChildren = ref([])                          // current selected item's children
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+export const postLogin = async (uname: string, pwd: string) => {
+
+    const mForm = new Map<string, any>([
+        ["uname", uname],
+        ["pwd", pwd],
+    ])
+    const rt = await fetchBodyForm(`/api/user/pub/sign-in`, "POST", mEmpty, mForm, '') as any[]
+    if (rt[1] != 200) {
+        alert(rt[0])
+        return false
+    }
+    const auth: string = rt[0].auth
+    loginToken.value = auth.replace('Bearer ', '')
+    return true
+}
+
+export const postRegister = async (uname: string, email: string, pwd: string) => {
+
+    const mForm = new Map<string, any>([
+        ["uname", uname],
+        ["email", email],
+        ["pwd", pwd],
+    ])
+    const rt = await fetchBodyForm(`/api/user/pub/sign-up`, "POST", mEmpty, mForm, '') as any[]
+    if (rt[1] != 200) {
+        alert(rt[0])
+        return false
+    }
+    return true
+}
 
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -26,8 +65,11 @@ export const getItemKind = async (name: string) => {
     return rt[0]
 }
 
-export const getContent = async (name: string) => {
-    const mParam = new Map<string, any>([["name", name]])
+export const getContent = async (name: string, dbcol: string) => {
+    const mParam = new Map<string, any>([
+        ["name", name],
+        ["dbcol", dbcol],
+    ])
     const rt = await fetchNoBody(`api/dictionary/pub/one`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
@@ -56,8 +98,11 @@ export const getClsInfo = async (name: string) => {
     return rt[0]
 }
 
-export const getList = async (kind: string) => {
-    const rt = await fetchNoBody(`api/dictionary/pub/list/${kind}`, "GET", mEmpty, "") as any[]
+export const getList = async (kind: string, dbcol: string) => {
+    const mParam = new Map<string, any>([
+        ["dbcol", dbcol],
+    ])
+    const rt = await fetchNoBody(`api/dictionary/pub/list/${kind}`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
         return
@@ -80,7 +125,7 @@ export const getSearch = async (lookfor: string) => {
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-export const RefreshPage = async (name: any) => {
+export const RefreshPage = async (name: any, dbcol: string) => {
 
     // selected for searching
     aim.value = name
@@ -89,19 +134,20 @@ export const RefreshPage = async (name: any) => {
     selKind.value = await getItemKind(name)
 
     // get content
-    const content = await getContent(name)
+    const content = await getContent(name, dbcol)
 
     // set content to shared variables
-    if (selKind.value == 'entity') {
+    switch (selKind.value) {
+        case "entity":
+            selEntity.SetContent(content)
+            break
 
-        selEntity.SetContent(content)
+        case "collection":
+            selCollection.SetContent(content)
 
-    } else if (selKind.value == 'collection') {
-
-        selCollection.SetContent(content)
-
-        // get collection entities and set them to 'selCollection'
-        selCollection.SetEntities(await getColEntities(name))
+            // get collection entities and set them to 'selCollection'
+            selCollection.SetEntities(await getColEntities(name))
+            break;
     }
 
     // get class info
@@ -110,11 +156,14 @@ export const RefreshPage = async (name: any) => {
     selChildren.value = clsinfo.Children
 }
 
-export const LoadList = async (itemType: string) => {
-    if (itemType == "entity") {
-        listEntity.value = await getList(itemType)
-    } else if (itemType == "collection") {
-        listCollection.value = await getList(itemType)
+export const LoadList = async (kind: string, dbcol: string) => {
+    switch (kind) {
+        case "entity":
+            listEntity.value = await getList(kind, dbcol)
+            break
+        case "collection":
+            listCollection.value = await getList(kind, dbcol)
+            break;
     }
 }
 

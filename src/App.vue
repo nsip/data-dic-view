@@ -1,23 +1,31 @@
 <template>
     <!-- <img alt="Vue logo" src="./assets/logo.png">
   <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
-    <MainTitle />
-    <ClassNav />
-    <div id="container">
-        <div id="left">
-            <ListFilter />
-            <ItemList />
-        </div>
-        <div id="right">
-            <EntityContent v-if="selKind == 'entity'" />
-            <CollectionContent v-if="selKind == 'collection'" />
-            <FloatBtn />
+
+    <SignPage v-if="!loginOK" />
+
+    <div v-if="loginOK">
+        <MainTitle />
+        <ClassNav />
+        <div id="container">
+            <div id="left">
+                <ListFilter />
+                <ItemList />
+            </div>
+            <div id="right">
+                <EntityContent v-if="selKind == 'entity'" />
+                <CollectionContent v-if="selKind == 'collection'" />
+                <FloatBtn />
+            </div>
         </div>
     </div>
+
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
+import { loginOK } from './components/share/share'
+import SignPage from './components/SignPage.vue';
 import MainTitle from './components/Title.vue';
 import ItemList from './components/List.vue';
 import ListFilter from './components/Filter.vue';
@@ -31,6 +39,7 @@ import { ping } from './components/share/ping'
 export default defineComponent({
     name: 'App',
     components: {
+        SignPage,
         MainTitle,
         ClassNav,
         ListFilter,
@@ -41,13 +50,6 @@ export default defineComponent({
     },
     setup() {
 
-        onMounted(async () => {
-            const ok = await ping()
-            if (!ok) {
-                alert('backed api service is not available')
-            }
-        })
-
         let Width = window.innerWidth + 'px';
         let Height = window.innerHeight + 'px';
 
@@ -57,14 +59,24 @@ export default defineComponent({
             console.log('Width:', Width)
             console.log('Height:', Height)
         }
-        onMounted(() => {
+
+        onMounted(async () => {
+            // test api available
+            const ok = await ping()
+            if (!ok) {
+                alert('backed api service is not available')
+            }
+
+            // listen browser size change
             window.addEventListener('resize', onResize)
         })
+
 
         return {
             Width,
             Height,
             selKind,
+            loginOK,
         }
     }
 });
