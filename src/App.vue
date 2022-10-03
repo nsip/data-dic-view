@@ -8,6 +8,7 @@
         <div v-if="loginOK">
             <MainTitle />
             <ClassNav />
+            <ModeSel />
             <div id="container">
                 <div id="left">
                     <ListFilter />
@@ -16,7 +17,8 @@
                 <div id="right">
                     <EntityContent v-if="selKind == 'entity'" />
                     <CollectionContent v-if="selKind == 'collection'" />
-                    <FloatBtn />
+                    <BtnApprove />
+                    <BtnAdd />
                 </div>
             </div>
         </div>
@@ -34,22 +36,26 @@ import ListFilter from './components/Filter.vue';
 import EntityContent from './components/Entity.vue';
 import CollectionContent from './components/Collection.vue'
 import ClassNav from './components/ClassNav.vue'
-import FloatBtn from './components/FloatBtn.vue'
+import ModeSel from './components/ModeSel.vue'
+import BtnAdd from './components/BtnAdd.vue'
+import BtnApprove from './components/BtnApprove.vue'
 import { selKind } from './components/share/share'
 import { ping } from './components/share/ping'
 
 export default defineComponent({
     name: 'App',
     components: {
-        SignPage,
-        MainTitle,
-        ClassNav,
-        ListFilter,
-        ItemList,
-        EntityContent,
-        CollectionContent,
-        FloatBtn,
-    },
+    SignPage,
+    MainTitle,
+    ClassNav,
+    ModeSel,
+    ListFilter,
+    ItemList,
+    EntityContent,
+    CollectionContent,
+    BtnAdd,
+    BtnApprove
+},
     setup() {
 
         let Width = window.innerWidth + 'px';

@@ -1,10 +1,14 @@
 <template>
-    <h2>{{ title }}</h2>
-    <hr>
+    <div>
+        <span class="title"> {{ title }} </span>
+        <span class="user"> {{ loginUser }} </span>
+        <hr class="sep">
+    </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import { loginUser } from './share/share'
 
 export default defineComponent({
     name: 'MainTitle',
@@ -14,7 +18,8 @@ export default defineComponent({
     setup() {
         let title = "National Education Data Dictionary"
         return {
-            title
+            title,
+            loginUser
         }
     }
 });
@@ -22,13 +27,25 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h2 {
+.title {
+    float: center;
     text-align: center;
+    font-size: 160%;
+    font-weight: bold;
+}
+
+.user {
+    float: right;
+    margin-top: 0.4%;
+    margin-right: 1%;
+}
+
+.sep {
+    margin-top: 0%;
 }
 
 hr {
     margin-top: -1%;
     margin-bottom: 1%;
 }
-
 </style>

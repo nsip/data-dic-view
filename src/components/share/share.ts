@@ -11,6 +11,8 @@ export const loginOK = ref(false)
 export const loginUser = ref('')
 export const loginToken = ref('') // without 'Bearer '
 
+export const pageMode = ref('normal') // 'normal' or 'approval'
+
 export const selKind = ref('entity')                        // which kind for current selection 'entity' or 'collection'
 export const selEntity = reactive(new entityType())         // entity content
 export const selCollection = reactive(new collectionType()) // collection content

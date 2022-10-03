@@ -1,19 +1,24 @@
 <template>
-    <a :href="IP_CMS + loginToken" target="_blank" class="float">
-        <font-awesome-icon icon="plus" class="floating" />
+    <a class="float" @click="approve()">
+        <font-awesome-icon icon="check" class="floating" />
     </a>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IP_CMS, loginToken } from './share/share';
+import { selKind, selEntity, selCollection } from './share/share';
 
 export default defineComponent({
-    name: 'FloatBtn',
+    name: 'BtnApprove',    
     setup() {
+        const approve = () => {
+            alert(selEntity.Entity)
+        }
         return {
-            IP_CMS,
-            loginToken
+            selKind,
+            selEntity,
+            selCollection,         
+            approve
         }
     }
 });
@@ -25,7 +30,7 @@ export default defineComponent({
     position: fixed;
     width: 60px;
     height: 60px;
-    bottom: 40px;
+    bottom: 110px;
     right: 40px;
     background-color: #BBB;
     color: #FFF;
@@ -35,7 +40,7 @@ export default defineComponent({
 }
 
 .float:hover {
-    background-color: #0C9;
+    background-color: rgb(15, 169, 246);
     cursor: pointer;
 }
 
