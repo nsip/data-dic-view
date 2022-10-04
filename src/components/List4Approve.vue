@@ -1,9 +1,9 @@
 <template>
     <ul class="list-entity" v-if="listEntity.length > 0">
-        <li class="link ellip" v-for="(item, idx) in listEntity" :key="idx" :title="item" @click="RefreshPage(item, 'existing')">{{item}} </li>
+        <li class="link ellip" v-for="(item, idx) in listEntity" :key="idx" :title="item" @click="RefreshPage(item, 'text')">{{item}} </li>
     </ul>
     <ul class="list-collection" v-if="listCollection.length > 0">
-        <li class="link ellip" v-for="(item, idx) in listCollection" :key="idx" :title="item" @click="RefreshPage(item, 'existing')">{{item}}</li>
+        <li class="link ellip" v-for="(item, idx) in listCollection" :key="idx" :title="item" @click="RefreshPage(item, 'text')">{{item}}</li>
     </ul>
 </template>
 
@@ -12,11 +12,11 @@ import { defineComponent } from 'vue';
 import { selKind, aim, listEntity, listCollection, selClsPath, selChildren, LoadList, RefreshPage } from './share/share'
 
 export default defineComponent({
-    name: 'ItemList',
+    name: 'ItemList4Approve',
     setup() {
 
-        LoadList('entity', 'existing')
-        LoadList('collection', 'existing')
+        LoadList('entity', 'text')
+        LoadList('collection', 'text')
 
         return {
             listEntity,
@@ -66,12 +66,12 @@ ul.list-entity li.ellip {
 }
 
 ul.list-entity li.link {
-    color: blue;
+    color: darkslateblue;
     text-decoration: none;
 }
 
 ul.list-entity li.link:hover {
-    color: blue;
+    color: darkslateblue;
     text-decoration: underline;
     cursor: pointer;
 }
@@ -111,12 +111,12 @@ ul.list-collection li.ellip {
 }
 
 ul.list-collection li.link {
-    color: blue;
+    color: darkslateblue;
     text-decoration: none;
 }
 
 ul.list-collection li.link:hover {
-    color: blue;
+    color: darkslateblue;
     text-decoration: underline;
     cursor: pointer;
 }

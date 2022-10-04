@@ -39,7 +39,7 @@ export default defineComponent({
             selClsPath,
             selChildren,
             switchSelect,
-            RefreshPage,            
+            RefreshPage,
         }
     }
 });

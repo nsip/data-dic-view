@@ -7,12 +7,13 @@
         <SignPage v-if="!loginOK" />
         <div v-if="loginOK">
             <MainTitle />
-            <ClassNav />
+            <ClassNav v-if="pageMode == 'normal'" />
             <ModeSel />
             <div id="container">
                 <div id="left">
-                    <ListFilter />
-                    <ItemList />
+                    <ListFilter v-if="pageMode == 'normal'" />
+                    <ItemList v-if="pageMode == 'normal'" />
+                    <ItemList4Approve v-if="pageMode == 'approval'" />
                 </div>
                 <div id="right">
                     <EntityContent v-if="selKind == 'entity'" />
@@ -28,15 +29,16 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import { loginOK } from './components/share/share'
+import { loginOK, pageMode } from './components/share/share'
 import SignPage from './components/SignPage.vue';
 import MainTitle from './components/Title.vue';
-import ItemList from './components/List.vue';
-import ListFilter from './components/Filter.vue';
-import EntityContent from './components/Entity.vue';
-import CollectionContent from './components/Collection.vue'
 import ClassNav from './components/ClassNav.vue'
 import ModeSel from './components/ModeSel.vue'
+import ListFilter from './components/Filter.vue';
+import ItemList from './components/List.vue';
+import ItemList4Approve from './components/List4Approve.vue'
+import EntityContent from './components/Entity.vue';
+import CollectionContent from './components/Collection.vue'
 import BtnAdd from './components/BtnAdd.vue'
 import BtnApprove from './components/BtnApprove.vue'
 import { selKind } from './components/share/share'
@@ -51,6 +53,7 @@ export default defineComponent({
     ModeSel,
     ListFilter,
     ItemList,
+    ItemList4Approve,
     EntityContent,
     CollectionContent,
     BtnAdd,
@@ -86,6 +89,7 @@ export default defineComponent({
             Height,
             selKind,
             loginOK,
+            pageMode,
             disp
         }
     }

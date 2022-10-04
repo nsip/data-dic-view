@@ -43,9 +43,4 @@ export default defineComponent({
 .sep {
     margin-top: 0%;
 }
-
-hr {
-    margin-top: -1%;
-    margin-bottom: 1%;
-}
 </style>

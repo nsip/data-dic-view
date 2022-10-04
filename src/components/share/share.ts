@@ -125,6 +125,19 @@ export const getSearch = async (lookfor: string) => {
     return rt[0]
 }
 
+export const putApprove = async (name: string, kind: string) => {
+    const mParam = new Map<string, any>([
+        ["name", name],
+        ["kind", kind]
+    ])
+    const rt = await fetchNoBody(`api/dictionary/auth/approve`, "PUT", mParam, 'Bearer ' + loginToken.value) as any[]
+    if (rt[1] != 200) {
+        alert(rt[0])
+        return
+    }
+    return rt[0]
+}
+
 //////////////////////////////////////////////////////////////////////////////////////
 
 export const RefreshPage = async (name: any, dbcol: string) => {

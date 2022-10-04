@@ -1,5 +1,5 @@
 export class entityType {
-    Entity = "select one item from left panel"
+    Entity = "select one item from left list"
     OtherNames: string[] = []
     Definition = ""
     SIF: sif[] = []
@@ -17,6 +17,17 @@ export class entityType {
         this.LegalDefinitions = object.LegalDefinitions
         this.Collections = object.Collections
         this.Metadata = object.Metadata
+    }
+
+    Reset() {
+        this.Entity = "select one item from left list"
+        this.OtherNames = []
+        this.Definition = ""
+        this.SIF = []
+        this.OtherStandards = []
+        this.LegalDefinitions = []
+        this.Collections = []
+        this.Metadata = new meta()
     }
 }
 

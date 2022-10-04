@@ -1,6 +1,8 @@
 <template>
     <input class="search-box" type="text" id="search" name="search" placeholder="searching ..." v-model="aim">
-    <button class="search-btn" @click="Search()"> filter </button>
+    <button class="search-btn" @click="Search()">
+        <font-awesome-icon icon="search" />
+    </button>
 </template>
 
 <script lang="ts">

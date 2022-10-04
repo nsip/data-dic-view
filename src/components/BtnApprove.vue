@@ -6,18 +6,21 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { selKind, selEntity, selCollection } from './share/share';
+import { selKind, selEntity, selCollection, pageMode, putApprove } from './share/share';
 
 export default defineComponent({
-    name: 'BtnApprove',    
+    name: 'BtnApprove',
     setup() {
-        const approve = () => {
-            alert(selEntity.Entity)
+        const approve = async () => {
+            if (pageMode.value == 'approval') {
+                const r = await putApprove(selEntity.Entity, 'entity')
+                alert(r)
+            }
         }
         return {
             selKind,
             selEntity,
-            selCollection,         
+            selCollection,
             approve
         }
     }

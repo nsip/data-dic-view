@@ -1,5 +1,5 @@
 export class collectionType {
-    Entity = "select one item from left panel"
+    Entity = "select one item from left list"
     Definition = ""
     URL: string[] = []
     Metadata: meta = new meta()
@@ -14,6 +14,14 @@ export class collectionType {
 
     SetEntities(entities: string[]) {
         this.Entities = entities
+    }
+
+    Reset() {
+        this.Entity = "select one item from left list"
+        this.Definition = "" 
+        this.URL = []
+        this.Metadata = new meta()
+        this.Entities = []
     }
 }
 
