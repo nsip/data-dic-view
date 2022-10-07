@@ -1,5 +1,5 @@
 <template>
-    <a :href="IP_CMS + loginToken" target="_blank" class="float">
+    <a :href="IP_CMS + '?auth=' + loginToken" target="_blank" class="float">
         <font-awesome-icon icon="plus" class="floating" />
     </a>
 </template>

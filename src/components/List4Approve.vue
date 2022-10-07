@@ -61,7 +61,7 @@ ul.list-entity li.ellip {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-left: -8%;
+    margin-left: -5%;
     padding-top: 0.5%;
 }
 
@@ -106,7 +106,7 @@ ul.list-collection li.ellip {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-left: -8%;
+    margin-left: -5%;
     padding-top: 0.5%;
 }
 

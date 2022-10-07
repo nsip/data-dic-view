@@ -47,13 +47,10 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-hr {
-    margin-top: -1%;
-    margin-bottom: 1%;
-}
 
 .class {
     margin-left: 1%;
+    margin-top: 10px;
     margin-bottom: 1%;
     float: left;
     font-style: italic;

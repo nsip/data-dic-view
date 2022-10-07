@@ -18,8 +18,9 @@
                 <div id="right">
                     <EntityContent v-if="selKind == 'entity'" />
                     <CollectionContent v-if="selKind == 'collection'" />
-                    <BtnApprove />
-                    <BtnAdd />
+                    <BtnApprove v-if="pageMode == 'approval'" />
+                    <BtnSubscribe v-if="pageMode == 'normal'" />
+                    <BtnAdd v-if="pageMode == 'normal'" />
                 </div>
             </div>
         </div>
@@ -41,6 +42,7 @@ import EntityContent from './components/Entity.vue';
 import CollectionContent from './components/Collection.vue'
 import BtnAdd from './components/BtnAdd.vue'
 import BtnApprove from './components/BtnApprove.vue'
+import BtnSubscribe from './components/BtnSubscribe.vue'
 import { selKind } from './components/share/share'
 import { ping } from './components/share/ping'
 
@@ -57,7 +59,8 @@ export default defineComponent({
     EntityContent,
     CollectionContent,
     BtnAdd,
-    BtnApprove
+    BtnApprove,
+    BtnSubscribe,
 },
     setup() {
 

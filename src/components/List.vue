@@ -1,7 +1,9 @@
 <template>
+    <h3 class="title-entity" v-if="listEntity.length > 0">Entity:</h3>
     <ul class="list-entity" v-if="listEntity.length > 0">
         <li class="link ellip" v-for="(item, idx) in listEntity" :key="idx" :title="item" @click="RefreshPage(item, 'existing')">{{item}} </li>
     </ul>
+    <h3 class="title-collection" v-if="listCollection.length > 0">Collection:</h3>
     <ul class="list-collection" v-if="listCollection.length > 0">
         <li class="link ellip" v-for="(item, idx) in listCollection" :key="idx" :title="item" @click="RefreshPage(item, 'existing')">{{item}}</li>
     </ul>
@@ -34,15 +36,30 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.title-entity {
+    float: left;
+    margin-left: 5%;
+    margin-top: 4%;
+    font-style: italic;
+}
+
+.title-collection {
+    float: left;
+    margin-left: 5%;
+    margin-top: 0%;
+    font-style: italic;
+}
+
 ul.list-entity::-webkit-scrollbar {
     display: none;
 }
 
 ul.list-entity {
     /* background-color: rgb(240, 240, 100); */
-    width: 85%;
-    max-height: 80%;
+    width: 82%;
+    max-height: 75%;
     margin-left: 2%;
+    margin-top: -3%;
     /* display: inline-block; */
     overflow: scroll;
     scrollbar-width: none;
@@ -53,6 +70,8 @@ ul.list-entity {
     float: left;
     border-style: groove;
     border-color: rgb(230, 230, 230);
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 ul.list-entity li.ellip {
@@ -61,12 +80,12 @@ ul.list-entity li.ellip {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-left: -8%;
+    margin-left: -5%;
     padding-top: 0.5%;
 }
 
 ul.list-entity li.link {
-    color: blue;
+    color: black;
     text-decoration: none;
 }
 
@@ -84,9 +103,9 @@ ul.list-collection::-webkit-scrollbar {
 
 ul.list-collection {
     /* background-color: rgb(240, 100, 240); */
-    width: 85%;
+    width: 82%;
     max-height: 20%;
-    margin-top: -1%;
+    margin-top: -3%;
     margin-left: 2%;
     /* display: inline-block; */
     overflow: scroll;
@@ -98,6 +117,8 @@ ul.list-collection {
     float: left;
     border-style: groove;
     border-color: rgb(230, 230, 230);
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 ul.list-collection li.ellip {
@@ -106,12 +127,12 @@ ul.list-collection li.ellip {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-left: -8%;
+    margin-left: -5%;
     padding-top: 0.5%;
 }
 
 ul.list-collection li.link {
-    color: blue;
+    color: black;
     text-decoration: none;
 }
 
@@ -119,10 +140,5 @@ ul.list-collection li.link:hover {
     color: blue;
     text-decoration: underline;
     cursor: pointer;
-}
-
-hr {
-    margin-top: -1%;
-    margin-bottom: 1%;
 }
 </style>
