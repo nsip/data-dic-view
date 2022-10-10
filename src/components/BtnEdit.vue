@@ -1,19 +1,21 @@
 <template>
-    <a :href="IP_CMS + '?auth=' + loginToken" target="_blank" class="float">
+    <a :href="IP_CMS + '?name=' + selItem + '&kind=' + selKind + '&auth=' + loginToken" target="_blank" class="float">
         <font-awesome-icon icon="pen" class="floating" />
     </a>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { IP_CMS, loginToken } from './share/share';
+import { IP_CMS, loginToken, selItem, selKind } from './share/share';
 
 export default defineComponent({
     name: 'BtnEdit',
     setup() {
         return {
             IP_CMS,
-            loginToken
+            loginToken,
+            selItem,
+            selKind,
         }
     }
 });
