@@ -7,12 +7,12 @@
 
                     <hr v-if="idx != selEntity.OtherStandards.length - 1" class="sub-sep-line">
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Standard)">
+                    <div v-if="isNotEmpty(item.Standard)" class="cat-val-flex">
                         <span class="sub-cat">Standard:</span>
                         <span class="sub-val">{{item.Standard}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Link)">
+                    <div v-if="isNotEmpty(item.Link)" class="cat-val-flex">
                         <span class="sub-cat">Link:</span>
                         <div class="sub-val">
                             <div v-for="(subitem, i) in item.Link" :key="i">
@@ -22,7 +22,7 @@
                         </div>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Path)">
+                    <div v-if="isNotEmpty(item.Path)" class="cat-val-flex">
                         <span class="sub-cat">Path:</span>
                         <div class="sub-val">
                             <div v-for="(subitem, i) in item.Path" :key="i">
@@ -32,12 +32,12 @@
                         </div>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Definition)">
+                    <div v-if="isNotEmpty(item.Definition)" class="cat-val-flex">
                         <span class="sub-cat">Definition:</span>
                         <span class="sub-val" v-html="item.Definition"></span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Commentary)">
+                    <div v-if="isNotEmpty(item.Commentary)" class="cat-val-flex">
                         <span class="sub-cat">Commentary:</span>
                         <span class="sub-val">{{item.Commentary}}</span>
                     </div>

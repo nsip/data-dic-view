@@ -7,22 +7,22 @@
 
                     <hr v-if="idx != selEntity.Collections.length - 1" class="sub-sep-line">
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Name)">
+                    <div v-if="isNotEmpty(item.Name)" class="cat-val-flex">
                         <span class="sub-cat">Name:</span>
                         <span class="sub-val">{{item.Name}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Description)">
+                    <div v-if="isNotEmpty(item.Description)" class="cat-val-flex">
                         <span class="sub-cat">Description:</span>
                         <span class="sub-val">{{item.Description}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Standard)">
+                    <div v-if="isNotEmpty(item.Standard)" class="cat-val-flex">
                         <span class="sub-cat">Standard:</span>
                         <span class="sub-val">{{item.Standard}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Elements)">
+                    <div v-if="isNotEmpty(item.Elements)" class="cat-val-flex">
                         <span class="sub-cat">Elements:</span>
                         <div class="sub-val">
                             <div v-for="(subitem, i) in item.Elements" :key="i">
@@ -32,7 +32,7 @@
                         </div>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.BusinessRules)">
+                    <div v-if="isNotEmpty(item.BusinessRules)" class="cat-val-flex">
                         <span class="sub-cat">Business Rules:</span>
                         <div class="sub-val">
                             <div v-for="(subitem, i) in item.BusinessRules" :key="i">
@@ -42,7 +42,7 @@
                         </div>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.DefinitionModification)">
+                    <div v-if="isNotEmpty(item.DefinitionModification)" class="cat-val-flex">
                         <span class="sub-cat">Definition Modification:</span>
                         <span class="sub-val">{{item.DefinitionModification}}</span>
                     </div>                    

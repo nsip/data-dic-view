@@ -1,15 +1,17 @@
 <template>
-    <ul class="list-entity" v-if="listEntity.length > 0">
-        <li class="link ellip" v-for="(item, idx) in listEntity" :key="idx" :title="item" @click="RefreshPage(item, 'text')">{{item}} </li>
+    <h4 v-if="listEntity.length > 0" class="title-entity">Entity:</h4>
+    <ul v-if="listEntity.length > 0" class="list-entity">
+        <li v-for="(item, idx) in listEntity" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="RefreshPage(item, 'text')">{{item}} </li>
     </ul>
-    <ul class="list-collection" v-if="listCollection.length > 0">
-        <li class="link ellip" v-for="(item, idx) in listCollection" :key="idx" :title="item" @click="RefreshPage(item, 'text')">{{item}}</li>
+    <h4 v-if="listCollection.length > 0" class="title-collection">Collection:</h4>
+    <ul v-if="listCollection.length > 0" class="list-collection">
+        <li v-for="(item, idx) in listCollection" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="RefreshPage(item, 'text')">{{item}}</li>
     </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { selKind, aim, listEntity, listCollection, selClsPath, selChildren, LoadList, RefreshPage } from './share/share'
+import { defineComponent, ref } from 'vue';
+import { selKind, selItem, aim, listEntity, listCollection, selClsPath, selChildren, LoadList, RefreshPage } from './share/share'
 
 export default defineComponent({
     name: 'ItemList4Approve',
@@ -18,13 +20,19 @@ export default defineComponent({
         LoadList('entity', 'text')
         LoadList('collection', 'text')
 
+        const sel_style = ref('selected-style')
+        const unsel_style = ref('unselected-style')
+
         return {
             listEntity,
             listCollection,
             selKind,
+            selItem,
             aim,
             selClsPath,
             selChildren,
+            sel_style,
+            unsel_style,
             LoadList,
             RefreshPage,
         }
@@ -34,6 +42,13 @@ export default defineComponent({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.title-entity {
+    float: left;
+    margin-left: 5%;
+    margin-top: 4%;
+    font-style: italic;
+}
+
 ul.list-entity::-webkit-scrollbar {
     display: none;
 }
@@ -65,18 +80,14 @@ ul.list-entity li.ellip {
     padding-top: 0.5%;
 }
 
-ul.list-entity li.link {
-    color: darkslateblue;
-    text-decoration: none;
-}
-
-ul.list-entity li.link:hover {
-    color: darkslateblue;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
 /* ******************************************* */
+
+.title-collection {
+    float: left;
+    margin-left: 5%;
+    margin-top: 0%;
+    font-style: italic;
+}
 
 ul.list-collection::-webkit-scrollbar {
     display: none;
@@ -110,19 +121,25 @@ ul.list-collection li.ellip {
     padding-top: 0.5%;
 }
 
-ul.list-collection li.link {
-    color: darkslateblue;
-    text-decoration: none;
+/* ******************************************* */
+
+.selected-style {
+    font-weight: bold;
 }
 
-ul.list-collection li.link:hover {
-    color: darkslateblue;
+.selected-style:hover {
+    color: blue;
     text-decoration: underline;
     cursor: pointer;
 }
 
-hr {
-    margin-top: -1%;
-    margin-bottom: 1%;
+.unselected-style {
+    color: black;
+}
+
+.unselected-style:hover {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
 }
 </style>

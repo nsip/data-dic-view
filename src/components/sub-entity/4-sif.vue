@@ -5,7 +5,7 @@
             <span class="content-flex">
                 <div v-for="(item, idx) in selEntity.SIF" :key="idx">
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.XPath)">
+                    <div v-if="isNotEmpty(item.XPath)" class="cat-val-flex">
                         <span class="sub-cat">XPath:</span>
                         <div class="sub-val">
                             <div v-for="(subitem, i) in item.XPath" :key="i">
@@ -15,17 +15,17 @@
                         </div>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Definition)">
+                    <div v-if="isNotEmpty(item.Definition)" class="cat-val-flex">
                         <span class="sub-cat">Definition:</span>
                         <span class="sub-val">{{item.Definition}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Commentary)">
+                    <div v-if="isNotEmpty(item.Commentary)" class="cat-val-flex">
                         <span class="sub-cat">Commentary:</span>
                         <span class="sub-val">{{item.Commentary}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Datestamp)">
+                    <div v-if="isNotEmpty(item.Datestamp)" class="cat-val-flex">
                         <span class="sub-cat">Datestamp:</span>
                         <span class="sub-val">{{item.Datestamp}}</span>
                     </div>

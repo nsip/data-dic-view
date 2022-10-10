@@ -7,32 +7,32 @@
 
                     <hr v-if="idx != selEntity.LegalDefinitions.length - 1" class="sub-sep-line">
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.LegislationName)">
+                    <div v-if="isNotEmpty(item.LegislationName)" class="cat-val-flex">
                         <span class="sub-cat">Legislation Name:</span>
                         <span class="sub-val">{{item.LegislationName}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Citation)">
+                    <div v-if="isNotEmpty(item.Citation)" class="cat-val-flex">
                         <span class="sub-cat">Citation:</span>
                         <span class="sub-val">{{item.Citation}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Link)">
+                    <div v-if="isNotEmpty(item.Link)" class="cat-val-flex">
                         <span class="sub-cat">Link:</span>
                         <span class="sub-val">{{item.Link}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Definition)">
+                    <div v-if="isNotEmpty(item.Definition)" class="cat-val-flex">
                         <span class="sub-cat">Definition:</span>
                         <span class="sub-val" v-html="item.Definition"></span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Commentary)">
+                    <div v-if="isNotEmpty(item.Commentary)" class="cat-val-flex">
                         <span class="sub-cat">Commentary:</span>
                         <span class="sub-val">{{item.Commentary}}</span>
                     </div>
 
-                    <div class="cat-val-flex" v-if="isNotEmpty(item.Datestamp)">
+                    <div v-if="isNotEmpty(item.Datestamp)" class="cat-val-flex">
                         <span class="sub-cat">Datestamp:</span>
                         <span class="sub-val">{{item.Datestamp}}</span>
                     </div>                    

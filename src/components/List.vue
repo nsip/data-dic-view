@@ -49,13 +49,6 @@ export default defineComponent({
     font-style: italic;
 }
 
-.title-collection {
-    float: left;
-    margin-left: 5%;
-    margin-top: 0%;
-    font-style: italic;
-}
-
 ul.list-entity::-webkit-scrollbar {
     display: none;
 }
@@ -91,6 +84,13 @@ ul.list-entity li.ellip {
 }
 
 /* ******************************************* */
+
+.title-collection {
+    float: left;
+    margin-left: 5%;
+    margin-top: 0%;
+    font-style: italic;
+}
 
 ul.list-collection::-webkit-scrollbar {
     display: none;
@@ -129,7 +129,6 @@ ul.list-collection li.ellip {
 /* ******************************************* */
 
 .selected-style {
-    color: green;
     font-weight: bold;
 }
 

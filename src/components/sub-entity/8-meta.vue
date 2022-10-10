@@ -4,27 +4,27 @@
         <span class="content-flex">
             <div v-for="(item, idx) in [selEntity.Metadata]" :key="idx">
 
-                <div class="cat-val-flex" v-if="isNotEmpty(item.Identifier)">
+                <div v-if="isNotEmpty(item.Identifier)" class="cat-val-flex">
                     <span class="sub-cat">Identifier:</span>
                     <span class="sub-val">{{item.Identifier}}</span>                    
                 </div>                
 
-                <div class="cat-val-flex" v-if="isNotEmpty(item.Type)">
+                <div v-if="isNotEmpty(item.Type)" class="cat-val-flex">
                     <span class="sub-cat">Type:</span>
                     <span class="sub-val">{{item.Type}}</span>
                 </div>                
 
-                <div class="cat-val-flex" v-if="isNotEmpty(item.ExpectedAttributes)">
+                <div v-if="isNotEmpty(item.ExpectedAttributes)" class="cat-val-flex">
                     <span class="sub-cat">Expected Attributes:</span>
                     <div class="sub-val">
-                        <div v-for="(subitem, i) in item.ExpectedAttributes" :key="i">
+                        <div v-for="(subitem, i) in item.ExpectedAttributes" :key="i" class="cat-val-flex">
                             <span>{{subitem}}</span>
                             <br>
                         </div>
                     </div>
                 </div>                
 
-                <div class="cat-val-flex" v-if="isNotEmpty(item.Superclass)">
+                <div v-if="isNotEmpty(item.Superclass)" class="cat-val-flex">
                     <span class="sub-cat">Superclass:</span>
                     <div class="sub-val">
                         <div v-for="(subitem, i) in item.Superclass" :key="i">
@@ -34,7 +34,7 @@
                     </div>
                 </div>                
 
-                <div class="cat-val-flex" v-if="isNotEmpty(item.CrossrefEntities)">
+                <div v-if="isNotEmpty(item.CrossrefEntities)" class="cat-val-flex">
                     <span class="sub-cat">CrossRef Entities:</span>
                     <div class="sub-val">
                         <div v-for="(subitem, i) in item.CrossrefEntities" :key="i">

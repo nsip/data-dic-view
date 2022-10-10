@@ -4,12 +4,12 @@
         <span class="content-flex">
             <div v-for="(item, idx) in [selCollection.Metadata]" :key="idx">
 
-                <div class="cat-val-flex" v-if="isNotEmpty(item.Identifier)">
+                <div v-if="isNotEmpty(item.Identifier)" class="cat-val-flex">
                     <span class="sub-cat">Identifier:</span>
                     <span class="sub-val">{{item.Identifier}}</span>                    
                 </div>                
 
-                <div class="cat-val-flex" v-if="isNotEmpty(item.Type)">
+                <div v-if="isNotEmpty(item.Type)" class="cat-val-flex">
                     <span class="sub-cat">Type:</span>
                     <span class="sub-val">{{item.Type}}</span>
                 </div>
