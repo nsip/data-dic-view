@@ -20,7 +20,6 @@ export default defineComponent({
         const default_style = ref('default-style')
         const sel_style = ref('selected-style')
         const sub_style = ref('subscribed-style')
-        const both_style = ref('selected-subscribed-style')
 
         const style = (name: string) => {
 
@@ -41,7 +40,7 @@ export default defineComponent({
 
             if (selected && subscribed) {
 
-                return both_style.value
+                return sel_style.value + ' ' + sub_style.value
 
             } else if (selected) {
 
@@ -164,19 +163,6 @@ ul.list-collection li.ellip {
 }
 
 /* ******************************************* */
-
-/* both */
-.selected-subscribed-style {
-    font-weight: bold;    
-    font-style: italic;
-    color: green;
-}
-
-.selected-subscribed-style:hover {
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
-}
 
 /* selected */
 .selected-style {

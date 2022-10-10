@@ -1,5 +1,5 @@
 export class collectionType {
-    Entity = "select one item from left list"
+    Entity = ""
     Definition = ""
     URL: string[] = []
     Metadata: meta = new meta()
@@ -17,7 +17,7 @@ export class collectionType {
     }
 
     Reset() {
-        this.Entity = "select one item from left list"
+        this.Entity = ""
         this.Definition = "" 
         this.URL = []
         this.Metadata = new meta()

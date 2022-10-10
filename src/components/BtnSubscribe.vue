@@ -1,22 +1,32 @@
 <template>
-    <a class="float" @click="subscribe()">
+    <a class="float" :class="style()" @click="subscribe()">
         <font-awesome-icon icon="bookmark" class="floating" />
     </a>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { selKind, selEntity, selCollection, putSubscribe, LoadList } from './share/share';
+import { selKind, selItem, selEntity, selCollection, lsSubscribed, putSubscribe, LoadList } from './share/share';
 
 export default defineComponent({
     name: 'BtnSubscribe',
     setup() {
+
+        const sub_style = ref('subscribed-style')
+        const unsub_style = ref('unsubscribed-style')
+
+        const style = () => {
+            let subscribed = false
+            lsSubscribed.value.forEach((val) => {
+                if (val == selItem.value) {
+                    subscribed = true
+                }
+            })
+            return subscribed ? sub_style.value : unsub_style.value;
+        }
+
         const subscribe = async () => {
-
             // alert(selKind.value)
-
-            const sub_style = ref('subscribed-style')
-            const unsub_style = ref('unsubscribed-style')
 
             let name = ''
             switch (selKind.value) {
@@ -40,11 +50,13 @@ export default defineComponent({
             // reload list for changing item color
             LoadList('entity', 'existing')
         }
+
         return {
             selKind,
             selEntity,
             selCollection,
-            subscribe
+            subscribe,
+            style,
         }
     }
 });
@@ -81,9 +93,16 @@ export default defineComponent({
     background-color: #0C9;
 }
 
+.subscribed-style:hover {
+    background-color: #BBB;
+}
+
 .unsubscribed-style {
     background-color: #BBB;
 }
 
+.unsubscribed-style:hover {
+    background-color: #0C9;
+}
 
 </style>

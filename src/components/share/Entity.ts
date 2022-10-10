@@ -1,5 +1,5 @@
 export class entityType {
-    Entity = "select one item from left list"
+    Entity = ""
     OtherNames: string[] = []
     Definition = ""
     SIF: sif[] = []
@@ -20,7 +20,7 @@ export class entityType {
     }
 
     Reset() {
-        this.Entity = "select one item from left list"
+        this.Entity = ""
         this.OtherNames = []
         this.Definition = ""
         this.SIF = []
