@@ -5,6 +5,8 @@
             <span class="content-flex">
                 <div v-for="(item, idx) in selEntity.Collections" :key="idx">
 
+                    <hr v-if="idx != selEntity.Collections.length - 1" class="sub-sep-line">
+
                     <div class="cat-val-flex" v-if="isNotEmpty(item.Name)">
                         <span class="sub-cat">Name:</span>
                         <span class="sub-val">{{item.Name}}</span>
@@ -43,9 +45,7 @@
                     <div class="cat-val-flex" v-if="isNotEmpty(item.DefinitionModification)">
                         <span class="sub-cat">Definition Modification:</span>
                         <span class="sub-val">{{item.DefinitionModification}}</span>
-                    </div>
-
-                    <hr v-if="idx != selEntity.Collections.length - 1">
+                    </div>                    
 
                 </div>
             </span>
@@ -84,7 +84,7 @@ export default defineComponent({
 .category {
     text-align: left;
     width: 20%;
-    font-size: 18;
+    font-size: 18px;
     font-weight: bold;
     margin-left: 2%;
 }
@@ -108,6 +108,7 @@ export default defineComponent({
 .sub-cat {
     text-align: left;
     font-weight: bold;
+    font-size: 16px;
     width: 25%;
     /* background-color: rgb(172, 180, 178); */
     cursor: default;
@@ -119,5 +120,9 @@ export default defineComponent({
     color: black;
     width: 100%;
     margin-left: -4%;
+}
+
+.sub-sep-line {
+    color: darkgray;
 }
 </style>

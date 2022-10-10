@@ -54,7 +54,7 @@ export default defineComponent({
     margin-bottom: 1%;
     float: left;
     font-style: italic;
-    color: blue;
+    color: rgb(120, 120, 120);
 }
 
 .ea:hover {

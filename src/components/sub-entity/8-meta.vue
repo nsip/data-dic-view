@@ -79,7 +79,7 @@ export default defineComponent({
 .category {
     text-align: left;
     width: 20%;
-    font-size: 18;
+    font-size: 18px;
     font-weight: bold;
     margin-left: 2%;
 }
@@ -103,6 +103,7 @@ export default defineComponent({
 .sub-cat {
     text-align: left;
     font-weight: bold;
+    font-size: 16px;
     width: 25%;
     /* background-color: rgb(172, 180, 178); */
     cursor: default;

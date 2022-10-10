@@ -1,17 +1,17 @@
 <template>
-    <h3 class="title-entity" v-if="listEntity.length > 0">Entity:</h3>
-    <ul class="list-entity" v-if="listEntity.length > 0">
-        <li class="link ellip" v-for="(item, idx) in listEntity" :key="idx" :title="item" @click="RefreshPage(item, 'existing')">{{item}} </li>
+    <h4 v-if="listEntity.length > 0" class="title-entity">Entity:</h4>
+    <ul v-if="listEntity.length > 0" class="list-entity">
+        <li v-for="(item, idx) in listEntity" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="RefreshPage(item, 'existing')">{{item}} </li>
     </ul>
-    <h3 class="title-collection" v-if="listCollection.length > 0">Collection:</h3>
-    <ul class="list-collection" v-if="listCollection.length > 0">
-        <li class="link ellip" v-for="(item, idx) in listCollection" :key="idx" :title="item" @click="RefreshPage(item, 'existing')">{{item}}</li>
+    <h4 v-if="listCollection.length > 0" class="title-collection">Collection:</h4>
+    <ul v-if="listCollection.length > 0" class="list-collection">
+        <li v-for="(item, idx) in listCollection" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="RefreshPage(item, 'existing')">{{item}}</li>
     </ul>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { selKind, aim, listEntity, listCollection, selClsPath, selChildren, LoadList, RefreshPage } from './share/share'
+import { defineComponent, ref } from 'vue';
+import { selKind, selItem, aim, listEntity, listCollection, selClsPath, selChildren, LoadList, RefreshPage } from './share/share'
 
 export default defineComponent({
     name: 'ItemList',
@@ -19,14 +19,20 @@ export default defineComponent({
 
         LoadList('entity', 'existing')
         LoadList('collection', 'existing')
+        
+        const sel_style = ref('selected-style')
+        const unsel_style = ref('unselected-style')
 
         return {
             listEntity,
             listCollection,
             selKind,
+            selItem,
             aim,
             selClsPath,
             selChildren,
+            sel_style,
+            unsel_style,
             LoadList,
             RefreshPage,
         }
@@ -84,17 +90,6 @@ ul.list-entity li.ellip {
     padding-top: 0.5%;
 }
 
-ul.list-entity li.link {
-    color: black;
-    text-decoration: none;
-}
-
-ul.list-entity li.link:hover {
-    color: blue;
-    text-decoration: underline;
-    cursor: pointer;
-}
-
 /* ******************************************* */
 
 ul.list-collection::-webkit-scrollbar {
@@ -131,14 +126,27 @@ ul.list-collection li.ellip {
     padding-top: 0.5%;
 }
 
-ul.list-collection li.link {
-    color: black;
-    text-decoration: none;
+/* ******************************************* */
+
+.selected-style {
+    color: green;
+    font-weight: bold;
 }
 
-ul.list-collection li.link:hover {
+.selected-style:hover {
     color: blue;
     text-decoration: underline;
     cursor: pointer;
 }
+
+.unselected-style {
+    color: black;
+}
+
+.unselected-style:hover {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 </style>

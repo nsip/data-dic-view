@@ -13,7 +13,8 @@ export const loginToken = ref('') // without 'Bearer '
 
 export const pageMode = ref('normal') // 'normal' or 'approval'
 
-export const selKind = ref('entity')                        // which kind for current selection 'entity' or 'collection'
+export const selKind = ref('')                              // which kind for current selection 'entity' or 'collection'
+export const selItem = ref('')                              // which item name is currently selected
 export const selEntity = reactive(new entityType())         // entity content
 export const selCollection = reactive(new collectionType()) // collection content
 export const aim = ref('')                                  // what item want to be search
@@ -133,6 +134,19 @@ export const putApprove = async (name: string, kind: string) => {
     const rt = await fetchNoBody(`api/dictionary/auth/approve`, "PUT", mParam, 'Bearer ' + loginToken.value) as any[]
     if (rt[1] != 200) {
         alert(rt[0])
+        return false
+    }
+    return true
+}
+
+export const putSubscribe = async (name: string, kind: string) => {
+    const mParam = new Map<string, any>([
+        ["name", name],
+        ["kind", kind]
+    ])
+    const rt = await fetchNoBody(`api/dictionary/auth/subscribe`, "PUT", mParam, 'Bearer ' + loginToken.value) as any[]
+    if (rt[1] != 200) {
+        alert(rt[0])
         return
     }
     return rt[0]
@@ -141,6 +155,9 @@ export const putApprove = async (name: string, kind: string) => {
 //////////////////////////////////////////////////////////////////////////////////////
 
 export const RefreshPage = async (name: any, dbcol: string) => {
+
+    // set current selected item
+    selItem.value = name
 
     // selected for searching
     aim.value = name

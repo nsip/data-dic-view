@@ -42,7 +42,7 @@ export default defineComponent({
 .category {
     text-align: left;
     width: 25%;
-    font-size: 18;
+    font-size: 18px;
     font-weight: bold;
     margin-left: 2%;
 }

@@ -5,6 +5,8 @@
             <span class="content-flex">
                 <div v-for="(item, idx) in selEntity.OtherStandards" :key="idx">
 
+                    <hr v-if="idx != selEntity.OtherStandards.length - 1" class="sub-sep-line">
+
                     <div class="cat-val-flex" v-if="isNotEmpty(item.Standard)">
                         <span class="sub-cat">Standard:</span>
                         <span class="sub-val">{{item.Standard}}</span>
@@ -39,8 +41,6 @@
                         <span class="sub-cat">Commentary:</span>
                         <span class="sub-val">{{item.Commentary}}</span>
                     </div>
-
-                    <hr v-if="idx != selEntity.OtherStandards.length - 1">
 
                 </div>
             </span>
@@ -79,7 +79,7 @@ export default defineComponent({
 .category {
     text-align: left;
     width: 20%;
-    font-size: 18;
+    font-size: 18px;
     font-weight: bold;
     margin-left: 2%;
 }
@@ -103,6 +103,7 @@ export default defineComponent({
 .sub-cat {
     text-align: left;
     font-weight: bold;
+    font-size: 16px;
     width: 25%;
     /* background-color: rgb(172, 180, 178); */
     cursor: default;
@@ -114,5 +115,9 @@ export default defineComponent({
     color: black;
     width: 100%;
     margin-left: -4%;
+}
+
+.sub-sep-line {
+    color: darkgray;
 }
 </style>

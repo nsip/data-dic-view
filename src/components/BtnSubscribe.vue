@@ -5,28 +5,44 @@
 </template>
 
 <script lang="ts">
-    import { defineComponent } from 'vue';
-    import { selKind, selEntity, selCollection, pageMode } from './share/share';
-    
-    export default defineComponent({
-        name: 'BtnSubscribe',
-        setup() {
-            const subscribe = async () => {
-                if (pageMode.value == 'normal') {
-                    // const r = await putApprove(selEntity.Entity, 'entity')
-                    // alert(r)
-                    alert('TODO: subscribe')
-                }
+import { defineComponent } from 'vue';
+import { selKind, selEntity, selCollection, pageMode, putSubscribe } from './share/share';
+
+export default defineComponent({
+    name: 'BtnSubscribe',
+    setup() {
+        const subscribe = async () => {
+
+            // alert(selKind.value)
+
+            let name = ''
+            switch (selKind.value) {
+                case 'entity':
+                    name = selEntity.Entity
+                    break;
+                case 'collection':
+                    name = selCollection.Entity
+                    break;
+                default:
+                    alert(`select one item before subscribing`)
+                    return
             }
-            return {
-                selKind,
-                selEntity,
-                selCollection,
-                subscribe
+            const r = await putSubscribe(name, selKind.value)
+            if (r) {
+                alert(`[${name}] is subscribed`)
+            } else {
+                alert(`[${name}] is unsubscribed`)
             }
         }
-    });
-    </script>
+        return {
+            selKind,
+            selEntity,
+            selCollection,
+            subscribe
+        }
+    }
+});
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
