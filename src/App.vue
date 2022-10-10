@@ -20,6 +20,7 @@
                     <CollectionContent v-if="selKind == 'collection'" />
                     <BtnApprove v-if="pageMode == 'approval'" />
                     <BtnSubscribe v-if="pageMode == 'normal'" />
+                    <BtnEdit v-if="pageMode == 'normal'" />
                     <BtnAdd v-if="pageMode == 'normal'" />
                 </div>
             </div>
@@ -41,6 +42,7 @@ import ItemList4Approve from './components/List4Approve.vue'
 import EntityContent from './components/Entity.vue';
 import CollectionContent from './components/Collection.vue'
 import BtnAdd from './components/BtnAdd.vue'
+import BtnEdit from './components/BtnEdit.vue'
 import BtnApprove from './components/BtnApprove.vue'
 import BtnSubscribe from './components/BtnSubscribe.vue'
 import { selKind } from './components/share/share'
@@ -59,6 +61,7 @@ export default defineComponent({
     EntityContent,
     CollectionContent,
     BtnAdd,
+    BtnEdit,
     BtnApprove,
     BtnSubscribe,
 },

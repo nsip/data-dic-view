@@ -68,7 +68,7 @@ export default defineComponent({
     position: fixed;
     width: 60px;
     height: 60px;
-    bottom: 110px;
+    bottom: 180px;
     right: 40px;
     background-color: #BBB;
     color: #FFF;
