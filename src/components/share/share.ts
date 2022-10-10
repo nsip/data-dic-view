@@ -15,13 +15,15 @@ export const pageMode = ref('normal') // 'normal' or 'approval'
 
 export const selKind = ref('')                              // which kind for current selection 'entity' or 'collection'
 export const selItem = ref('')                              // which item name is currently selected
+export const selItemSubStatus = ref(false)                  // selected item subscription status
 export const selEntity = reactive(new entityType())         // entity content
 export const selCollection = reactive(new collectionType()) // collection content
 export const aim = ref('')                                  // what item want to be search
-export const listEntity = ref([])                           // name list of entity
-export const listCollection = ref([])                       // name list of collection 
+export const lsEntity = ref([])                             // name list of entity
+export const lsCollection = ref([])                         // name list of collection 
 export const selClsPath = ref([])                           // current selected item's class path
 export const selChildren = ref([])                          // current selected item's children
+export const lsSubscribed = ref([])                         // subscribed item name list
 
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -152,9 +154,46 @@ export const putSubscribe = async (name: string, kind: string) => {
     return rt[0]
 }
 
+export const getListSubscription = async () => {
+    const rt = await fetchNoBody(`api/dictionary/auth/list/subscribe`, "GET", mEmpty, 'Bearer ' + loginToken.value) as any[]
+    if (rt[1] != 200) {
+        alert(rt[0])
+        return
+    }
+    return rt[0]
+}
+
+export const getSubscriptionStatus = async (name: string) => {
+    const mParam = new Map<string, any>([        
+        ["name", name]
+    ])
+    const rt = await fetchNoBody(`api/dictionary/auth/check/subscribe`, "GET", mParam, 'Bearer ' + loginToken.value) as any[]
+    if (rt[1] != 200) {
+        alert(rt[0])
+        return
+    }
+    return rt[0]
+}
+
 //////////////////////////////////////////////////////////////////////////////////////
 
-export const RefreshPage = async (name: any, dbcol: string) => {
+export const LoadList = async (kind: string, dbcol: string) => {
+    
+    // get list of item
+    switch (kind) {
+        case "entity":
+            lsEntity.value = await getList(kind, dbcol)
+            break
+        case "collection":
+            lsCollection.value = await getList(kind, dbcol)
+            break;
+    }
+
+     // get list of subscribed item
+     lsSubscribed.value = await getListSubscription()
+}
+
+export const Refresh = async (name: any, dbcol: string) => {
 
     // set current selected item
     selItem.value = name
@@ -188,19 +227,8 @@ export const RefreshPage = async (name: any, dbcol: string) => {
     selChildren.value = clsinfo.Children
 }
 
-export const LoadList = async (kind: string, dbcol: string) => {
-    switch (kind) {
-        case "entity":
-            listEntity.value = await getList(kind, dbcol)
-            break
-        case "collection":
-            listCollection.value = await getList(kind, dbcol)
-            break;
-    }
-}
-
 export const Search = async () => {
     const list = await getSearch(aim.value.trim())
-    listEntity.value = list.Entities
-    listCollection.value = list.Collections
+    lsEntity.value = list.Entities
+    lsCollection.value = list.Collections
 }

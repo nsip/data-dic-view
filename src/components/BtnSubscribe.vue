@@ -5,8 +5,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { selKind, selEntity, selCollection, pageMode, putSubscribe } from './share/share';
+import { defineComponent, ref } from 'vue';
+import { selKind, selEntity, selCollection, putSubscribe, LoadList } from './share/share';
 
 export default defineComponent({
     name: 'BtnSubscribe',
@@ -14,6 +14,9 @@ export default defineComponent({
         const subscribe = async () => {
 
             // alert(selKind.value)
+
+            const sub_style = ref('subscribed-style')
+            const unsub_style = ref('unsubscribed-style')
 
             let name = ''
             switch (selKind.value) {
@@ -33,6 +36,9 @@ export default defineComponent({
             } else {
                 alert(`[${name}] is unsubscribed`)
             }
+
+            // reload list for changing item color
+            LoadList('entity', 'existing')
         }
         return {
             selKind,
@@ -68,4 +74,16 @@ export default defineComponent({
     margin-top: 22px;
     color: white;
 }
+
+/* ******************************************* */
+
+.subscribed-style {
+    background-color: #0C9;
+}
+
+.unsubscribed-style {
+    background-color: #BBB;
+}
+
+
 </style>

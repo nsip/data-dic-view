@@ -1,7 +1,7 @@
 <template>
     <div class="class">
         <span v-for="(item, idx) in selClsPath" :key="idx">
-            <span class="ea" @click="RefreshPage(item, 'existing')"> {{ item }}</span>
+            <span class="ea" @click="Refresh(item, 'existing')"> {{ item }}</span>
             <span v-if="idx < selClsPath.length-1"> / </span>
         </span>
         <span v-if="selChildren.length > 0"> / </span>
@@ -14,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { selClsPath, selChildren, RefreshPage } from './share/share'
+import { selClsPath, selChildren, Refresh } from './share/share'
 
 export default defineComponent({
     name: 'ClassNav',
@@ -25,7 +25,7 @@ export default defineComponent({
         const switchSelect = (event: any) => {
             if (event.target.value != "-1") {
                 
-                RefreshPage(event.target.value, 'existing')
+                Refresh(event.target.value, 'existing')
 
                 const select = childSelect.value as HTMLSelectElement | null
                 if (select != null) {
@@ -39,7 +39,7 @@ export default defineComponent({
             selClsPath,
             selChildren,
             switchSelect,
-            RefreshPage,
+            Refresh,
         }
     }
 });

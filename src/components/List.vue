@@ -1,40 +1,77 @@
 <template>
-    <h4 v-if="listEntity.length > 0" class="title-entity">Entity:</h4>
-    <ul v-if="listEntity.length > 0" class="list-entity">
-        <li v-for="(item, idx) in listEntity" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="RefreshPage(item, 'existing')">{{item}} </li>
+    <h4 v-if="lsEntity.length > 0" class="title-entity">Entity:</h4>
+    <ul v-if="lsEntity.length > 0" class="list-entity">
+        <li v-for="(item, idx) in lsEntity" :key="idx" :title="item" class="ellip" :class="style(item)" @click="Refresh(item, 'existing')">{{item}}</li>
     </ul>
-    <h4 v-if="listCollection.length > 0" class="title-collection">Collection:</h4>
-    <ul v-if="listCollection.length > 0" class="list-collection">
-        <li v-for="(item, idx) in listCollection" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="RefreshPage(item, 'existing')">{{item}}</li>
+    <h4 v-if="lsCollection.length > 0" class="title-collection">Collection:</h4>
+    <ul v-if="lsCollection.length > 0" class="list-collection">
+        <li v-for="(item, idx) in lsCollection" :key="idx" :title="item" class="ellip" :class="style(item)" @click="Refresh(item, 'existing')">{{item}}</li>
     </ul>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { selKind, selItem, aim, listEntity, listCollection, selClsPath, selChildren, LoadList, RefreshPage } from './share/share'
+import { selKind, selItem, aim, lsEntity, lsCollection, lsSubscribed, selClsPath, selChildren, LoadList, Refresh } from './share/share'
 
 export default defineComponent({
     name: 'ItemList',
     setup() {
 
+        const default_style = ref('default-style')
+        const sel_style = ref('selected-style')
+        const sub_style = ref('subscribed-style')
+        const both_style = ref('selected-subscribed-style')
+
+        const style = (name: string) => {
+
+            const selected = selItem.value == name
+            let subscribed = false
+            
+            // for (let i = 0; i < lsSubscribed.value.length; i++) {
+            //     if (lsSubscribed.value[i] == name) {
+            //         subscribed = true
+            //     }
+            // }
+
+            lsSubscribed.value.forEach((val) => {
+                if (val == name) {
+                    subscribed = true
+                }
+            })
+
+            if (selected && subscribed) {
+
+                return both_style.value
+
+            } else if (selected) {
+
+                return sel_style.value
+
+            } else if (subscribed) {
+
+                return sub_style.value
+
+            } else {
+
+                return default_style.value
+            }
+        }
+
         LoadList('entity', 'existing')
         LoadList('collection', 'existing')
-        
-        const sel_style = ref('selected-style')
-        const unsel_style = ref('unselected-style')
 
         return {
-            listEntity,
-            listCollection,
+            lsEntity,
+            lsCollection,
+            lsSubscribed,
             selKind,
             selItem,
             aim,
             selClsPath,
             selChildren,
-            sel_style,
-            unsel_style,
+            style,
             LoadList,
-            RefreshPage,
+            Refresh,
         }
     }
 });
@@ -128,8 +165,23 @@ ul.list-collection li.ellip {
 
 /* ******************************************* */
 
+/* both */
+.selected-subscribed-style {
+    font-weight: bold;    
+    font-style: italic;
+    color: green;
+}
+
+.selected-subscribed-style:hover {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* selected */
 .selected-style {
     font-weight: bold;
+    font-style: italic;
 }
 
 .selected-style:hover {
@@ -138,14 +190,25 @@ ul.list-collection li.ellip {
     cursor: pointer;
 }
 
-.unselected-style {
-    color: black;
+/* subscribed */
+.subscribed-style {
+    color: green;
+    font-weight: bold;
 }
 
-.unselected-style:hover {
-    color: blue;
+.subscribed-style:hover {
     text-decoration: underline;
     cursor: pointer;
 }
 
+/* default */
+.default-style {
+    color: black;
+}
+
+.default-style:hover {
+    color: blue;
+    text-decoration: underline;
+    cursor: pointer;
+}
 </style>

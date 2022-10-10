@@ -1,31 +1,31 @@
 <template>
-    <h4 v-if="listEntity.length > 0" class="title-entity">Entity:</h4>
-    <ul v-if="listEntity.length > 0" class="list-entity">
-        <li v-for="(item, idx) in listEntity" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="RefreshPage(item, 'text')">{{item}} </li>
+    <h4 v-if="lsEntity.length > 0" class="title-entity">Entity:</h4>
+    <ul v-if="lsEntity.length > 0" class="list-entity">
+        <li v-for="(item, idx) in lsEntity" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="Refresh(item, 'text')">{{item}} </li>
     </ul>
-    <h4 v-if="listCollection.length > 0" class="title-collection">Collection:</h4>
-    <ul v-if="listCollection.length > 0" class="list-collection">
-        <li v-for="(item, idx) in listCollection" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="RefreshPage(item, 'text')">{{item}}</li>
+    <h4 v-if="lsCollection.length > 0" class="title-collection">Collection:</h4>
+    <ul v-if="lsCollection.length > 0" class="list-collection">
+        <li v-for="(item, idx) in lsCollection" :key="idx" :title="item" class="ellip" :class="selItem == item ? sel_style : unsel_style" @click="Refresh(item, 'text')">{{item}}</li>
     </ul>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { selKind, selItem, aim, listEntity, listCollection, selClsPath, selChildren, LoadList, RefreshPage } from './share/share'
+import { selKind, selItem, aim, lsEntity, lsCollection, selClsPath, selChildren, LoadList, Refresh } from './share/share'
 
 export default defineComponent({
     name: 'ItemList4Approve',
     setup() {
 
-        LoadList('entity', 'text')
-        LoadList('collection', 'text')
-
         const sel_style = ref('selected-style')
         const unsel_style = ref('unselected-style')
 
+        LoadList('entity', 'text')
+        LoadList('collection', 'text')
+
         return {
-            listEntity,
-            listCollection,
+            lsEntity,
+            lsCollection,
             selKind,
             selItem,
             aim,
@@ -34,7 +34,7 @@ export default defineComponent({
             sel_style,
             unsel_style,
             LoadList,
-            RefreshPage,
+            Refresh,
         }
     }
 });
