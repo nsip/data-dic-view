@@ -6,15 +6,58 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { selKind, selEntity, selCollection, pageMode, putApprove } from './share/share';
+import { selKind, selEntity, selCollection, lsEntity, lsCollection, pageMode, putApprove, getAdminListUser, getAdminListSubscription } from './share/share';
+// import { SendMail } from './share/mail'
 
 export default defineComponent({
     name: 'BtnApprove',
     setup() {
         const approve = async () => {
             if (pageMode.value == 'approval') {
-                const r = await putApprove(selEntity.Entity, 'entity')
-                alert(r)
+
+                //
+                // selCollection will be done soon !!!
+                //
+
+
+                // check New item OR Updated item to be approved
+                let create = true
+                lsEntity.value.forEach((val) => {
+                    if (val == selEntity.Entity) {
+                        create = false
+                    }
+                })
+
+                // do approve
+                const ok = await putApprove(selEntity.Entity, 'entity')
+                alert(ok)
+
+                // inform subscriber items have been changed
+                if (ok) {
+
+                    if (create) {
+
+                        //
+                        // 
+                        //
+
+                        // const emails = await getAdminListUser('email') as string[]
+                        // emails.forEach(async (email) => {
+                        //     const ok = await SendMail(email, 'data dictionary notice', `${selEntity.Entity} has been added`)
+                        //     if (ok) {
+                        //         alert('email sent')
+                        //     } else {
+                        //         alert('email error')
+                        //     }
+                        // })
+
+                        alert('created')
+                    }
+
+                    if (!create) {
+                        alert('updated')
+                    }                     
+                }
             }
         }
         return {

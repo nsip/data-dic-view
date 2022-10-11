@@ -175,6 +175,29 @@ export const getSubscriptionStatus = async (name: string) => {
     return rt[0]
 }
 
+////////////////////////////////////////////////////
+
+export const getAdminListUser = async (field: string) => {
+    const rt = await fetchNoBody(`api/admin/user/list/` + field, "GET", mEmpty, 'Bearer ' + loginToken.value) as any[]
+    if (rt[1] != 200) {
+        alert(rt[0])
+        return
+    }
+    return rt[0]
+}
+
+export const getAdminListSubscription = async (uname: string) => {
+    const mParam = new Map<string, any>([
+        ["uname", uname],
+    ])
+    const rt = await fetchNoBody(`api/admin/user/action-list/subscribe`, "GET", mParam, 'Bearer ' + loginToken.value) as any[]
+    if (rt[1] != 200) {
+        alert(rt[0])
+        return
+    }
+    return rt[0]
+}
+
 //////////////////////////////////////////////////////////////////////////////////////
 
 export const LoadList = async (kind: string, dbcol: string) => {

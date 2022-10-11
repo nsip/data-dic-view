@@ -178,7 +178,7 @@ ul.list-collection li.ellip {
 
 /* subscribed */
 .subscribed-style {
-    color: green;
+    color: darkgreen;
     font-weight: bold;
 }
 
