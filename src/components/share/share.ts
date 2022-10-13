@@ -60,8 +60,11 @@ export const postRegister = async (uname: string, email: string, pwd: string) =>
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-export const getItemKind = async (name: string) => {
-    const mParam = new Map<string, any>([["name", name]])
+export const getItemKind = async (name: string, dbcol: string) => {
+    const mParam = new Map<string, any>([
+        ["name", name],
+        ["dbcol", dbcol],
+    ])
     const rt = await fetchNoBody(`api/dictionary/pub/kind`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
@@ -84,7 +87,9 @@ export const getContent = async (name: string, dbcol: string) => {
 }
 
 export const getColEntities = async (name: string) => {
-    const mParam = new Map<string, any>([["colname", name]])
+    const mParam = new Map<string, any>([
+        ["colname", name]
+    ])
     const rt = await fetchNoBody(`api/dictionary/pub/colentities`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
@@ -94,7 +99,9 @@ export const getColEntities = async (name: string) => {
 }
 
 export const getClsInfo = async (name: string) => {
-    const mParam = new Map<string, any>([["entname", name]])
+    const mParam = new Map<string, any>([
+        ["entname", name]
+    ])
     const rt = await fetchNoBody(`api/dictionary/pub/entclasses`, "GET", mParam, "") as any[]
     if (rt[1] != 200) {
         alert(rt[0])
@@ -198,9 +205,23 @@ export const getAdminListSubscription = async (uname: string) => {
     return rt[0]
 }
 
+export const postAdminSendEmail = async (title: string, content: string, ...recipients: string[]) => {
+    const mForm = new Map<string, any>([
+        ["unames", recipients.join(",")],
+        ["subject", title],
+        ["body", content],
+    ])
+    const rt = await fetchBodyForm(`api/admin/email`, "POST", mEmpty, mForm, 'Bearer ' + loginToken.value) as any[]
+    if (rt[1] != 200) {
+        alert(rt[0])
+        return
+    }
+    return rt[0]
+}
+
 //////////////////////////////////////////////////////////////////////////////////////
 
-export const LoadList = async (kind: string, dbcol: string) => {
+export const LoadCurrentList = async (kind: string, dbcol: string) => {
     
     // get list of item
     switch (kind) {
@@ -218,6 +239,8 @@ export const LoadList = async (kind: string, dbcol: string) => {
 
 export const Refresh = async (name: any, dbcol: string) => {
 
+    // alert(`into refresh, name is [${name}], dbcol is [${dbcol}]`)
+
     // set current selected item
     selItem.value = name
 
@@ -225,7 +248,7 @@ export const Refresh = async (name: any, dbcol: string) => {
     aim.value = name
 
     // selected kind
-    selKind.value = await getItemKind(name)
+    selKind.value = await getItemKind(name, dbcol)
 
     // get content
     const content = await getContent(name, dbcol)

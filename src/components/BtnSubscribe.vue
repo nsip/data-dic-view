@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { selKind, selItem, selEntity, selCollection, lsSubscribed, putSubscribe, LoadList } from './share/share';
+import { selKind, selItem, selEntity, selCollection, lsSubscribed, putSubscribe, LoadCurrentList } from './share/share';
 
 export default defineComponent({
     name: 'BtnSubscribe',
@@ -48,7 +48,8 @@ export default defineComponent({
             }
 
             // reload list for changing item color
-            LoadList('entity', 'existing')
+            LoadCurrentList('entity', 'existing')
+            LoadCurrentList('collection', 'existing')
         }
 
         return {

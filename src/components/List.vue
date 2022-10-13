@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { selKind, selItem, aim, lsEntity, lsCollection, lsSubscribed, selClsPath, selChildren, LoadList, Refresh } from './share/share'
+import { selKind, selItem, aim, lsEntity, lsCollection, lsSubscribed, selClsPath, selChildren, LoadCurrentList, Refresh } from './share/share'
 
 export default defineComponent({
     name: 'ItemList',
@@ -56,8 +56,8 @@ export default defineComponent({
             }
         }
 
-        LoadList('entity', 'existing')
-        LoadList('collection', 'existing')
+        LoadCurrentList('entity', 'existing')
+        LoadCurrentList('collection', 'existing')
 
         return {
             lsEntity,
@@ -68,8 +68,7 @@ export default defineComponent({
             aim,
             selClsPath,
             selChildren,
-            style,
-            LoadList,
+            style,            
             Refresh,
         }
     }

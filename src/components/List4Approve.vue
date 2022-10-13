@@ -11,7 +11,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { selKind, selItem, aim, lsEntity, lsCollection, selClsPath, selChildren, LoadList, Refresh } from './share/share'
+import { selKind, selItem, aim, lsEntity, lsCollection, selClsPath, selChildren, LoadCurrentList, Refresh } from './share/share'
 
 export default defineComponent({
     name: 'ItemList4Approve',
@@ -20,8 +20,8 @@ export default defineComponent({
         const sel_style = ref('selected-style')
         const unsel_style = ref('unselected-style')
 
-        LoadList('entity', 'text')
-        LoadList('collection', 'text')
+        LoadCurrentList('entity', 'text')
+        LoadCurrentList('collection', 'text')
 
         return {
             lsEntity,
@@ -32,8 +32,7 @@ export default defineComponent({
             selClsPath,
             selChildren,
             sel_style,
-            unsel_style,
-            LoadList,
+            unsel_style,            
             Refresh,
         }
     }
@@ -55,9 +54,10 @@ ul.list-entity::-webkit-scrollbar {
 
 ul.list-entity {
     /* background-color: rgb(240, 240, 100); */
-    width: 85%;
-    max-height: 80%;
+    width: 82%;
+    max-height: 75%;
     margin-left: 2%;
+    margin-top: -3%;
     /* display: inline-block; */
     overflow: scroll;
     scrollbar-width: none;
@@ -95,9 +95,9 @@ ul.list-collection::-webkit-scrollbar {
 
 ul.list-collection {
     /* background-color: rgb(240, 100, 240); */
-    width: 85%;
+    width: 82%;
     max-height: 20%;
-    margin-top: -1%;
+    margin-top: -3%;
     margin-left: 2%;
     /* display: inline-block; */
     overflow: scroll;

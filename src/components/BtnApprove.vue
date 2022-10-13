@@ -6,8 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import { selKind, selEntity, selCollection, lsEntity, lsCollection, pageMode, putApprove, getAdminListUser, getAdminListSubscription } from './share/share';
-// import { SendMail } from './share/mail'
+import { selKind, selEntity, selCollection, pageMode, putApprove, getAdminListUser, getAdminListSubscription, postAdminSendEmail, getList, LoadCurrentList } from './share/share';
 
 export default defineComponent({
     name: 'BtnApprove',
@@ -15,48 +14,53 @@ export default defineComponent({
         const approve = async () => {
             if (pageMode.value == 'approval') {
 
-                //
-                // selCollection will be done soon !!!
-                //
-
+                const name = selKind.value == 'entity' ? selEntity.Entity : selCollection.Entity;
 
                 // check New item OR Updated item to be approved
+                // DO NOT USE 'lsEntity', 'lsCollection', get list from coldb 'existing'
+
                 let create = true
-                lsEntity.value.forEach((val) => {
-                    if (val == selEntity.Entity) {
+                const lsExisting = await getList(selKind.value, 'existing') as string[]
+                lsExisting.forEach((val) => {
+                    if (val == name) {
                         create = false
                     }
                 })
+                // alert(`create flag: ${create}`)
 
                 // do approve
-                const ok = await putApprove(selEntity.Entity, 'entity')
-                alert(ok)
+                const ok = await putApprove(name, selKind.value)
+                // alert(`approve ok flag: ${ok}`)
 
-                // inform subscriber items have been changed
                 if (ok) {
+                    const content = create ? `new item [${name}] has been added into data dictionary` : `data dictionary item [${name}] has been updated`;
 
-                    if (create) {
+                    const unames = await getAdminListUser('uname') as string[]
+                    unames.forEach(async (uname) => {
+                        if (create) {
+                            // inform subscriber new item have been added
+                            const ok = await postAdminSendEmail('notice:', content, uname)
+                            if (!ok) {
+                                alert(`email sent error, new`)
+                            }
+                        } else {
+                            // inform subscriber his subscribed item has been updated
+                            const subs = await getAdminListSubscription(uname) as string[]
+                            if (subs.includes(name)) {
+                                const ok = await postAdminSendEmail('notice:', content, uname)
+                                if (!ok) {
+                                    alert(`email sent error, updated`)
+                                }
+                            }
+                        }
+                    })
 
-                        //
-                        // 
-                        //
+                    LoadCurrentList('entity', 'text')
+                    LoadCurrentList('collection', 'text')
 
-                        // const emails = await getAdminListUser('email') as string[]
-                        // emails.forEach(async (email) => {
-                        //     const ok = await SendMail(email, 'data dictionary notice', `${selEntity.Entity} has been added`)
-                        //     if (ok) {
-                        //         alert('email sent')
-                        //     } else {
-                        //         alert('email error')
-                        //     }
-                        // })
+                } else {
 
-                        alert('created')
-                    }
-
-                    if (!create) {
-                        alert('updated')
-                    }                     
+                    alert(`approve failed`)
                 }
             }
         }
