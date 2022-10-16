@@ -4,6 +4,7 @@
         <!-- same 'name', auto single selection -->
         <input class="selection" type="radio" name="mode" value="" checked @click="select('normal')"> <label>normal</label>
         <input class="selection" type="radio" name="mode" value="" @click="select('approval')"> <label>approval</label>
+        <input class="selection" type="radio" name="mode" value="" @click="select('user admin')"> <label>user admin</label>
     </div>
 </template>
 

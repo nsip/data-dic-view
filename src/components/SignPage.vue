@@ -5,7 +5,7 @@
             <h1>Sign In</h1>
             <input class="textbox" v-model="unameLogin" placeholder="User Name" required>
             <input class="textbox" v-model="pwdLogin" type="password" placeholder="Password" required>
-            <button class="btn" @click="doLogin">Sign In</button>
+            <button class="btn" @click="doLogin()">Sign In</button>
             <p>Don't have an account? <a href="#" @click="signUpPage()">Sign up here</a> </p>
         </div>
 
@@ -15,15 +15,16 @@
             <input class="textbox" v-model="emailReg" type="email" placeholder="Email" required>
             <input class="textbox" v-model="pwdReg" type="password" placeholder="Password" required>
             <input class="textbox" v-model="confirmReg" type="password" placeholder="Confirm Password" required>
-            <button class="btn" @click="doRegister">Sign Up</button>
+            <button class="btn" @click="doRegister()">Sign Up</button>
             <p>Already have an account? <a href="#" @click="signInPage()">Sign in here</a> </p>
         </div>
 
         <div v-if="signPage == 'verify'">
             <h1>Email Verification</h1>
             <input class="textbox" v-model="unameReg" required readonly>
-            <input class="textbox" v-model="codeReg" placeholder="Verification Code In Your Email" required>
-            <button class="btn" @click="doEmailVerification()">Verify Email</button>
+            <input class="textbox" v-model="codeReg" placeholder="Verification Code In Your Email" required>            
+            <button class="btn" @click="doEmailVerification()">Verify</button>
+            <button class="btn" @click="doRegister()">Resent</button>
         </div>
 
     </div>
@@ -37,11 +38,9 @@ export default defineComponent({
     name: 'SignPage',
     setup() {
 
-        let signPage = ref("in")
-
+        let signPage = ref("in") // page 
         let unameLogin = ref("")
         let pwdLogin = ref("")
-
         let unameReg = ref("")
         let emailReg = ref("")
         let pwdReg = ref("")
@@ -65,7 +64,7 @@ export default defineComponent({
             }
             const ok = await postSignUp(unameReg.value, emailReg.value, pwdReg.value)
             if (ok) {
-                alert('verification code sent to your email')
+                alert(`verification code sent to your email ${emailReg.value}`)
                 emailVerifyPage()
             }
         }
@@ -134,6 +133,7 @@ h1 {
 
 .btn {
     float: right;
+    margin-left: 2%;
     margin-right: -1%;
 }
 </style>
