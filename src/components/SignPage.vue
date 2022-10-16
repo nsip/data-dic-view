@@ -1,22 +1,29 @@
 <template>
     <div class="login-page">
 
-        <div v-if="!registerActive">
+        <div v-if="signPage == 'in'">
             <h1>Sign In</h1>
             <input class="textbox" v-model="unameLogin" placeholder="User Name" required>
             <input class="textbox" v-model="pwdLogin" type="password" placeholder="Password" required>
-            <button class="btn-in" @click="doLogin">Sign In</button>
-            <p>Don't have an account? <a href="#" @click="doShift()">Sign up here</a> </p>
+            <button class="btn" @click="doLogin">Sign In</button>
+            <p>Don't have an account? <a href="#" @click="signUpPage()">Sign up here</a> </p>
         </div>
 
-        <div v-if="registerActive">
+        <div v-if="signPage == 'up'">
             <h1>Sign Up</h1>
             <input class="textbox" v-model="unameReg" placeholder="User Name" required>
             <input class="textbox" v-model="emailReg" type="email" placeholder="Email" required>
             <input class="textbox" v-model="pwdReg" type="password" placeholder="Password" required>
             <input class="textbox" v-model="confirmReg" type="password" placeholder="Confirm Password" required>
-            <button class="btn-up" @click="doRegister">Sign Up</button>
-            <p>Already have an account? <a href="#" @click="doShift()">Sign in here</a> </p>
+            <button class="btn" @click="doRegister">Sign Up</button>
+            <p>Already have an account? <a href="#" @click="signInPage()">Sign in here</a> </p>
+        </div>
+
+        <div v-if="signPage == 'verify'">
+            <h1>Email Verification</h1>
+            <input class="textbox" v-model="unameReg" required readonly>
+            <input class="textbox" v-model="codeReg" placeholder="Verification Code In Your Email" required>
+            <button class="btn" @click="doEmailVerification()">Verify Email</button>
         </div>
 
     </div>
@@ -24,13 +31,13 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { loginOK, loginUser, postLogin, postRegister } from './share/share'
+import { loginOK, loginUser, postLogin, postSignUp, postEmailVerify } from './share/share'
 
 export default defineComponent({
     name: 'SignPage',
     setup() {
 
-        let registerActive = ref(false)
+        let signPage = ref("in")
 
         let unameLogin = ref("")
         let pwdLogin = ref("")
@@ -39,9 +46,9 @@ export default defineComponent({
         let emailReg = ref("")
         let pwdReg = ref("")
         let confirmReg = ref("")
+        let codeReg = ref("")
 
         const doLogin = async () => {
-
             const ok = await postLogin(unameLogin.value, pwdLogin.value)
             if (ok) {
                 // alert('login successfully')
@@ -51,25 +58,38 @@ export default defineComponent({
         }
 
         const doRegister = async () => {
-
             if (pwdReg.value != confirmReg.value) {
                 alert('password confirmation error')
+                confirmReg.value = ""
                 return
             }
-
-            const ok = await postRegister(unameReg.value, emailReg.value, pwdReg.value)
+            const ok = await postSignUp(unameReg.value, emailReg.value, pwdReg.value)
             if (ok) {
-                // alert('register successful')
-                doShift()
+                alert('verification code sent to your email')
+                emailVerifyPage()
             }
         }
 
-        const doShift = () => {
-            registerActive.value = !registerActive.value
+        const doEmailVerification = async () => {
+            const ok = await postEmailVerify(unameReg.value, codeReg.value)
+            if (ok) {
+                alert('email verified, please login')
+                signInPage()
+            }
+        }
+
+        const signUpPage = () => {
+            signPage.value = 'up'
+        }
+        const signInPage = () => {
+            signPage.value = 'in'
+        }
+        const emailVerifyPage = () => {
+            signPage.value = 'verify'
         }
 
         return {
-            registerActive,
+            signPage,
 
             unameLogin,
             pwdLogin,
@@ -78,12 +98,17 @@ export default defineComponent({
             emailReg,
             pwdReg,
             confirmReg,
+            codeReg,
 
             loginOK,
 
             doLogin,
             doRegister,
-            doShift,
+            doEmailVerification,
+
+            signUpPage,
+            signInPage,
+            emailVerifyPage,
         }
     }
 });
@@ -107,12 +132,7 @@ h1 {
     width: 100%;
 }
 
-.btn-in {
-    float: right;
-    margin-right: -2%;
-}
-
-.btn-up {
+.btn {
     float: right;
     margin-right: -1%;
 }
