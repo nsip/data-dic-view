@@ -1,57 +1,57 @@
 <template>
-    <div v-if="isNotEmpty(selEntity.OtherNames)">
-        <div class="area">
-            <span class="category">Other Names:</span>
-            <span class="content">
-                <span v-for="(item, idx) in selEntity.OtherNames" :key="idx">
-                    {{ item }}&nbsp;&emsp;
-                </span>
-            </span>
-        </div>
-        <hr>
+  <div v-if="isNotEmpty(selEntity.OtherNames)">
+    <div class="area">
+      <span class="category">Other Names:</span>
+      <span class="content">
+        <span v-for="(item, idx) in selEntity.OtherNames" :key="idx">
+          {{ item }}&nbsp;&emsp;
+        </span>
+      </span>
     </div>
+    <hr />
+  </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { selEntity } from '../share/share'
-import { isNotEmpty } from '../share/util';
+import { defineComponent } from "vue";
+import { selEntity } from "../share/share";
+import { isNotEmpty } from "../share/util";
 
 export default defineComponent({
-    name: 'OtherNames',
-    setup() {
-        return {
-            selEntity,
-            isNotEmpty
-        } 
-    }
+  name: "OtherNames",
+  setup() {
+    return {
+      selEntity,
+      isNotEmpty,
+    };
+  },
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .area {
-    padding: 15px 0px 15px 10px;
-    font-size: 17px;    
-    font-family: Arial, Helvetica, sans-serif, monospace;    
-    background-color: rgb(200, 200, 200);
-    display: flex;
-    flex-direction: row;
+  padding: 15px 0px 15px 10px;
+  font-size: 17px;
+  font-family: Arial, Helvetica, sans-serif, monospace;
+  background-color: rgb(200, 200, 200);
+  display: flex;
+  flex-direction: row;
 }
 
 .category {
-    text-align: left;
-    width: 25%;
-    font-size: 18px;
-    font-weight: bold;
-    margin-left: 2%;
+  text-align: left;
+  width: 25%;
+  font-size: 18px;
+  font-weight: bold;
+  margin-left: 2%;
 }
 
 .content {
-    color: black;
-    margin: 0px 0px 0px 0px;
-    width: 100%;   
-    font-weight: normal;
-    text-align: left;
+  color: black;
+  margin: 0px 0px 0px 0px;
+  width: 100%;
+  font-weight: normal;
+  text-align: left;
 }
 </style>
