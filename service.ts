@@ -3,7 +3,7 @@
 import { opine, serveStatic } from "https://deno.land/x/opine@2.3.3/mod.ts";
 
 // optional: allow environment to specify port
-const port = Deno.env.get("PORT") || 3000;
+const port = Deno.env.get("PORT") || 80;
 
 // create server instance
 const app = opine();

@@ -4,10 +4,7 @@
       <span class="category">Other Standards:</span>
       <span class="content-flex">
         <div v-for="(item, idx) in selEntity.OtherStandards" :key="idx">
-          <hr
-            v-if="idx != selEntity.OtherStandards.length - 1"
-            class="sub-sep-line"
-          />
+          <hr v-if="idx != selEntity.OtherStandards.length - 1" class="sub-sep-line" />
 
           <div v-if="isNotEmpty(item.Standard)" class="cat-val-flex">
             <span class="sub-cat">Standard:</span>

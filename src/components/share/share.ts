@@ -290,7 +290,7 @@ export const postAdminSendEmail = async (
   ...recipients: string[]
 ) => {
   const mForm = new Map<string, any>([
-    ["unames", recipients.join(",")],
+    ["unames", recipients != null ? recipients.join(",") : "recipients-missing-error"],
     ["subject", title],
     ["body", content],
   ]);

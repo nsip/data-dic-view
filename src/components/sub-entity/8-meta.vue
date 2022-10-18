@@ -16,11 +16,7 @@
         <div v-if="isNotEmpty(item.ExpectedAttributes)" class="cat-val-flex">
           <span class="sub-cat">Expected Attributes:</span>
           <div class="sub-val">
-            <div
-              v-for="(subitem, i) in item.ExpectedAttributes"
-              :key="i"
-              class="cat-val-flex"
-            >
+            <div v-for="(subitem, i) in item.ExpectedAttributes" :key="i" class="cat-val-flex">
               <span>{{ subitem }}</span>
               <br />
             </div>

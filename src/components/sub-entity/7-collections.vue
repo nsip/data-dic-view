@@ -4,10 +4,7 @@
       <span class="category">Collections:</span>
       <span class="content-flex">
         <div v-for="(item, idx) in selEntity.Collections" :key="idx">
-          <hr
-            v-if="idx != selEntity.Collections.length - 1"
-            class="sub-sep-line"
-          />
+          <hr v-if="idx != selEntity.Collections.length - 1" class="sub-sep-line" />
 
           <div v-if="isNotEmpty(item.Name)" class="cat-val-flex">
             <span class="sub-cat">Name:</span>
@@ -44,10 +41,7 @@
             </div>
           </div>
 
-          <div
-            v-if="isNotEmpty(item.DefinitionModification)"
-            class="cat-val-flex"
-          >
+          <div v-if="isNotEmpty(item.DefinitionModification)" class="cat-val-flex">
             <span class="sub-cat">Definition Modification:</span>
             <span class="sub-val">{{ item.DefinitionModification }}</span>
           </div>
