@@ -54,8 +54,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { selEntity } from "../share/share";
-import { isNotEmpty } from "../share/util";
+import { selEntity } from "../../share/share";
+import { isNotEmpty } from "../../share/util";
 
 export default defineComponent({
   name: "ItemCols",

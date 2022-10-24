@@ -10,8 +10,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { selCollection } from "../share/share";
-import { isNotEmpty } from "../share/util";
+import { selCollection } from "../../share/share";
+import { isNotEmpty } from "../../share/util";
 
 export default defineComponent({
   name: "ItemName",

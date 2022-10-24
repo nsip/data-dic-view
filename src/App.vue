@@ -30,7 +30,8 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import { loginOK, pageMode } from "./components/share/share";
+import { loginOK, pageMode, selKind } from "./share/share";
+import { ping } from "./share/ping";
 import SignPage from "./components/SignPage.vue";
 import MainTitle from "./components/Title.vue";
 import ClassNav from "./components/ClassNav.vue";
@@ -44,8 +45,6 @@ import BtnAdd from "./components/BtnAdd.vue";
 import BtnEdit from "./components/BtnEdit.vue";
 import BtnApprove from "./components/BtnApprove.vue";
 import BtnSubscribe from "./components/BtnSubscribe.vue";
-import { selKind } from "./components/share/share";
-import { ping } from "./components/share/ping";
 
 export default defineComponent({
   name: "App",

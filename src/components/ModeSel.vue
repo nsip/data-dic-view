@@ -2,30 +2,11 @@
   <div class="page_mode">
     <label class="mode_text">mode:</label>
     <!-- same 'name', auto single selection -->
-    <input
-      class="selection"
-      type="radio"
-      name="mode"
-      value=""
-      checked
-      @click="select('normal')"
-    />
+    <input class="selection" type="radio" name="mode" value="" checked @click="select('normal')" />
     <label>normal</label>
-    <input
-      class="selection"
-      type="radio"
-      name="mode"
-      value=""
-      @click="select('approval')"
-    />
+    <input class="selection" type="radio" name="mode" value="" @click="select('approval')" />
     <label>approval</label>
-    <input
-      class="selection"
-      type="radio"
-      name="mode"
-      value=""
-      @click="select('user admin')"
-    />
+    <input class="selection" type="radio" name="mode" value="" @click="select('user admin')" />
     <label>user admin</label>
   </div>
 </template>
@@ -40,7 +21,7 @@ import {
   aim,
   selClsPath,
   selChildren,
-} from "./share/share";
+} from "../share/share";
 
 export default defineComponent({
   name: "ModeSel",

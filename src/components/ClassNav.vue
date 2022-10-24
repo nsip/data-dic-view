@@ -5,11 +5,7 @@
       <span v-if="idx < selClsPath.length - 1"> / </span>
     </span>
     <span v-if="selChildren.length > 0"> / </span>
-    <select
-      v-if="selChildren.length > 0"
-      ref="childSelect"
-      @change="switchSelect($event)"
-    >
+    <select v-if="selChildren.length > 0" ref="childSelect" @change="switchSelect($event)">
       <option value="-1" class="firstOpt">--- subclass ---</option>
       <option v-for="(item, idx) in selChildren" :key="idx">{{ item }}</option>
     </select>
@@ -18,7 +14,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import { selClsPath, selChildren, Refresh } from "./share/share";
+import { selClsPath, selChildren, Refresh } from "../share/share";
 
 export default defineComponent({
   name: "ClassNav",

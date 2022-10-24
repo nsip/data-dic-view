@@ -2,19 +2,8 @@
   <div class="login-page">
     <div v-if="signPage == 'in'">
       <h1>Sign In</h1>
-      <input
-        class="textbox"
-        v-model="unameLogin"
-        placeholder="User Name"
-        required
-      />
-      <input
-        class="textbox"
-        v-model="pwdLogin"
-        type="password"
-        placeholder="Password"
-        required
-      />
+      <input class="textbox" v-model="unameLogin" placeholder="User Name" required />
+      <input class="textbox" v-model="pwdLogin" type="password" placeholder="Password" required />
       <button class="btn" @click="doLogin()">Sign In</button>
       <p>
         Don't have an account?
@@ -24,33 +13,10 @@
 
     <div v-if="signPage == 'up'">
       <h1>Sign Up</h1>
-      <input
-        class="textbox"
-        v-model="unameReg"
-        placeholder="User Name"
-        required
-      />
-      <input
-        class="textbox"
-        v-model="emailReg"
-        type="email"
-        placeholder="Email"
-        required
-      />
-      <input
-        class="textbox"
-        v-model="pwdReg"
-        type="password"
-        placeholder="Password"
-        required
-      />
-      <input
-        class="textbox"
-        v-model="confirmReg"
-        type="password"
-        placeholder="Confirm Password"
-        required
-      />
+      <input class="textbox" v-model="unameReg" placeholder="User Name" required />
+      <input class="textbox" v-model="emailReg" type="email" placeholder="Email" required />
+      <input class="textbox" v-model="pwdReg" type="password" placeholder="Password" required />
+      <input class="textbox" v-model="confirmReg" type="password" placeholder="Confirm Password" required />
       <button class="btn" @click="doRegister()">Sign Up</button>
       <p>
         Already have an account?
@@ -61,12 +27,7 @@
     <div v-if="signPage == 'verify'">
       <h1>Email Verification</h1>
       <input class="textbox" v-model="unameReg" required readonly />
-      <input
-        class="textbox"
-        v-model="codeReg"
-        placeholder="Verification Code In Your Email"
-        required
-      />
+      <input class="textbox" v-model="codeReg" placeholder="Verification Code In Your Email" required />
       <button class="btn" @click="doEmailVerification()">Verify</button>
       <button class="btn" @click="doRegister()">Resent</button>
     </div>
@@ -81,7 +42,7 @@ import {
   postLogin,
   postSignUp,
   postEmailVerify,
-} from "./share/share";
+} from "../share/share";
 
 export default defineComponent({
   name: "SignPage",

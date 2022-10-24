@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { IP_CMS, loginToken } from "./share/share";
+import { IP_CMS, loginToken } from "../share/share";
 
 // npm install --save @fortawesome/fontawesome-svg-core
 // npm install --save @fortawesome/free-solid-svg-icons

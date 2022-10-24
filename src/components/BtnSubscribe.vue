@@ -14,7 +14,7 @@ import {
   lsSubscribed,
   putSubscribe,
   LoadCurrentList,
-} from "./share/share";
+} from "../share/share";
 
 export default defineComponent({
   name: "BtnSubscribe",

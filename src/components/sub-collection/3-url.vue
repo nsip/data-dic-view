@@ -3,11 +3,7 @@
     <div class="area">
       <span class="category">URL:</span>
       <span class="content">
-        <span
-          v-for="(item, idx) in selCollection.URL"
-          :key="idx"
-          v-html="linkify(item, true)"
-        >
+        <span v-for="(item, idx) in selCollection.URL" :key="idx" v-html="linkify(item, true)">
         </span>
       </span>
     </div>
@@ -17,8 +13,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { selCollection } from "../share/share";
-import { isNotEmpty, linkify } from "../share/util";
+import { selCollection } from "../../share/share";
+import { isNotEmpty, linkify } from "../../share/util";
 
 export default defineComponent({
   name: "URL",

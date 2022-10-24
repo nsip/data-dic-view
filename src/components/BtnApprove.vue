@@ -17,7 +17,7 @@ import {
   postAdminSendEmail,
   getList,
   LoadCurrentList,
-} from "./share/share";
+} from "../share/share";
 
 export default defineComponent({
   name: "BtnApprove",
@@ -55,7 +55,11 @@ export default defineComponent({
           unames.forEach(async (uname) => {
             if (create) {
               // inform subscriber new item have been added
-              const ok = await postAdminSendEmail("National Education Data Dictionary Info", content, uname);
+              const ok = await postAdminSendEmail(
+                "National Education Data Dictionary Info",
+                content,
+                uname
+              );
               if (!ok) {
                 alert(`email sent error, new`);
               }

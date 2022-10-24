@@ -1,12 +1,5 @@
 <template>
-  <input
-    class="search-box"
-    type="text"
-    id="search"
-    name="search"
-    placeholder="searching ..."
-    v-model="aim"
-  />
+  <input class="search-box" type="text" id="search" name="search" placeholder="searching ..." v-model="aim" />
   <button class="search-btn" @click="Search()">
     <font-awesome-icon icon="search" />
   </button>
@@ -14,7 +7,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { aim, Search } from "./share/share";
+import { aim, Search } from "../share/share";
 
 export default defineComponent({
   name: "ListFilter",

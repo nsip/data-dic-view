@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { loginUser } from "./share/share";
+import { loginUser } from "../share/share";
 
 export default defineComponent({
   name: "MainTitle",
