@@ -1,38 +1,29 @@
 <template>
-  <!-- <img alt="Vue logo" src="./assets/logo.png">
-<HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/> -->
-
-  <div v-if="disp">
-    <!-- in future, SignPage will be an independent service -->
-    <SignPage v-if="!loginOK" />
-    <div v-if="loginOK">
-      <MainTitle />
-      <ClassNav v-if="pageMode == 'normal'" />
-      <ModeSel />
-      <div id="container">
-        <div id="left">
-          <ListFilter v-if="pageMode == 'normal'" />
-          <ItemList v-if="pageMode == 'normal'" />
-          <ItemList4Approve v-if="pageMode == 'approval'" />
+    <div v-if="disp">
+        <MainTitle />
+        <ClassNav v-if="pageMode == 'normal'" />
+        <ModeSel />
+        <div id="container">
+            <div id="left">
+                <ListFilter v-if="pageMode == 'normal'" />
+                <ItemList v-if="pageMode == 'normal'" />
+                <ItemList4Approve v-if="pageMode == 'approval'" />
+            </div>
+            <div id="right">
+                <EntityContent v-if="selKind == 'entity'" />
+                <CollectionContent v-if="selKind == 'collection'" />
+                <BtnApprove v-if="pageMode == 'approval'" />
+                <BtnSubscribe v-if="pageMode == 'normal'" />
+                <BtnEdit v-if="pageMode == 'normal'" />
+                <BtnAdd v-if="pageMode == 'normal'" />
+            </div>
         </div>
-        <div id="right">
-          <EntityContent v-if="selKind == 'entity'" />
-          <CollectionContent v-if="selKind == 'collection'" />
-          <BtnApprove v-if="pageMode == 'approval'" />
-          <BtnSubscribe v-if="pageMode == 'normal'" />
-          <BtnEdit v-if="pageMode == 'normal'" />
-          <BtnAdd v-if="pageMode == 'normal'" />
-        </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import { loginOK, pageMode, selKind } from "./share/share";
-import { ping } from "./share/ping";
-import SignPage from "./components/SignPage.vue";
+import { loginUser, loginAuth, loginToken, getUname, pageMode, selKind } from "./share/share";
 import MainTitle from "./components/Title.vue";
 import ClassNav from "./components/ClassNav.vue";
 import ModeSel from "./components/ModeSel.vue";
@@ -47,94 +38,106 @@ import BtnApprove from "./components/BtnApprove.vue";
 import BtnSubscribe from "./components/BtnSubscribe.vue";
 
 export default defineComponent({
-  name: "App",
-  components: {
-    SignPage,
-    MainTitle,
-    ClassNav,
-    ModeSel,
-    ListFilter,
-    ItemList,
-    ItemList4Approve,
-    EntityContent,
-    CollectionContent,
-    BtnAdd,
-    BtnEdit,
-    BtnApprove,
-    BtnSubscribe,
-  },
-  setup() {
-    let Width = window.innerWidth + "px";
-    let Height = window.innerHeight + "px";
+    name: "App",
+    components: {
+        MainTitle,
+        ClassNav,
+        ModeSel,
+        ListFilter,
+        ItemList,
+        ItemList4Approve,
+        EntityContent,
+        CollectionContent,
+        BtnAdd,
+        BtnEdit,
+        BtnApprove,
+        BtnSubscribe,
+    },
+    setup() {
 
-    const onResize = () => {
-      Width = window.innerWidth + "px";
-      Height = window.innerHeight + "px";
-      console.log("Width:", Width);
-      console.log("Height:", Height);
-    };
+        const DEBUG = false // *** //
 
-    let disp = ref(false);
+        let disp = ref(false)
 
-    onMounted(async () => {
-      // test backend api available
-      disp.value = await ping();
-      if (!disp.value) {
-        alert("backed api service is not available");
-      }
+        const pAuth = window.location.href.indexOf("auth=");
+        const auth = decodeURI(window.location.href.substring(pAuth + 5));
+        loginToken.value = auth;
+        loginAuth.value = "Bearer " + auth;
 
-      // listen browser size change
-      window.addEventListener("resize", onResize);
-    });
+        //////////////////////////////////////
 
-    return {
-      Width,
-      Height,
-      selKind,
-      loginOK,
-      pageMode,
-      disp,
-    };
-  },
+        onMounted(async () => {
+
+            if (DEBUG) {
+                disp.value = true;
+                return
+            }
+
+            if (loginAuth.value.length < 32) {
+
+                alert("invalid auth info");
+                disp.value = false;
+
+            } else {
+
+                // fill loginUser, already 'ping' back-end api
+                getUname(); // in this, read 'loginAuth.value'
+
+                await new Promise((f) => setTimeout(f, 500));
+
+                if (loginUser.value.length > 0) {
+                    disp.value = true;
+                    // alert(loginUser.value)
+                }
+            }
+        });
+
+        return {
+            disp,
+            selKind,
+            pageMode,
+        };
+    },
 });
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 10px;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    color: #2c3e50;
+    margin-top: 10px;
 }
 
 /* layout */
 
 #container {
-  width: 100%;
-  height: v-bind("Height");
-  display: flex;
-  /* margin-top: -10px; */
+    width: 100%;
+    height: 100%;
+    /* height: v-bind("Height"); */
+    display: flex;
+    /* margin-top: -10px; */
 }
 
 #left {
-  width: 25%;
-  height: 92%;
-  margin-right: 1%;
-  background-color: rgb(200, 200, 200);
-  /* overflow: scroll;
+    width: 25%;
+    height: 92%;
+    margin-right: 1%;
+    background-color: rgb(200, 200, 200);
+    /* overflow: scroll;
   display: flex;
    flex-direction: column; */
 }
 
 #right {
-  width: 75%;
-  height: 92%;
-  margin-left: 0%;
-  background-color: rgb(200, 200, 200);
-  overflow: scroll;
-  /* display: flex;
+    width: 75%;
+    height: 92%;
+    margin-left: 0%;
+    background-color: rgb(200, 200, 200);
+    overflow: scroll;
+    /* display: flex;
   flex-direction: column; */
 }
 </style>
