@@ -1,4 +1,4 @@
-export const IP_API = "http://127.0.0.1:1323/";
+import { IP_API } from "./ip";
 
 const ip = IP_API;
 

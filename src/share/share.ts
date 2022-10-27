@@ -5,8 +5,6 @@ import { collectionType } from "./Collection";
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-export const IP_CMS = "http://127.0.0.1:8888/";
-
 export const loginUser = ref("");
 export const loginToken = ref(""); // without 'Bearer '
 export const loginAuth = ref(""); // with 'Bearer '

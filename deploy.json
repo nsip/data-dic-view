@@ -6,22 +6,10 @@
             "ToLoc": false,
             "ToIP": "127.0.0.1",
             "_ToIP": "change current 'localhost' to which IP?",
-            "NewPort": 1323,
+            "NewPort": -1,
             "OnlyFirst": false,
             "Files": [
-                "./src/share/fetch.ts"
-            ]
-        },
-        {
-            "Enable": true,
-            "ToPub": true,
-            "ToLoc": false,
-            "ToIP": "127.0.0.1",
-            "_ToIP": "change current 'localhost' to which IP?",
-            "NewPort": 8888,
-            "OnlyFirst": false,
-            "Files": [
-                "./src/share/share.ts"
+                "./src/share/ip.ts"
             ]
         }
     ],

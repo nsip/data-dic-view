@@ -7,7 +7,8 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import { IP_CMS, loginToken, selItem, selKind } from "../share/share";
+import { loginToken, selItem, selKind } from "../share/share";
+import { IP_CMS } from "../share/ip";
 
 export default defineComponent({
     name: "BtnEdit",
