@@ -9,7 +9,7 @@ export const loginUser = ref("");
 export const loginToken = ref(""); // without 'Bearer '
 export const loginAuth = ref(""); // with 'Bearer '
 
-export const pageMode = ref("normal"); // 'normal' or 'approval'
+export const Mode = ref("normal"); // 'normal' or 'approval'
 
 export const selKind = ref(""); // which kind for current selection 'entity' or 'collection'
 export const selItem = ref(""); // which item name is currently selected

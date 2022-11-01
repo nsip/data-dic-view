@@ -1,21 +1,21 @@
 <template>
     <div v-if="disp">
         <MainTitle />
-        <ClassNav v-if="pageMode == 'normal'" />
+        <ClassNav v-if="Mode == 'normal'" />
         <ModeSel />
         <div id="container">
             <div id="left">
-                <ListFilter v-if="pageMode == 'normal'" />
-                <ItemList v-if="pageMode == 'normal'" />
-                <ItemList4Approve v-if="pageMode == 'approval'" />
+                <ListFilter v-if="Mode == 'normal'" />
+                <ItemList v-if="Mode == 'normal'" />
+                <ItemList4Approve v-if="Mode == 'approval'" />
             </div>
             <div id="right">
                 <EntityContent v-if="selKind == 'entity'" />
                 <CollectionContent v-if="selKind == 'collection'" />
-                <BtnApprove v-if="pageMode == 'approval'" />
-                <BtnSubscribe v-if="pageMode == 'normal'" />
-                <BtnEdit v-if="pageMode == 'normal'" />
-                <BtnAdd v-if="pageMode == 'normal'" />
+                <BtnApprove v-if="Mode == 'approval'" />
+                <BtnSubscribe v-if="Mode == 'normal'" />
+                <BtnEdit v-if="Mode == 'normal'" />
+                <BtnAdd v-if="Mode == 'normal'" />
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import { loginUser, loginAuth, loginToken, getUname, pageMode, selKind } from "./share/share";
+import { loginUser, loginAuth, loginToken, getUname, Mode, selKind } from "./share/share";
 import MainTitle from "./components/Title.vue";
 import ClassNav from "./components/ClassNav.vue";
 import ModeSel from "./components/ModeSel.vue";
@@ -95,7 +95,7 @@ export default defineComponent({
         return {
             disp,
             selKind,
-            pageMode,
+            Mode,
         };
     },
 });

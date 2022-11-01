@@ -10,7 +10,7 @@ import {
   selKind,
   selEntity,
   selCollection,
-  pageMode,
+  Mode,
   putApprove,
   getAdminListUser,
   getAdminListSubscription,
@@ -23,7 +23,7 @@ export default defineComponent({
   name: "BtnApprove",
   setup() {
     const approve = async () => {
-      if (pageMode.value == "approval") {
+      if (Mode.value == "approval") {
         const name =
           selKind.value == "entity" ? selEntity.Entity : selCollection.Entity;
 

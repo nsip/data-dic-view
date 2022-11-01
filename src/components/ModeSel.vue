@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 import {
-  pageMode,
+  Mode,
   selKind,
   selEntity,
   selCollection,
@@ -27,8 +27,8 @@ export default defineComponent({
   name: "ModeSel",
   setup() {
     const select = (MODE: string) => {
-      if (pageMode.value != MODE) {
-        pageMode.value = MODE;
+      if (Mode.value != MODE) {
+        Mode.value = MODE;
         // reset other areas
         selKind.value = "entity";
         selEntity.Reset();
