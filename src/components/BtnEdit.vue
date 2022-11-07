@@ -14,7 +14,7 @@ export default defineComponent({
     name: "BtnEdit",
     setup() {
         const editCMS = async () => {
-            location.replace(`${IP_CMS}?name=${selItem.value}&kind=${selKind.value}?auth=${loginToken.value}`)
+            location.replace(`${IP_CMS}?name=${selItem.value}&kind=${selKind.value}&auth=${loginToken.value}`)
         };
         return {
             IP_CMS,

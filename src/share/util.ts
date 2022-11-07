@@ -11,6 +11,17 @@ export const isEmpty = (val: any) => {
     if (typeof val === "string") {
         return val.length == 0;
     }
+    if (typeof val === "object") {
+        if (Object.keys(val).length === 0) {
+            return true
+        }
+        for (const k in val) {
+            if (!isEmpty(val[k])) {
+                return false
+            }
+        }    
+        return true    
+    }
     return false;
 };
 

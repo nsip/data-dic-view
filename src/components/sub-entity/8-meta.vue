@@ -1,5 +1,6 @@
 <template>
   <div v-if="isNotEmpty(selEntity.Metadata)" class="area">
+
     <span class="category">Metadata:</span>
     <span class="content-flex">
       <div v-for="(item, idx) in [selEntity.Metadata]" :key="idx">
@@ -44,6 +45,7 @@
         </div>
       </div>
     </span>
+    
   </div>
 </template>
 

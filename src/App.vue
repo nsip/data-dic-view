@@ -4,38 +4,46 @@
         <ClassNav v-if="Mode == 'normal'" />
         <ModeSel />
         <div id="container">
+
             <div id="left">
                 <ListFilter v-if="Mode == 'normal'" />
                 <ItemList v-if="Mode == 'normal'" />
                 <ItemList4Approve v-if="Mode == 'approval'" />
             </div>
-            <div id="right">
-                <EntityContent v-if="selKind == 'entity'" />
-                <CollectionContent v-if="selKind == 'collection'" />
+
+            <div id="right" v-if="!isEmpty(selEntity) || !isEmpty(selCollection)">
+                <EntityContent v-if="Mode != 'admin' && selKind == 'entity'" />
+                <CollectionContent v-if="Mode != 'admin' && selKind == 'collection'" />
                 <BtnApprove v-if="Mode == 'approval'" />
                 <BtnSubscribe v-if="Mode == 'normal'" />
                 <BtnEdit v-if="Mode == 'normal'" />
                 <BtnAdd v-if="Mode == 'normal'" />
             </div>
+
+            <div v-if="Mode == 'admin'">
+
+            </div>
+            
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
-import { loginUser, loginAuth, loginToken, getUname, Mode, selKind } from "./share/share";
+import { loginUser, loginAuth, loginToken, getUname, Mode, selKind, selEntity, selCollection } from "./share/share";
 import MainTitle from "./components/Title.vue";
 import ClassNav from "./components/ClassNav.vue";
 import ModeSel from "./components/ModeSel.vue";
 import ListFilter from "./components/Filter.vue";
 import ItemList from "./components/List.vue";
 import ItemList4Approve from "./components/List4Approve.vue";
-import EntityContent from "./components/Entity.vue";
-import CollectionContent from "./components/Collection.vue";
+import EntityContent from "./components/EntityContent.vue";
+import CollectionContent from "./components/CollectionContent.vue";
 import BtnAdd from "./components/BtnAdd.vue";
 import BtnEdit from "./components/BtnEdit.vue";
 import BtnApprove from "./components/BtnApprove.vue";
 import BtnSubscribe from "./components/BtnSubscribe.vue";
+import { isEmpty } from "./share/util";
 
 export default defineComponent({
     name: "App",
@@ -95,7 +103,10 @@ export default defineComponent({
         return {
             disp,
             selKind,
+            selEntity,
+            selCollection,
             Mode,
+            isEmpty,
         };
     },
 });
