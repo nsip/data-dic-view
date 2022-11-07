@@ -4,10 +4,10 @@
         <!-- same 'name', auto single selection -->
         <input class="selection" type="radio" name="mode" value="" checked @click="select('normal')" />
         <label>normal</label>
-        <input class="selection" type="radio" name="mode" value="" @click="select('approval')" />
-        <label>approval</label>
+        <input v-if="!isApprovalListEmpty" class="selection" type="radio" name="mode" value="" @click="select('approval')" />
+        <label v-if="!isApprovalListEmpty">approval</label>
         <input class="selection" type="radio" name="mode" value="" @click="select('admin')" />
-        <label>user admin</label>
+        <label>admin</label>
     </div>
 </template>
 
@@ -21,44 +21,47 @@ import {
     aim,
     selClsPath,
     selChildren,
+    isApprovalListEmpty,
+    UpdateApprovalListStatus,
 } from "../share/share";
 
 export default defineComponent({
     name: "ModeSel",
     setup() {
+
+        UpdateApprovalListStatus()
+
+        const clrSelect = () => {
+            selEntity.Reset();
+            selCollection.Reset();            
+            selClsPath.value = [];
+            selChildren.value = [];
+            aim.value = "";
+        }
+        
         const select = (selMode: string) => {
-            Mode.value = selMode
+            
+            Mode.value = selMode            
+
+            clrSelect()
+
             switch (selMode) {
                 case 'normal':
-                    selKind.value = "entity";
-                    selEntity.Reset();
-                    selCollection.Reset();
-                    aim.value = "";
-                    selClsPath.value = [];
-                    selChildren.value = [];
+                    selKind.value = "entity";                   
                     break
 
                 case 'approval':
                     selKind.value = "entity";
-                    selEntity.Reset();
-                    selCollection.Reset();
-                    aim.value = "";
-                    selClsPath.value = [];
-                    selChildren.value = [];
                     break
 
                 case 'admin':
-                    selKind.value = "";
-                    selEntity.Reset();
-                    selCollection.Reset();
-                    aim.value = "";
-                    selClsPath.value = [];
-                    selChildren.value = [];
-                    break                    
+                    selKind.value = "";                    
+                    break
             }
         };
         return {
             select,
+            isApprovalListEmpty,
         };
     },
 });

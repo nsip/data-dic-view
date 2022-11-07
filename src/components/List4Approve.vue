@@ -30,6 +30,7 @@ import {
 export default defineComponent({
     name: "ItemList4Approve",
     setup() {
+        
         const sel_style = ref("selected-style");
         const unsel_style = ref("unselected-style");
 

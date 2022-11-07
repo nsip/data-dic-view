@@ -26,6 +26,7 @@ export const lsSubscribed = ref([]); // subscribed item name list
 //////////////////////////////////////////////////////////////////////////////////////
 
 // fill loginUser
+
 export const getUname = async () => {
     const rt = (await fetchNoBody(
         "api/user/auth/uname",
@@ -39,6 +40,20 @@ export const getUname = async () => {
     }
     loginUser.value = rt[0];
     return true;
+};
+
+export const getUserList = async () => {
+    const rt = (await fetchNoBody(
+        "api/admin/user/list/{field}",
+        "GET",
+        mEmpty,
+        loginAuth.value
+    )) as any[];
+    if (rt[1] != 200) {
+        alert(rt[0]);
+        return null;
+    }
+    return rt[0];
 };
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -322,3 +337,13 @@ export const Search = async () => {
     lsEntity.value = list.Entities;
     lsCollection.value = list.Collections;
 };
+
+//////////////////////////////////////////////////////////////////////////////////////
+
+export const isApprovalListEmpty = ref(true)
+
+export const UpdateApprovalListStatus = async () => {
+    const lsEnt = await getList("entity", "text")
+    const lsCol = await getList("collection", "text")
+    isApprovalListEmpty.value = lsEnt.length == 0 && lsCol.length == 0     
+}

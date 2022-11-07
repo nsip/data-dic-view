@@ -12,10 +12,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
+import Vue3EasyDataTable from 'vue3-easy-data-table';
+import 'vue3-easy-data-table/dist/style.css';
+
 library.add(faPhone, faPlus, faThumbsUp, faCheck, faSearch, faBookmark, faPen);
 
 // createApp(App).mount('#app')
-createApp(App).component("font-awesome-icon", FontAwesomeIcon).mount("#app");
+createApp(App)
+  .component("font-awesome-icon", FontAwesomeIcon)
+  .component('EasyDataTable', Vue3EasyDataTable)
+  .mount("#app");
 
 // npm install --save @fortawesome/fontawesome-svg-core
 // npm install --save @fortawesome/free-solid-svg-icons

@@ -20,17 +20,20 @@
                 <BtnAdd v-if="Mode == 'normal'" />
             </div>
 
-            <div v-if="Mode == 'admin'">
-
-            </div>
-            
         </div>
+
+        <div v-if="Mode == 'admin'">
+            <UserAdmin />
+        </div>
+
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from "vue";
 import { loginUser, loginAuth, loginToken, getUname, Mode, selKind, selEntity, selCollection } from "./share/share";
+import { isEmpty } from "./share/util";
+
 import MainTitle from "./components/Title.vue";
 import ClassNav from "./components/ClassNav.vue";
 import ModeSel from "./components/ModeSel.vue";
@@ -43,7 +46,7 @@ import BtnAdd from "./components/BtnAdd.vue";
 import BtnEdit from "./components/BtnEdit.vue";
 import BtnApprove from "./components/BtnApprove.vue";
 import BtnSubscribe from "./components/BtnSubscribe.vue";
-import { isEmpty } from "./share/util";
+import UserAdmin from "./components/UserAdmin.vue";
 
 export default defineComponent({
     name: "App",
@@ -60,10 +63,9 @@ export default defineComponent({
         BtnEdit,
         BtnApprove,
         BtnSubscribe,
+        UserAdmin,
     },
     setup() {
-
-        const DEBUG = false // *** //
 
         let disp = ref(false)
 
@@ -75,11 +77,6 @@ export default defineComponent({
         //////////////////////////////////////
 
         onMounted(async () => {
-
-            if (DEBUG) {
-                disp.value = true;
-                return
-            }
 
             if (loginAuth.value.length < 32) {
 

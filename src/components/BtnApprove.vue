@@ -17,6 +17,7 @@ import {
     postAdminSendEmail,
     getList,
     LoadCurrentList,
+    UpdateApprovalListStatus
 } from "../share/share";
 
 export default defineComponent({
@@ -80,6 +81,8 @@ export default defineComponent({
 
                     selEntity.Reset()
                     selCollection.Reset()
+
+                    UpdateApprovalListStatus()
 
                 } else {
                     alert(`approve failed`);

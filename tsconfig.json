@@ -11,7 +11,9 @@
       "dom"
     ],
     "importsNotUsedAsValues": "remove",
-    "isolatedModules": false
+    "isolatedModules": false,
+    "suppressImplicitAnyIndexErrors": true,
+    "noImplicitAny": false
   },
 
   "references": [

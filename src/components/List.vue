@@ -31,11 +31,13 @@ import {
 export default defineComponent({
     name: "ItemList",
     setup() {
+
         const default_style = ref("default-style");
         const sel_style = ref("selected-style");
         const sub_style = ref("subscribed-style");
 
         const style = (name: string) => {
+            
             const selected = selItem.value == name;
             let subscribed = false;
 
