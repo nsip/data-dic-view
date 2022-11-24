@@ -24,7 +24,7 @@ export default defineComponent({
     name: "BtnApprove",
     setup() {
         const approve = async () => {
-            
+
             if (Mode.value == "approval") {
                 const name = selKind.value == "entity" ? selEntity.Entity : selCollection.Entity;
 
@@ -32,10 +32,7 @@ export default defineComponent({
                 // DO NOT USE 'lsEntity', 'lsCollection', get list from coldb 'existing'
 
                 let create = true;
-                const lsExisting = (await getList(
-                    selKind.value,
-                    "existing"
-                )) as string[];
+                const lsExisting = (await getList(selKind.value, "existing")) as string[];
                 lsExisting.forEach((val) => {
                     if (val == name) {
                         create = false;
