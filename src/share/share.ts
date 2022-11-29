@@ -43,8 +43,9 @@ export const getUname = async () => {
 };
 
 export const getUserList = async () => {
+    const field = "{fields}" // means list all fields. swagger 'Try' uses '{fields}' as empty path param, so we intentionally use this literal string
     const rt = (await fetchNoBody(
-        "api/admin/user/list/{field}",
+        `api/admin/user/list/${field}`,
         "GET",
         mEmpty,
         loginAuth.value

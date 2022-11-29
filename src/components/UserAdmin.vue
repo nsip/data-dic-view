@@ -1,7 +1,7 @@
 <template>
     <div class="tbl">
         <TextLine text="registered users:" textAlign="left" textColor="gray" lineColor="gray" lineHeight="0px" />
-        <EasyDataTable :headers="headers" :items="items" class="table" />
+        <EasyDataTable :headers="headers" :items="items" class="table" @click-row="rowDbClick" />
     </div>
 </template>
   
@@ -9,6 +9,7 @@
 import { defineComponent, ref, onMounted } from "vue";
 import { getUserList } from "@/share/share";
 import TextLine from "./shared/TextLine.vue";
+import type { Header, Item } from "vue3-easy-data-table";
 
 export default defineComponent({
     name: "UserAdmin",
@@ -45,10 +46,44 @@ export default defineComponent({
                 console.log(uname)
                 console.log(email)
 
+                // TODO: fetch 'admin', 'online', 'active'
+
                 items.value.push({ user: uname, email: email, admin: true, online: true, active: true })
             });
 
         });
+
+        type ClickRowArgument = Item & {
+            isSelected?: boolean,
+            indexInCurrentPage?: number,
+        }
+
+        // for simulate double click
+        let t = 0
+        let got1st = false
+        const interval = 300
+
+        const rowDbClick = (item: ClickRowArgument) => {
+
+            // double click real action
+            const dbclkAction = (item: ClickRowArgument) => {
+                console.log(JSON.stringify(item));
+            }
+
+            // double click effect
+            if (got1st && (Date.now() - t) > interval) {
+                got1st = false
+            }
+            if (!got1st) {
+                t = Date.now()
+                got1st = true
+            } else {
+                if ((Date.now() - t) <= interval) {
+                    dbclkAction(item)
+                }
+                got1st = false
+            }
+        };
 
         // headers.value = [
         //     { text: "PLAYER", value: "player" },
@@ -69,7 +104,8 @@ export default defineComponent({
 
         return {
             headers,
-            items
+            items,
+            rowDbClick
         };
     },
 });
