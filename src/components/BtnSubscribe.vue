@@ -6,15 +6,7 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import {
-    selKind,
-    selItem,
-    selEntity,
-    selCollection,
-    lsSubscribed,
-    putSubscribe,
-    LoadCurrentList,
-} from "@/share/share";
+import { selKind, selItem, selEntity, selCollection, lsSubscribed, putSubscribe, LoadCurrentList } from "@/share/share";
 
 const sub_style = ref("subscribed-style");
 const unsub_style = ref("unsubscribed-style");

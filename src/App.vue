@@ -28,16 +28,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
-import {
-    loginUser,
-    loginAuth,
-    loginToken,
-    getUname,
-    Mode,
-    selKind,
-    selEntity,
-    selCollection,
-} from "./share/share";
+import { loginUser, loginAuth, loginToken, getUname, Mode, selKind, selEntity, selCollection } from "./share/share";
 import { isEmpty } from "./share/util";
 import MainTitle from "./components/PageTitle.vue";
 import ClassNav from "./components/ClassNav.vue";

@@ -1,12 +1,17 @@
 <template>
-    <h4 v-if="lsEntity.length > 0" class="title-entity">Entity:</h4>
-    <ul v-if="lsEntity.length > 0" class="list-entity">
+    <div class="list_mode">
+        <!-- same 'name', auto single selection -->
+        <input class="selection" type="radio" name="kind" value="" checked @click="select('entity')" />
+        <label>entity</label>
+        <input class="selection" type="radio" name="kind" value="" @click="select('collection')" />
+        <label>collection</label>
+    </div>
+    <ul v-if="sel_kind == 'entity'" class="list-entity">
         <li v-for="(item, idx) in lsEntity" :key="idx" :title="item" class="ellip" :class="style(item)" @click="Refresh(item, 'existing')">
             {{ item }}
         </li>
     </ul>
-    <h4 v-if="lsCollection.length > 0" class="title-collection">Collection:</h4>
-    <ul v-if="lsCollection.length > 0" class="list-collection">
+    <ul v-if="sel_kind == 'collection'" class="list-collection">
         <li v-for="(item, idx) in lsCollection" :key="idx" :title="item" class="ellip" :class="style(item)" @click="Refresh(item, 'existing')">
             {{ item }}
         </li>
@@ -14,15 +19,23 @@
 </template>
 
 <script setup lang="ts">
+
 import { ref } from "vue";
-import {
-    selItem,
-    lsEntity,
-    lsCollection,
-    lsSubscribed,
-    LoadCurrentList,
-    Refresh,
-} from "@/share/share";
+import { selItem, lsEntity, lsCollection, lsSubscribed, LoadCurrentList, Refresh, selEntity, selCollection, aim, selClsPath, selChildren, } from "@/share/share";
+
+const sel_kind = ref('entity');
+const select = (kind: string) => {
+    
+    sel_kind.value = kind;
+
+    (() => {
+        selEntity.Reset();
+        selCollection.Reset();
+        selClsPath.value = [];
+        selChildren.value = [];
+        aim.value = "";
+    })();
+}
 
 const default_style = ref("default-style");
 const sel_style = ref("selected-style");
@@ -57,15 +70,17 @@ const style = (name: string) => {
 
 LoadCurrentList("entity", "existing");
 LoadCurrentList("collection", "existing");
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.title-entity {
+.list_mode {
     float: left;
-    margin-left: 5%;
-    margin-top: 4%;
-    font-style: italic;
+    font-size: large;
+    margin-left: 1%;
+    margin-bottom: 4%;
+    margin-top: 1%;
 }
 
 ul.list-entity::-webkit-scrollbar {
@@ -103,13 +118,6 @@ ul.list-entity li.ellip {
 }
 
 /* ******************************************* */
-
-.title-collection {
-    float: left;
-    margin-left: 5%;
-    margin-top: 0%;
-    font-style: italic;
-}
 
 ul.list-collection::-webkit-scrollbar {
     display: none;

@@ -5,19 +5,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-    selKind,
-    selEntity,
-    selCollection,
-    Mode,
-    putApprove,
-    getAdminListUser,
-    getAdminListSubscription,
-    postAdminSendEmail,
-    getList,
-    LoadCurrentList,
-    UpdateApprovalListStatus,
-} from "@/share/share";
+import { selKind, selEntity, selCollection, Mode, putApprove, getAdminListUser, getAdminListSubscription, postAdminSendEmail, getList, LoadCurrentList, UpdateApprovalListStatus } from "@/share/share";
 
 const approve = async () => {
     if (Mode.value == "approval") {

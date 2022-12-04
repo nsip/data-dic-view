@@ -1,6 +1,5 @@
 <template>
     <div class="page_mode">
-        <label class="mode_text">mode:</label>
         <!-- same 'name', auto single selection -->
         <input class="selection" type="radio" name="mode" value="" checked @click="select('normal')" />
         <label>normal</label>
@@ -12,32 +11,20 @@
 </template>
 
 <script setup lang="ts">
-import {
-    Mode,
-    selKind,
-    selEntity,
-    selCollection,
-    aim,
-    selClsPath,
-    selChildren,
-    isApprovalListEmpty,
-    UpdateApprovalListStatus,
-} from "@/share/share";
+import { Mode, selKind, selEntity, selCollection, aim, selClsPath, selChildren, isApprovalListEmpty, UpdateApprovalListStatus } from "@/share/share";
 
 UpdateApprovalListStatus();
-
-const clrSelect = () => {
-    selEntity.Reset();
-    selCollection.Reset();
-    selClsPath.value = [];
-    selChildren.value = [];
-    aim.value = "";
-};
 
 const select = (selMode: string) => {
     Mode.value = selMode;
 
-    clrSelect();
+    (() => {
+        selEntity.Reset();
+        selCollection.Reset();
+        selClsPath.value = [];
+        selChildren.value = [];
+        aim.value = "";
+    })();
 
     switch (selMode) {
         case "normal":
@@ -60,9 +47,5 @@ const select = (selMode: string) => {
     float: right;
     margin-bottom: 1%;
     margin-right: 1%;
-}
-
-.mode_text {
-    font-weight: bold;
 }
 </style>
