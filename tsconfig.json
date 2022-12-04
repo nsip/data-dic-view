@@ -1,24 +1,29 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
-  "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
-  "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": ["./src/*"]
-    },
-    "lib": [
-      "ES2021",
-      "dom"
+    "extends": "@vue/tsconfig/tsconfig.web.json",
+    "include": [
+        "env.d.ts",
+        "src/**/*",
+        "src/**/*.vue"
     ],
-    "importsNotUsedAsValues": "remove",
-    "isolatedModules": false,
-    "suppressImplicitAnyIndexErrors": true,
-    "noImplicitAny": false
-  },
-
-  "references": [
-    {
-      "path": "./tsconfig.config.json"
-    }
-  ]
+    "compilerOptions": {
+        "baseUrl": ".",
+        "paths": {
+            "@/*": [
+                "./src/*"
+            ]
+        },
+        "lib": [
+            "ES2021",
+            "dom"
+        ],
+        "importsNotUsedAsValues": "remove",
+        "isolatedModules": false,
+        "suppressImplicitAnyIndexErrors": true,
+        "noImplicitAny": false
+    },
+    "references": [
+        {
+            "path": "./tsconfig.config.json"
+        }
+    ]
 }

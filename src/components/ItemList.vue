@@ -13,74 +13,50 @@
     </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import {
-    selKind,
     selItem,
-    aim,
     lsEntity,
     lsCollection,
     lsSubscribed,
-    selClsPath,
-    selChildren,
     LoadCurrentList,
     Refresh,
-} from "../share/share";
+} from "@/share/share";
 
-export default defineComponent({
-    name: "ItemList",
-    setup() {
+const default_style = ref("default-style");
+const sel_style = ref("selected-style");
+const sub_style = ref("subscribed-style");
 
-        const default_style = ref("default-style");
-        const sel_style = ref("selected-style");
-        const sub_style = ref("subscribed-style");
+const style = (name: string) => {
+    const selected = selItem.value == name;
+    let subscribed = false;
 
-        const style = (name: string) => {
-            
-            const selected = selItem.value == name;
-            let subscribed = false;
+    // for (let i = 0; i < lsSubscribed.value.length; i++) {
+    //     if (lsSubscribed.value[i] == name) {
+    //         subscribed = true
+    //     }
+    // }
 
-            // for (let i = 0; i < lsSubscribed.value.length; i++) {
-            //     if (lsSubscribed.value[i] == name) {
-            //         subscribed = true
-            //     }
-            // }
+    lsSubscribed.value.forEach((val) => {
+        if (val == name) {
+            subscribed = true;
+        }
+    });
 
-            lsSubscribed.value.forEach((val) => {
-                if (val == name) {
-                    subscribed = true;
-                }
-            });
+    if (selected && subscribed) {
+        return sel_style.value + " " + sub_style.value;
+    } else if (selected) {
+        return sel_style.value;
+    } else if (subscribed) {
+        return sub_style.value;
+    } else {
+        return default_style.value;
+    }
+};
 
-            if (selected && subscribed) {
-                return sel_style.value + " " + sub_style.value;
-            } else if (selected) {
-                return sel_style.value;
-            } else if (subscribed) {
-                return sub_style.value;
-            } else {
-                return default_style.value;
-            }
-        };
-
-        LoadCurrentList("entity", "existing");
-        LoadCurrentList("collection", "existing");
-
-        return {
-            lsEntity,
-            lsCollection,
-            lsSubscribed,
-            selKind,
-            selItem,
-            aim,
-            selClsPath,
-            selChildren,
-            style,
-            Refresh,
-        };
-    },
-});
+LoadCurrentList("entity", "existing");
+LoadCurrentList("collection", "existing");
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

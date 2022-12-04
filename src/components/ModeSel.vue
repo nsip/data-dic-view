@@ -11,8 +11,7 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import {
     Mode,
     selKind,
@@ -23,48 +22,37 @@ import {
     selChildren,
     isApprovalListEmpty,
     UpdateApprovalListStatus,
-} from "../share/share";
+} from "@/share/share";
 
-export default defineComponent({
-    name: "ModeSel",
-    setup() {
+UpdateApprovalListStatus();
 
-        UpdateApprovalListStatus()
+const clrSelect = () => {
+    selEntity.Reset();
+    selCollection.Reset();
+    selClsPath.value = [];
+    selChildren.value = [];
+    aim.value = "";
+};
 
-        const clrSelect = () => {
-            selEntity.Reset();
-            selCollection.Reset();            
-            selClsPath.value = [];
-            selChildren.value = [];
-            aim.value = "";
-        }
-        
-        const select = (selMode: string) => {
-            
-            Mode.value = selMode            
+const select = (selMode: string) => {
+    Mode.value = selMode;
 
-            clrSelect()
+    clrSelect();
 
-            switch (selMode) {
-                case 'normal':
-                    selKind.value = "entity";                   
-                    break
+    switch (selMode) {
+        case "normal":
+            selKind.value = "entity";
+            break;
 
-                case 'approval':
-                    selKind.value = "entity";
-                    break
+        case "approval":
+            selKind.value = "entity";
+            break;
 
-                case 'admin':
-                    selKind.value = "";                    
-                    break
-            }
-        };
-        return {
-            select,
-            isApprovalListEmpty,
-        };
-    },
-});
+        case "admin":
+            selKind.value = "";
+            break;
+    }
+};
 </script>
 
 <style scoped>

@@ -5,24 +5,13 @@
     </a>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { loginToken } from "../share/share";
-import { IP_CMS } from "../share/ip";
+<script setup lang="ts">
+import { loginToken } from "@/share/share";
+import { IP_CMS } from "@/share/ip";
 
-export default defineComponent({
-    name: "BtnAdd",
-    setup() {
-        const addCMS = async () => {
-            location.replace(`${IP_CMS}?auth=${loginToken.value}`)
-        };
-        return {
-            IP_CMS,
-            loginToken,
-            addCMS
-        };
-    },
-});
+const addCMS = async () => {
+    location.replace(`${IP_CMS}?auth=${loginToken.value}`);
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

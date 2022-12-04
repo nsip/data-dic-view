@@ -5,26 +5,15 @@
     </a>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { loginToken, selItem, selKind } from "../share/share";
-import { IP_CMS } from "../share/ip";
+<script setup lang="ts">
+import { loginToken, selItem, selKind } from "@/share/share";
+import { IP_CMS } from "@/share/ip";
 
-export default defineComponent({
-    name: "BtnEdit",
-    setup() {
-        const editCMS = async () => {
-            location.replace(`${IP_CMS}?name=${selItem.value}&kind=${selKind.value}&auth=${loginToken.value}`)
-        };
-        return {
-            IP_CMS,
-            loginToken,
-            selItem,
-            selKind,
-            editCMS
-        };
-    },
-});
+const editCMS = async () => {
+    location.replace(
+        `${IP_CMS}?name=${selItem.value}&kind=${selKind.value}&auth=${loginToken.value}`
+    );
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

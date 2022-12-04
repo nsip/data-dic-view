@@ -1,6 +1,5 @@
 <template>
     <div v-if="isNotEmpty(selEntity.Metadata)" class="area">
-
         <span class="category">Metadata:</span>
         <span class="content-flex">
             <div v-for="(item, idx) in [selEntity.Metadata]" :key="idx">
@@ -45,24 +44,12 @@
                 </div>
             </div>
         </span>
-
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { selEntity } from "../../share/share";
-import { isNotEmpty } from "../../share/util";
-
-export default defineComponent({
-    name: "MetaData",
-    setup() {
-        return {
-            selEntity,
-            isNotEmpty,
-        };
-    },
-});
+<script setup lang="ts">
+import { selEntity } from "@/share/share";
+import { isNotEmpty } from "@/share/util";
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

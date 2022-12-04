@@ -4,7 +4,6 @@
         <ClassNav v-if="Mode == 'normal'" />
         <ModeSel />
         <div id="container">
-
             <div id="left">
                 <ListFilter v-if="Mode == 'normal'" />
                 <ItemList v-if="Mode == 'normal'" />
@@ -19,26 +18,32 @@
                 <BtnEdit v-if="Mode == 'normal'" />
                 <BtnAdd v-if="Mode == 'normal'" />
             </div>
-
         </div>
 
         <div v-if="Mode == 'admin'">
             <UserAdmin />
         </div>
-
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
-import { loginUser, loginAuth, loginToken, getUname, Mode, selKind, selEntity, selCollection } from "./share/share";
+<script setup lang="ts">
+import { onMounted, ref } from "vue";
+import {
+    loginUser,
+    loginAuth,
+    loginToken,
+    getUname,
+    Mode,
+    selKind,
+    selEntity,
+    selCollection,
+} from "./share/share";
 import { isEmpty } from "./share/util";
-
-import MainTitle from "./components/Title.vue";
+import MainTitle from "./components/PageTitle.vue";
 import ClassNav from "./components/ClassNav.vue";
 import ModeSel from "./components/ModeSel.vue";
-import ListFilter from "./components/Filter.vue";
-import ItemList from "./components/List.vue";
+import ListFilter from "./components/SearchFilter.vue";
+import ItemList from "./components/ItemList.vue";
 import ItemList4Approve from "./components/List4Approve.vue";
 import EntityContent from "./components/EntityContent.vue";
 import CollectionContent from "./components/CollectionContent.vue";
@@ -48,64 +53,30 @@ import BtnApprove from "./components/BtnApprove.vue";
 import BtnSubscribe from "./components/BtnSubscribe.vue";
 import UserAdmin from "./components/UserAdmin.vue";
 
-export default defineComponent({
-    name: "App",
-    components: {
-        MainTitle,
-        ClassNav,
-        ModeSel,
-        ListFilter,
-        ItemList,
-        ItemList4Approve,
-        EntityContent,
-        CollectionContent,
-        BtnAdd,
-        BtnEdit,
-        BtnApprove,
-        BtnSubscribe,
-        UserAdmin,
-    },
-    setup() {
+let disp = ref(false);
 
-        let disp = ref(false)
+const pAuth = window.location.href.indexOf("auth=");
+const auth = decodeURI(window.location.href.substring(pAuth + 5));
+loginToken.value = auth;
+loginAuth.value = "Bearer " + auth;
 
-        const pAuth = window.location.href.indexOf("auth=");
-        const auth = decodeURI(window.location.href.substring(pAuth + 5));
-        loginToken.value = auth;
-        loginAuth.value = "Bearer " + auth;
+//////////////////////////////////////
 
-        //////////////////////////////////////
+onMounted(async () => {
+    if (loginAuth.value.length < 32) {
+        alert("invalid auth info");
+        disp.value = false;
+    } else {
+        // fill loginUser, already 'ping' back-end api
+        getUname(); // in this, read 'loginAuth.value'
 
-        onMounted(async () => {
+        await new Promise((f) => setTimeout(f, 500));
 
-            if (loginAuth.value.length < 32) {
-
-                alert("invalid auth info");
-                disp.value = false;
-
-            } else {
-
-                // fill loginUser, already 'ping' back-end api
-                getUname(); // in this, read 'loginAuth.value'
-
-                await new Promise((f) => setTimeout(f, 500));
-
-                if (loginUser.value.length > 0) {
-                    disp.value = true;
-                    // alert(loginUser.value)
-                }
-            }
-        });
-
-        return {
-            disp,
-            selKind,
-            selEntity,
-            selCollection,
-            Mode,
-            isEmpty,
-        };
-    },
+        if (loginUser.value.length > 0) {
+            disp.value = true;
+            // alert(loginUser.value)
+        }
+    }
 });
 </script>
 

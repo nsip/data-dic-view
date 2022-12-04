@@ -13,14 +13,14 @@ export const isEmpty = (val: any) => {
     }
     if (typeof val === "object") {
         if (Object.keys(val).length === 0) {
-            return true
+            return true;
         }
         for (const k in val) {
             if (!isEmpty(val[k])) {
-                return false
+                return false;
             }
-        }    
-        return true    
+        }
+        return true;
     }
     return false;
 };

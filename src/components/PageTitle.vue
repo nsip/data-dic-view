@@ -6,23 +6,10 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { loginUser } from "../share/share";
+<script setup lang="ts">
+import { loginUser } from "@/share/share";
 
-export default defineComponent({
-    name: "MainTitle",
-    // props: {
-    //     msg: String,
-    // },
-    setup() {
-        let title = "National Education Data Dictionary";
-        return {
-            title,
-            loginUser,
-        };
-    },
-});
+let title = "National Education Data Dictionary";
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

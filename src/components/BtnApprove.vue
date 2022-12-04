@@ -4,8 +4,7 @@
     </a>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
 import {
     selKind,
     selEntity,
@@ -17,83 +16,71 @@ import {
     postAdminSendEmail,
     getList,
     LoadCurrentList,
-    UpdateApprovalListStatus
-} from "../share/share";
+    UpdateApprovalListStatus,
+} from "@/share/share";
 
-export default defineComponent({
-    name: "BtnApprove",
-    setup() {
-        const approve = async () => {
+const approve = async () => {
+    if (Mode.value == "approval") {
+        const name =
+            selKind.value == "entity" ? selEntity.Entity : selCollection.Entity;
 
-            if (Mode.value == "approval") {
-                const name = selKind.value == "entity" ? selEntity.Entity : selCollection.Entity;
+        // check New item OR Updated item to be approved
+        // DO NOT USE 'lsEntity', 'lsCollection', get list from coldb 'existing'
 
-                // check New item OR Updated item to be approved
-                // DO NOT USE 'lsEntity', 'lsCollection', get list from coldb 'existing'
-
-                let create = true;
-                const lsExisting = (await getList(selKind.value, "existing")) as string[];
-                lsExisting.forEach((val) => {
-                    if (val == name) {
-                        create = false;
-                    }
-                });
-                // alert(`create flag: ${create}`)
-
-                // do approve
-                const ok = await putApprove(name, selKind.value);
-                // alert(`approve ok flag: ${ok}`)
-
-                if (ok) {
-                    const content = create
-                        ? `new item [${name}] has been added into data dictionary`
-                        : `data dictionary item [${name}] has been updated`;
-
-                    const unames = (await getAdminListUser("uname")) as string[];
-                    unames.forEach(async (uname) => {
-                        if (create) {
-                            // inform subscriber new item have been added
-                            const ok = await postAdminSendEmail(
-                                "National Education Data Dictionary Info",
-                                content,
-                                uname
-                            );
-                            if (!ok) {
-                                alert(`email sent error, new`);
-                            }
-                        } else {
-                            // inform subscriber his subscribed item has been updated
-                            const subs = (await getAdminListSubscription(uname)) as string[];
-                            if (subs.includes(name)) {
-                                const ok = await postAdminSendEmail("notice:", content, uname);
-                                if (!ok) {
-                                    alert(`email sent error, updated`);
-                                }
-                            }
-                        }
-                    });
-
-                    LoadCurrentList("entity", "text");
-                    LoadCurrentList("collection", "text");
-
-                    selEntity.Reset()
-                    selCollection.Reset()
-
-                    UpdateApprovalListStatus()
-
-                } else {
-                    alert(`approve failed`);
-                }
+        let create = true;
+        const lsExisting = (await getList(selKind.value, "existing")) as string[];
+        lsExisting.forEach((val) => {
+            if (val == name) {
+                create = false;
             }
-        };
-        return {
-            selKind,
-            selEntity,
-            selCollection,
-            approve,
-        };
-    },
-});
+        });
+        // alert(`create flag: ${create}`)
+
+        // do approve
+        const ok = await putApprove(name, selKind.value);
+        // alert(`approve ok flag: ${ok}`)
+
+        if (ok) {
+            const content = create
+                ? `new item [${name}] has been added into data dictionary`
+                : `data dictionary item [${name}] has been updated`;
+
+            const unames = (await getAdminListUser("uname")) as string[];
+            unames.forEach(async (uname) => {
+                if (create) {
+                    // inform subscriber new item have been added
+                    const ok = await postAdminSendEmail(
+                        "National Education Data Dictionary Info",
+                        content,
+                        uname
+                    );
+                    if (!ok) {
+                        alert(`email sent error, new`);
+                    }
+                } else {
+                    // inform subscriber his subscribed item has been updated
+                    const subs = (await getAdminListSubscription(uname)) as string[];
+                    if (subs.includes(name)) {
+                        const ok = await postAdminSendEmail("notice:", content, uname);
+                        if (!ok) {
+                            alert(`email sent error, updated`);
+                        }
+                    }
+                }
+            });
+
+            LoadCurrentList("entity", "text");
+            LoadCurrentList("collection", "text");
+
+            selEntity.Reset();
+            selCollection.Reset();
+
+            UpdateApprovalListStatus();
+        } else {
+            alert(`approve failed`);
+        }
+    }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

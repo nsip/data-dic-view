@@ -12,20 +12,9 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { selEntity } from "../../share/share";
-import { isNotEmpty } from "../../share/util";
-
-export default defineComponent({
-    name: "OtherNames",
-    setup() {
-        return {
-            selEntity,
-            isNotEmpty,
-        };
-    },
-});
+<script setup lang="ts">
+import { selEntity } from "@/share/share";
+import { isNotEmpty } from "@/share/util";
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

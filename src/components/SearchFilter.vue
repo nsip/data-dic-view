@@ -5,19 +5,8 @@
     </button>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { aim, Search } from "../share/share";
-
-export default defineComponent({
-    name: "ListFilter",
-    setup() {
-        return {
-            aim,
-            Search,
-        };
-    },
-});
+<script setup lang="ts">
+import { aim, Search } from "@/share/share";
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

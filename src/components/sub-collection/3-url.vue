@@ -11,21 +11,9 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import { selCollection } from "../../share/share";
-import { isNotEmpty, linkify } from "../../share/util";
-
-export default defineComponent({
-    name: "URL",
-    setup() {
-        return {
-            selCollection,
-            isNotEmpty,
-            linkify,
-        };
-    },
-});
+<script setup lang="ts">
+import { selCollection } from "@/share/share";
+import { isNotEmpty, linkify } from "@/share/util";
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

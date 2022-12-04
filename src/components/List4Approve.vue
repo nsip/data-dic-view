@@ -13,44 +13,21 @@
     </ul>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import {
-    selKind,
     selItem,
-    aim,
     lsEntity,
     lsCollection,
-    selClsPath,
-    selChildren,
     LoadCurrentList,
     Refresh,
-} from "../share/share";
+} from "@/share/share";
 
-export default defineComponent({
-    name: "ItemList4Approve",
-    setup() {
-        
-        const sel_style = ref("selected-style");
-        const unsel_style = ref("unselected-style");
+const sel_style = ref("selected-style");
+const unsel_style = ref("unselected-style");
 
-        LoadCurrentList("entity", "text");
-        LoadCurrentList("collection", "text");
-
-        return {
-            lsEntity,
-            lsCollection,
-            selKind,
-            selItem,
-            aim,
-            selClsPath,
-            selChildren,
-            sel_style,
-            unsel_style,
-            Refresh,
-        };
-    },
-});
+LoadCurrentList("entity", "text");
+LoadCurrentList("collection", "text");
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

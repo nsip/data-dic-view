@@ -12,35 +12,22 @@
     </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
-import { selClsPath, selChildren, Refresh } from "../share/share";
+<script setup lang="ts">
+import { ref } from "vue";
+import { selClsPath, selChildren, Refresh } from "@/share/share";
 
-export default defineComponent({
-    name: "ClassNav",
-    setup() {
-        const childSelect = ref(null);
+const childSelect = ref(null);
 
-        const switchSelect = (event: any) => {
-            if (event.target.value != "-1") {
-                Refresh(event.target.value, "existing");
+const switchSelect = (event: any) => {
+    if (event.target.value != "-1") {
+        Refresh(event.target.value, "existing");
 
-                const select = childSelect.value as HTMLSelectElement | null;
-                if (select != null) {
-                    select.selectedIndex = 0;
-                }
-            }
-        };
-
-        return {
-            childSelect,
-            selClsPath,
-            selChildren,
-            switchSelect,
-            Refresh,
-        };
-    },
-});
+        const select = childSelect.value as HTMLSelectElement | null;
+        if (select != null) {
+            select.selectedIndex = 0;
+        }
+    }
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

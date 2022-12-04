@@ -4,8 +4,8 @@
     </a>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
 import {
     selKind,
     selItem,
@@ -14,60 +14,47 @@ import {
     lsSubscribed,
     putSubscribe,
     LoadCurrentList,
-} from "../share/share";
+} from "@/share/share";
 
-export default defineComponent({
-    name: "BtnSubscribe",
-    setup() {
-        const sub_style = ref("subscribed-style");
-        const unsub_style = ref("unsubscribed-style");
+const sub_style = ref("subscribed-style");
+const unsub_style = ref("unsubscribed-style");
 
-        const style = () => {
-            let subscribed = false;
-            lsSubscribed.value.forEach((val) => {
-                if (val == selItem.value) {
-                    subscribed = true;
-                }
-            });
-            return subscribed ? sub_style.value : unsub_style.value;
-        };
+const style = () => {
+    let subscribed = false;
+    lsSubscribed.value.forEach((val) => {
+        if (val == selItem.value) {
+            subscribed = true;
+        }
+    });
+    return subscribed ? sub_style.value : unsub_style.value;
+};
 
-        const subscribe = async () => {
-            // alert(selKind.value)
+const subscribe = async () => {
+    // alert(selKind.value)
 
-            let name = "";
-            switch (selKind.value) {
-                case "entity":
-                    name = selEntity.Entity;
-                    break;
-                case "collection":
-                    name = selCollection.Entity;
-                    break;
-                default:
-                    alert(`select one item before subscribing`);
-                    return;
-            }
-            const r = await putSubscribe(name, selKind.value);
-            if (r) {
-                alert(`[${name}] is subscribed`);
-            } else {
-                alert(`[${name}] is unsubscribed`);
-            }
+    let name = "";
+    switch (selKind.value) {
+        case "entity":
+            name = selEntity.Entity;
+            break;
+        case "collection":
+            name = selCollection.Entity;
+            break;
+        default:
+            alert(`select one item before subscribing`);
+            return;
+    }
+    const r = await putSubscribe(name, selKind.value);
+    if (r) {
+        alert(`[${name}] is subscribed`);
+    } else {
+        alert(`[${name}] is unsubscribed`);
+    }
 
-            // reload list for changing item color
-            LoadCurrentList("entity", "existing");
-            LoadCurrentList("collection", "existing");
-        };
-
-        return {
-            selKind,
-            selEntity,
-            selCollection,
-            subscribe,
-            style,
-        };
-    },
-});
+    // reload list for changing item color
+    LoadCurrentList("entity", "existing");
+    LoadCurrentList("collection", "existing");
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

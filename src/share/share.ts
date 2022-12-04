@@ -43,7 +43,7 @@ export const getUname = async () => {
 };
 
 export const getUserList = async () => {
-    const field = "{fields}" // means list all fields. swagger 'Try' uses '{fields}' as empty path param, so we intentionally use this literal string
+    const field = "{fields}"; // means list all fields. swagger 'Try' uses '{fields}' as empty path param, so we intentionally use this literal string
     const rt = (await fetchNoBody(
         `api/admin/user/list/${field}`,
         "GET",
@@ -341,10 +341,10 @@ export const Search = async () => {
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-export const isApprovalListEmpty = ref(true)
+export const isApprovalListEmpty = ref(true);
 
 export const UpdateApprovalListStatus = async () => {
-    const lsEnt = await getList("entity", "text")
-    const lsCol = await getList("collection", "text")
-    isApprovalListEmpty.value = lsEnt.length == 0 && lsCol.length == 0     
-}
+    const lsEnt = await getList("entity", "text");
+    const lsCol = await getList("collection", "text");
+    isApprovalListEmpty.value = lsEnt.length == 0 && lsCol.length == 0;
+};
