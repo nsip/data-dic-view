@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
 import { getUserList } from "@/share/share";
-import TextLine from "./shared/TextLine.vue";
+import TextLine from "@/components/shared/TextLine.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import Vue3EasyDataTable from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";

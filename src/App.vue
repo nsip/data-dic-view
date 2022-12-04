@@ -4,10 +4,11 @@
         <ClassNav v-if="Mode == 'normal'" />
         <ModeSel />
         <div id="container">
+
             <div id="left">
                 <ListFilter v-if="Mode == 'normal'" />
-                <ItemList v-if="Mode == 'normal'" />
-                <ItemList4Approve v-if="Mode == 'approval'" />
+                <ListItem v-if="Mode == 'normal'" />
+                <ListAppr v-if="Mode == 'approval'" />
             </div>
 
             <div id="right" v-if="!isEmpty(selEntity) || !isEmpty(selCollection)">
@@ -18,6 +19,7 @@
                 <BtnEdit v-if="Mode == 'normal'" />
                 <BtnAdd v-if="Mode == 'normal'" />
             </div>
+
         </div>
 
         <div v-if="Mode == 'admin'">
@@ -27,22 +29,23 @@
 </template>
 
 <script setup lang="ts">
+
 import { onMounted, ref } from "vue";
-import { loginUser, loginAuth, loginToken, getUname, Mode, selKind, selEntity, selCollection } from "./share/share";
-import { isEmpty } from "./share/util";
-import MainTitle from "./components/PageTitle.vue";
-import ClassNav from "./components/ClassNav.vue";
-import ModeSel from "./components/ModeSel.vue";
-import ListFilter from "./components/SearchFilter.vue";
-import ItemList from "./components/ItemList.vue";
-import ItemList4Approve from "./components/List4Approve.vue";
-import EntityContent from "./components/EntityContent.vue";
-import CollectionContent from "./components/CollectionContent.vue";
-import BtnAdd from "./components/BtnAdd.vue";
-import BtnEdit from "./components/BtnEdit.vue";
-import BtnApprove from "./components/BtnApprove.vue";
-import BtnSubscribe from "./components/BtnSubscribe.vue";
-import UserAdmin from "./components/UserAdmin.vue";
+import { loginUser, loginAuth, loginToken, getUname, Mode, selKind, selEntity, selCollection } from "@/share/share";
+import { isEmpty } from "@/share/util";
+import MainTitle from "@/components/PageTitle.vue";
+import ClassNav from "@/components/ClassNav.vue";
+import ModeSel from "@/components/ModeSel.vue";
+import ListFilter from "@/components/SearchFilter.vue";
+import ListItem from "@/components/ListItem.vue";
+import ListAppr from "@/components/ListAppr.vue";
+import EntityContent from "@/components/EntityContent.vue";
+import CollectionContent from "@/components/CollectionContent.vue";
+import BtnAdd from "@/components/BtnAdd.vue";
+import BtnEdit from "@/components/BtnEdit.vue";
+import BtnApprove from "@/components/BtnApprove.vue";
+import BtnSubscribe from "@/components/BtnSubscribe.vue";
+import UserAdmin from "@/components/UserAdmin.vue";
 
 let disp = ref(false);
 
@@ -96,9 +99,9 @@ onMounted(async () => {
     height: 92%;
     margin-right: 1%;
     background-color: rgb(200, 200, 200);
-    /* overflow: scroll;
-  display: flex;
-   flex-direction: column; */
+    overflow-y: scroll;
+    /* display: flex;
+    flex-direction: column; */
 }
 
 #right {
@@ -106,8 +109,8 @@ onMounted(async () => {
     height: 92%;
     margin-left: 0%;
     background-color: rgb(200, 200, 200);
-    overflow: scroll;
+    overflow-y: scroll;
     /* display: flex;
-  flex-direction: column; */
+    flex-direction: column; */
 }
 </style>

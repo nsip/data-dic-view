@@ -1,4 +1,4 @@
-import { IP_API } from "./ip";
+import { IP_API } from "@/share/ip";
 
 const ip = IP_API;
 

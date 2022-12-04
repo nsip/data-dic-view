@@ -1,4 +1,4 @@
-import { fetchNoBody, mEmpty } from "./fetch"; // for deno test, append '.ts'; `deno run -A ./ping.ts`
+import { fetchNoBody, mEmpty } from "@/share/fetch"; // for deno test, append '.ts'; `deno run -A ./ping.ts`
 
 export const ping = async () => {
     const rt = (await fetchNoBody(`/api/system/ver`, "GET", mEmpty, "")) as any[];

@@ -1,7 +1,7 @@
 import { ref, reactive } from "vue";
-import { fetchNoBody, fetchBodyForm, mEmpty } from "./fetch";
-import { entityType } from "./Entity";
-import { collectionType } from "./Collection";
+import { fetchNoBody, fetchBodyForm, mEmpty }from "@/share/fetch";
+import { entityType } from "@/share/Entity";
+import { collectionType } from "@/share/Collection";
 
 //////////////////////////////////////////////////////////////////////////////////////
 

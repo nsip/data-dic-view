@@ -7,11 +7,11 @@
 </template>
 
 <script setup lang="ts">
-import ItemName from "./sub-collection/1-name.vue";
-import ItemDef from "./sub-collection/2-def.vue";
-import URL from "./sub-collection/3-url.vue";
-import MetaData from "./sub-collection/4-meta.vue";
-import ColEntities from "./sub-collection/5-entities.vue";
+import ItemName from "@/components/sub-collection/1-name.vue";
+import ItemDef from "@/components/sub-collection/2-def.vue";
+import URL from "@/components/sub-collection/3-url.vue";
+import MetaData from "@/components/sub-collection/4-meta.vue";
+import ColEntities from "@/components/sub-collection/5-entities.vue";
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
