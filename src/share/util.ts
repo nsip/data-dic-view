@@ -1,3 +1,11 @@
+export const space4html = (n: number) => {
+    let rt = ""
+    for (let i = 0; i < n; i++) {
+        rt += "&nbsp;"
+    }
+    return rt
+}
+
 export const isEmpty = (val: any) => {
     if (val == undefined) {
         return true;

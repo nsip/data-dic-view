@@ -3,17 +3,20 @@
         <TextLine text="registered users:" textAlign="left" textColor="gray" lineColor="gray" lineHeight="0px" />
         <Vue3EasyDataTable :headers="headers" :items="items" class="table" @click-row="rowDbClick" />
     </div>
+    <UserAdminModal v-bind:visible="visible" :user="user" @confirm="confirm" @cancel="cancel" />
 </template>
 
 <!-- =============================================================================== -->
 
 <script setup lang="ts">
+
 import { ref, onMounted } from "vue";
 import { getUserList } from "@/share/share";
 import TextLine from "@/components/shared/TextLine.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import Vue3EasyDataTable from "vue3-easy-data-table";
 import "vue3-easy-data-table/dist/style.css";
+import UserAdminModal from '@/components/UserAdminModal.vue'
 
 const headers = ref<any>(null);
 const items = ref<any>(null);
@@ -64,8 +67,14 @@ const interval = 300;
 
 const rowDbClick = (item: ClickRowArgument) => {
     // double click real action
-    const dbclkAction = (item: ClickRowArgument) => {
-        console.log(JSON.stringify(item));
+    const dbclkAction = async (item: ClickRowArgument) => {
+        
+        // console.log(item);
+
+        // pop-up modal to set user field
+        visible.value = true
+        user.value = item['user']
+        // 
     };
 
     // double click effect
@@ -82,6 +91,17 @@ const rowDbClick = (item: ClickRowArgument) => {
         got1st = false;
     }
 };
+
+const visible = ref(false)
+const user = ref('USER')
+
+const confirm = (result: boolean) => {
+    alert(result)
+    visible.value = false
+}
+const cancel = () => {
+    visible.value = false
+}
 
 // headers.value = [
 //     { text: "PLAYER", value: "player" },
