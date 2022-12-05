@@ -78,7 +78,7 @@ LoadCurrentList("collection", "existing");
 .list_mode {
     float: left;
     font-size: large;
-    margin-left: 1%;
+    margin-left: 2%;
     margin-bottom: 4%;
     margin-top: 1%;
 }

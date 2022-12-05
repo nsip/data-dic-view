@@ -3,7 +3,7 @@
         <MainTitle />
         <ClassNav v-if="Mode == 'normal'" />
         <ModeSel />
-        <div id="container">
+        <div v-if="Mode != 'admin'" id="container">
 
             <div id="left">
                 <ListFilter v-if="Mode == 'normal'" />
@@ -12,8 +12,8 @@
             </div>
 
             <div id="right" v-if="!isEmpty(selEntity) || !isEmpty(selCollection)">
-                <EntityContent v-if="Mode != 'admin' && selKind == 'entity'" />
-                <CollectionContent v-if="Mode != 'admin' && selKind == 'collection'" />
+                <EntityContent v-if="selKind == 'entity'" />
+                <CollectionContent v-if="selKind == 'collection'" />
                 <BtnApprove v-if="Mode == 'approval'" />
                 <BtnSubscribe v-if="Mode == 'normal'" />
                 <BtnEdit v-if="Mode == 'normal'" />
