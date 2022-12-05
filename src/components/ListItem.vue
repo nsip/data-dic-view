@@ -90,12 +90,12 @@ ul.list-entity::-webkit-scrollbar {
 ul.list-entity {
     /* background-color: rgb(240, 240, 100); */
     width: 82%;
-    max-height: 75%;
+    max-height: 90%;
     margin-left: 2%;
     margin-top: -3%;
     /* display: inline-block; */
     overflow: scroll;
-    scrollbar-width: none;
+    /* scrollbar-width: none; */
     font-size: 15px;
     font-weight: normal;
     font-family: Arial, Helvetica, sans-serif;
@@ -126,12 +126,12 @@ ul.list-collection::-webkit-scrollbar {
 ul.list-collection {
     /* background-color: rgb(240, 100, 240); */
     width: 82%;
-    max-height: 20%;
+    max-height: 90%;
     margin-top: -3%;
     margin-left: 2%;
     /* display: inline-block; */
     overflow: scroll;
-    scrollbar-width: none;
+    /* scrollbar-width: none; */
     font-size: 15px;
     font-weight: normal;
     font-family: Arial, Helvetica, sans-serif;

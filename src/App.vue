@@ -47,14 +47,15 @@ import BtnApprove from "@/components/BtnApprove.vue";
 import BtnSubscribe from "@/components/BtnSubscribe.vue";
 import UserAdmin from "@/components/UserAdmin.vue";
 
+let HeightOfList = ref((window.innerHeight * 0.9).toString() + "px");
+let HeightOfContent = ref((window.innerHeight * 0.9).toString() + "px");
+
 let disp = ref(false);
 
 const pAuth = window.location.href.indexOf("auth=");
 const auth = decodeURI(window.location.href.substring(pAuth + 5));
 loginToken.value = auth;
 loginAuth.value = "Bearer " + auth;
-
-//////////////////////////////////////
 
 onMounted(async () => {
     if (loginAuth.value.length < 32) {
@@ -72,6 +73,7 @@ onMounted(async () => {
         }
     }
 });
+
 </script>
 
 <style>
@@ -100,8 +102,7 @@ onMounted(async () => {
     margin-right: 1%;
     background-color: rgb(200, 200, 200);
     overflow-y: scroll;
-    /* display: flex;
-    flex-direction: column; */
+    height: v-bind(HeightOfList);    
 }
 
 #right {
@@ -110,7 +111,6 @@ onMounted(async () => {
     margin-left: 0%;
     background-color: rgb(200, 200, 200);
     overflow-y: scroll;
-    /* display: flex;
-    flex-direction: column; */
+    height: v-bind(HeightOfContent);
 }
 </style>
