@@ -50,7 +50,7 @@ export const getUname = async () => {
     // ***
     const selfInfo = await self()
     // console.log(selfInfo)
-    
+
     loginAsAdmin.value = selfInfo.role == 'admin' ? true : false
     // ***
 
@@ -317,10 +317,7 @@ export const postAdminSendEmail = async (
     ...recipients: string[]
 ) => {
     const mForm = new Map<string, any>([
-        [
-            "unames",
-            recipients != null ? recipients.join(",") : "recipients-missing-error",
-        ],
+        ["unames", recipients != null ? recipients.join(",") : "recipients-missing-error",],
         ["subject", title],
         ["body", content],
     ]);

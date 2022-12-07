@@ -33,8 +33,12 @@ const approve = async () => {
                 ? `new item [${name}] has been added into data dictionary`
                 : `data dictionary item [${name}] has been updated`;
 
-            const unames = (await getAdminListUser("uname")) as string[];
-            unames.forEach(async (uname) => {
+            const users = (await getAdminListUser("uname")) as any[];
+            users.forEach(async (user) => {
+
+                const uname = user.UName;
+                // console.log(uname)
+
                 if (create) {
                     // inform subscriber new item have been added
                     const ok = await postAdminSendEmail(
@@ -48,6 +52,9 @@ const approve = async () => {
                 } else {
                     // inform subscriber his subscribed item has been updated
                     const subs = (await getAdminListSubscription(uname)) as string[];
+
+                    console.log("getAdminListSubscription:", uname, subs)
+
                     if (subs.includes(name)) {
                         const ok = await postAdminSendEmail("notice:", content, uname);
                         if (!ok) {
@@ -64,7 +71,7 @@ const approve = async () => {
             selCollection.Reset();
 
             UpdateListApprStatus();
-            
+
         } else {
             alert(`approve failed`);
         }
