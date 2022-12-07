@@ -83,10 +83,10 @@ watch(
     position: absolute;
     top: 50%;
     left: 50%;
-    margin-left: -180px;
     /* width/2 */
-    margin-top: -60px;
+    margin-left: -180px;
     /* height/2 */
+    margin-top: -60px;
     width: 360px;
     height: 120px;
 }

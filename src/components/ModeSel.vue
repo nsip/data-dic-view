@@ -6,17 +6,18 @@
         <input class="selection" type="radio" name="mode" value="" checked @click="select('normal')" />
         <label>normal</label>
 
-        <input v-if="!isListApprEmpty" class="selection" type="radio" name="mode" value="" @click="select('approval')" />
-        <label v-if="!isListApprEmpty">approval</label>
+        <input v-if="loginAsAdmin && !isListApprEmpty" class="selection" type="radio" name="mode" value="" @click="select('approval')" />
+        <label v-if="loginAsAdmin && !isListApprEmpty">approval</label>
 
-        <input class="selection" type="radio" name="mode" value="" @click="select('admin')" />
-        <label>admin</label>
+        <input v-if="loginAsAdmin" class="selection" type="radio" name="mode" value="" @click="select('admin')" />
+        <label v-if="loginAsAdmin">admin</label>
 
     </div>
 </template>
 
 <script setup lang="ts">
-import { Mode, selKind, selEntity, selCollection, aim, selClsPath, selChildren, isListApprEmpty, UpdateListApprStatus } from "@/share/share";
+
+import { loginAsAdmin, Mode, selKind, selEntity, selCollection, aim, selClsPath, selChildren, isListApprEmpty, UpdateListApprStatus } from "@/share/share";
 
 UpdateListApprStatus();
 

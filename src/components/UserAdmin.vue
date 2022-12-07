@@ -11,7 +11,7 @@
 <script setup lang="ts">
 
 import { ref, onMounted } from "vue";
-import { getUserList, getUserOnline, setUserAdmin, setUserActive } from "@/share/share";
+import { getUserList, getUserOnline, setUser } from "@/share/share";
 import TextLine from "@/components/shared/TextLine.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import Vue3EasyDataTable from "vue3-easy-data-table";
@@ -38,7 +38,7 @@ const reloadTable = async () => {
 
     /////////////////////////////////////
 
-    const users = await getUserList('');
+    const users = await getUserList('', '');
     // console.log(users)
 
     const onlines = await getUserOnline();
@@ -115,15 +115,12 @@ const rowClick = (item: ClickRowArgument) => {
 
 ////////////////////////////////////////////////////////////
 
+// result is a struct object
 const confirm = async (result: any) => {
-
     // console.log("result", result)
 
-    const rtSetAdmin = await setUserAdmin(user.value, result.admin)
-    console.log(rtSetAdmin)
-
-    const rtSetActive = await setUserActive(user.value, result.active)
-    console.log(rtSetActive)
+    const rtSet = await setUser(user.value, result)
+    console.log(rtSet)
 
     visModal.value = false
     await reloadTable()

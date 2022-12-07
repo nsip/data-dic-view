@@ -9,6 +9,8 @@ export const loginUser = ref("");
 export const loginToken = ref(""); // without 'Bearer '
 export const loginAuth = ref(""); // with 'Bearer '
 
+export const loginAsAdmin = ref(false)
+
 export const Mode = ref("normal"); // 'normal' or 'approval', or 'admin'
 
 export const selKind = ref(""); // which kind for current selection 'entity' or 'collection'
@@ -27,6 +29,10 @@ export const lsSubscribed = ref([]); // subscribed item name list
 
 // fill loginUser
 
+const self = async () => {
+    return (await getUserList(loginUser.value, ''))[0]
+}
+
 export const getUname = async () => {
     const rt = (await fetchNoBody(
         "api/user/auth/uname",
@@ -39,18 +45,31 @@ export const getUname = async () => {
         return false;
     }
     loginUser.value = rt[0];
+
+    // other login user profile
+    // ***
+    const selfInfo = await self()
+    // console.log(selfInfo)
+    
+    loginAsAdmin.value = selfInfo.role == 'admin' ? true : false
+    // ***
+
     return true;
 };
 
-export const getUserList = async (fields: string) => {
-    // means list all fields. swagger 'Try' uses '{fields}' as empty path param, so we intentionally use this literal string
+export const getUserList = async (uname: string, fields: string) => {
+    // means list all fields. 
+    // swagger 'Try' uses '{fields}' as empty path param, so we intentionally use this literal string
     if (fields == undefined || fields == null || fields.length == 0) {
         fields = "{fields}";
     }
+    const mParam = new Map<string, any>([
+        ["uname", uname],
+    ]);
     const rt = (await fetchNoBody(
         `api/admin/user/list/${fields}`,
         "GET",
-        mEmpty,
+        mParam,
         loginAuth.value
     )) as any[];
     if (rt[1] != 200) {
@@ -74,32 +93,15 @@ export const getUserOnline = async () => {
     return rt[0];
 }
 
-export const setUserAdmin = async (uname: string, fAdmin: boolean) => {
+export const setUser = async (uname: string, data: any) => {
+    const fields = 'Active,SysRole'
     const mForm = new Map<string, any>([
         ["uname", uname],
-        ["SysRole", fAdmin ? "admin" : ""],
+        ["SysRole", data.admin ? "admin" : ""],
+        ["Active", data.active]
     ]);
     const rt = (await fetchBodyForm(
-        `api/admin/user/update/SysRole`,
-        "PUT",
-        mEmpty,
-        mForm,
-        loginAuth.value
-    )) as any[];
-    if (rt[1] != 200) {
-        alert(rt[0]);
-        return null;
-    }
-    return rt[0];
-}
-
-export const setUserActive = async (uname: string, fActive: boolean) => {
-    const mForm = new Map<string, any>([
-        ["uname", uname],
-        ["Active", fActive],
-    ]);
-    const rt = (await fetchBodyForm(
-        `api/admin/user/update/Active`,
+        `api/admin/user/update/${fields}`,
         "PUT",
         mEmpty,
         mForm,
