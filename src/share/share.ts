@@ -1,5 +1,5 @@
 import { ref, reactive } from "vue";
-import { fetchNoBody, fetchBodyForm, mEmpty }from "@/share/fetch";
+import { fetchNoBody, fetchBodyForm, mEmpty } from "@/share/fetch";
 import { entityType } from "@/share/Entity";
 import { collectionType } from "@/share/Collection";
 
@@ -42,10 +42,13 @@ export const getUname = async () => {
     return true;
 };
 
-export const getUserList = async () => {
-    const field = "{fields}"; // means list all fields. swagger 'Try' uses '{fields}' as empty path param, so we intentionally use this literal string
+export const getUserList = async (fields: string) => {
+    // means list all fields. swagger 'Try' uses '{fields}' as empty path param, so we intentionally use this literal string
+    if (fields == undefined || fields == null || fields.length == 0) {
+        fields = "{fields}";
+    }
     const rt = (await fetchNoBody(
-        `api/admin/user/list/${field}`,
+        `api/admin/user/list/${fields}`,
         "GET",
         mEmpty,
         loginAuth.value
@@ -56,6 +59,58 @@ export const getUserList = async () => {
     }
     return rt[0];
 };
+
+export const getUserOnline = async () => {
+    const rt = (await fetchNoBody(
+        `api/admin/user/onlines`,
+        "GET",
+        mEmpty,
+        loginAuth.value
+    )) as any[];
+    if (rt[1] != 200) {
+        alert(rt[0]);
+        return null;
+    }
+    return rt[0];
+}
+
+export const setUserAdmin = async (uname: string, fAdmin: boolean) => {
+    const mForm = new Map<string, any>([
+        ["uname", uname],
+        ["SysRole", fAdmin ? "admin" : ""],
+    ]);
+    const rt = (await fetchBodyForm(
+        `api/admin/user/update/SysRole`,
+        "PUT",
+        mEmpty,
+        mForm,
+        loginAuth.value
+    )) as any[];
+    if (rt[1] != 200) {
+        alert(rt[0]);
+        return null;
+    }
+    return rt[0];
+}
+
+export const setUserActive = async (uname: string, fActive: boolean) => {
+    const mForm = new Map<string, any>([
+        ["uname", uname],
+        ["Active", fActive],
+    ]);
+    const rt = (await fetchBodyForm(
+        `api/admin/user/update/Active`,
+        "PUT",
+        mEmpty,
+        mForm,
+        loginAuth.value
+    )) as any[];
+    if (rt[1] != 200) {
+        alert(rt[0]);
+        return null;
+    }
+    return rt[0];
+}
 
 //////////////////////////////////////////////////////////////////////////////////////
 
@@ -341,10 +396,10 @@ export const Search = async () => {
 
 //////////////////////////////////////////////////////////////////////////////////////
 
-export const isApprovalListEmpty = ref(true);
+export const isListApprEmpty = ref(true);
 
-export const UpdateApprovalListStatus = async () => {
+export const UpdateListApprStatus = async () => {
     const lsEnt = await getList("entity", "text");
     const lsCol = await getList("collection", "text");
-    isApprovalListEmpty.value = lsEnt.length == 0 && lsCol.length == 0;
+    isListApprEmpty.value = lsEnt.length == 0 && lsCol.length == 0;
 };

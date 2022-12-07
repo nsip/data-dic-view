@@ -1,9 +1,9 @@
 <template>
     <div class="tbl">
         <TextLine text="registered users:" textAlign="left" textColor="gray" lineColor="gray" lineHeight="0px" />
-        <Vue3EasyDataTable :headers="headers" :items="items" class="table" @click-row="rowDbClick" />
+        <Vue3EasyDataTable :headers="headers" :items="items" class="table" @click-row="rowClick" />
     </div>
-    <UserAdminModal v-bind:visible="visible" :user="user" @confirm="confirm" @cancel="cancel" />
+    <UserAdminModal v-bind:visible="visModal" v-bind:uname="user" v-bind:admin="admin" v-bind:active="active" @confirm="confirm" @cancel="cancel" />
 </template>
 
 <!-- =============================================================================== -->
@@ -11,7 +11,7 @@
 <script setup lang="ts">
 
 import { ref, onMounted } from "vue";
-import { getUserList } from "@/share/share";
+import { getUserList, getUserOnline, setUserAdmin, setUserActive } from "@/share/share";
 import TextLine from "@/components/shared/TextLine.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import Vue3EasyDataTable from "vue3-easy-data-table";
@@ -32,28 +32,43 @@ items.value = [
     // { user: "", email: "", admin: "", online: "", active: "" },
 ];
 
-onMounted(async () => {
-    const users = await getUserList();
+const reloadTable = async () => {
+
+    items.value = []
+
+    /////////////////////////////////////
+
+    const users = await getUserList('');
     // console.log(users)
 
+    const onlines = await getUserOnline();
+    // console.log(onlines)
+
+    let onlineUsers: string[] = []
+    onlines.forEach((online: { [x: string]: any }) => {
+        // console.log(online);
+        onlineUsers.push(online['Uname'])
+    });
+
     users.forEach((user: { [x: string]: any }) => {
+        // console.log(user);
+
         const uname = user["uname"];
         const email = user["email"];
-
-        console.log(uname);
-        console.log(email);
-
-        // TODO: fetch 'admin', 'online', 'active'
+        const active = user["active"];
+        const admin = user["role"];
 
         items.value.push({
             user: uname,
             email: email,
-            admin: true,
-            online: true,
-            active: true,
+            admin: admin == "admin" ? true : false,
+            online: onlineUsers.includes(uname),
+            active: active,
         });
     });
-});
+}
+
+onMounted(reloadTable);
 
 type ClickRowArgument = Item & {
     isSelected?: boolean;
@@ -65,19 +80,8 @@ let t = 0;
 let got1st = false;
 const interval = 300;
 
+// double click effect only
 const rowDbClick = (item: ClickRowArgument) => {
-    // double click real action
-    const dbclkAction = async (item: ClickRowArgument) => {
-        
-        // console.log(item);
-
-        // pop-up modal to set user field
-        visible.value = true
-        user.value = item['user']
-        // 
-    };
-
-    // double click effect
     if (got1st && Date.now() - t > interval) {
         got1st = false;
     }
@@ -86,21 +90,46 @@ const rowDbClick = (item: ClickRowArgument) => {
         got1st = true;
     } else {
         if (Date.now() - t <= interval) {
-            dbclkAction(item);
+            rowClick(item);
         }
         got1st = false;
     }
 };
 
-const visible = ref(false)
+// for modal props
+const visModal = ref(false)
 const user = ref('USER')
+const admin = ref(false)
+const active = ref(true)
 
-const confirm = (result: boolean) => {
-    alert(result)
-    visible.value = false
+// click real action
+const rowClick = (item: ClickRowArgument) => {
+    // console.log(item);
+
+    // pop-up modal to set user field
+    visModal.value = true
+    user.value = item['user']
+    admin.value = item['admin']
+    active.value = item['active']
+};
+
+////////////////////////////////////////////////////////////
+
+const confirm = async (result: any) => {
+
+    // console.log("result", result)
+
+    const rtSetAdmin = await setUserAdmin(user.value, result.admin)
+    console.log(rtSetAdmin)
+
+    const rtSetActive = await setUserActive(user.value, result.active)
+    console.log(rtSetActive)
+
+    visModal.value = false
+    await reloadTable()
 }
-const cancel = () => {
-    visible.value = false
+const cancel = async () => {
+    visModal.value = false
 }
 
 // headers.value = [

@@ -6,8 +6,8 @@
         <input class="selection" type="radio" name="mode" value="" checked @click="select('normal')" />
         <label>normal</label>
 
-        <input v-if="!isApprovalListEmpty" class="selection" type="radio" name="mode" value="" @click="select('approval')" />
-        <label v-if="!isApprovalListEmpty">approval</label>
+        <input v-if="!isListApprEmpty" class="selection" type="radio" name="mode" value="" @click="select('approval')" />
+        <label v-if="!isListApprEmpty">approval</label>
 
         <input class="selection" type="radio" name="mode" value="" @click="select('admin')" />
         <label>admin</label>
@@ -16,9 +16,9 @@
 </template>
 
 <script setup lang="ts">
-import { Mode, selKind, selEntity, selCollection, aim, selClsPath, selChildren, isApprovalListEmpty, UpdateApprovalListStatus } from "@/share/share";
+import { Mode, selKind, selEntity, selCollection, aim, selClsPath, selChildren, isListApprEmpty, UpdateListApprStatus } from "@/share/share";
 
-UpdateApprovalListStatus();
+UpdateListApprStatus();
 
 const select = (selMode: string) => {
     Mode.value = selMode;
