@@ -6,17 +6,17 @@
 
         <span id="prefix-set-admin">admin:</span>
         <select id="value-set-admin" @change="switchSelectAdmin($event)">
-            <option value="false" :selected="!admin">false</option>
-            <option value="true" :selected="admin">true</option>
+            <option value="false" :selected="!admin">No</option>
+            <option value="true" :selected="admin">Yes</option>
         </select>
         <span id="note-set-admin">(can approve submitted item, etc.)</span>
 
         <span id="prefix-set-active">active:</span>
         <select id="value-set-active" @change="switchSelectActive($event)">
-            <option value="false" :selected="!active">false</option>
-            <option value="true" :selected="active">true</option>
+            <option value="false" :selected="!active">No</option>
+            <option value="true" :selected="active">Yes</option>
         </select>
-        <span id="note-set-active">(can approve submitted item, i.e)</span>
+        <span id="note-set-active">(user active status)</span>
 
         <button id="btn-confirm" @click="confirm({ admin: fAdmin, active: fActive })">confirm</button>
         <button id="btn-cancel" @click="cancel()">cancel</button>
@@ -84,66 +84,80 @@ watch(
     top: 50%;
     left: 50%;
     /* width/2 */
-    margin-left: -180px;
+    margin-left: -200px;
     /* height/2 */
-    margin-top: -60px;
-    width: 360px;
-    height: 120px;
+    margin-top: -75px;
+    width: 400px;
+    height: 150px;
 }
+
+/* 1st line */
 
 #prefix-user {
     position: absolute;
     left: 10px;
     top: 5px;
+    font-size: x-large;
 }
 
 #value-user {
     position: absolute;
-    left: 70px;
-    top: 5px;
+    left: 90px;
+    top: 10px;
+    font-size: large;
     font-style: italic;
     font-weight: bold;
 }
 
+/* 2nd line */
+
 #prefix-set-admin {
     position: absolute;
     left: 10px;
-    top: 32px;
+    top: 40px;
+    font-size: x-large;
 }
 
 #value-set-admin {
     position: absolute;
-    left: 70px;
-    top: 35px;
+    left: 90px;
+    top: 45px;
+    font-size: large;
 }
 
 #note-set-admin {
     position: absolute;
-    left: 140px;
-    top: 37px;
-    font-size: x-small;
+    left: 170px;
+    top: 50px;
+    font-size: small;
     font-style: italic;
 }
+
+/* 3rd line */
 
 #prefix-set-active {
     position: absolute;
     left: 10px;
-    top: 59px;
+    top: 75px;
+    font-size: x-large;
 }
 
 #value-set-active {
     position: absolute;
-    left: 70px;
-    top: 60px;
+    left: 90px;
+    top: 80px;
+    font-size: large;
 }
 
 #note-set-active {
     position: absolute;
-    left: 140px;
-    top: 62px;
-    font-size: x-small;
+    left: 170px;
+    top: 85px;
+    font-size: small;
     font-style: italic;
 }
+
+/* button */
 
 #btn-cancel {
     float: right;

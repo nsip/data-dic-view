@@ -93,6 +93,11 @@ export const getUserOnline = async () => {
     return rt[0];
 }
 
+export const isUserOnline = async (uname: string) => {
+    const onlines: string[] = await getUserOnline()
+    return onlines.includes(uname)
+}
+
 export const setUser = async (uname: string, data: any) => {
     const fields = 'Active,SysRole'
     const mForm = new Map<string, any>([
@@ -112,6 +117,20 @@ export const setUser = async (uname: string, data: any) => {
         return null;
     }
     return rt[0];
+}
+
+export const putLogout = async () => {
+    const rt = (await fetchNoBody(
+        `/api/user/auth/sign-out`,
+        `PUT`,
+        mEmpty,
+        loginAuth.value
+    )) as any[];
+    if (rt[1] != 200) {
+        alert(rt[0]);
+        return false;
+    }
+    return true
 }
 
 //////////////////////////////////////////////////////////////////////////////////////

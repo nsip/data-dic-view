@@ -101,7 +101,7 @@ onMounted(async () => {
     height: 92%;
     margin-right: 1%;
     background-color: rgb(200, 200, 200);
-    overflow-y: scroll;
+    /* List has its own scroll */
     height: v-bind(HeightOfList);    
 }
 

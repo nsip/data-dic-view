@@ -1,15 +1,42 @@
 <template>
     <div>
         <span class="title"> {{ title }} </span>
-        <span class="user"> {{ loginUser }} </span>
+        <button class="link" @click="(visModal = true)">{{ loginUser }}</button>
         <hr class="sep" />
     </div>
+    <PageTitleModal v-bind:visible="visModal" @confirm="confirm" @cancel="cancel" />
 </template>
 
 <script setup lang="ts">
-import { loginUser } from "@/share/share";
+
+import { ref } from 'vue';
+import { loginUser, putLogout } from "@/share/share";
+import { IP_SIGN } from "@/share/ip"
+import PageTitleModal from '@/components/PageTitleModal.vue'
 
 let title = "National Education Data Dictionary";
+
+const visModal = ref(false)
+
+// result is a struct object
+const confirm = async (result: any) => {
+
+    // close modal
+    visModal.value = false
+
+    // logout
+    const rt = await putLogout()
+
+    // redirect to sign page
+    if (rt) {
+        location.replace(`${IP_SIGN}`);
+    }
+}
+
+const cancel = async () => {
+    visModal.value = false
+}
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -21,10 +48,12 @@ let title = "National Education Data Dictionary";
     font-weight: bold;
 }
 
-.user {
+.link {
     float: right;
     margin-top: 0.4%;
     margin-right: 1%;
+    background: none;
+    border: none;
 }
 
 .sep {

@@ -11,7 +11,7 @@
 <script setup lang="ts">
 
 import { ref, onMounted } from "vue";
-import { getUserList, getUserOnline, setUser } from "@/share/share";
+import { getUserList, getUserOnline, setUser, isUserOnline } from "@/share/share";
 import TextLine from "@/components/shared/TextLine.vue";
 import type { Header, Item } from "vue3-easy-data-table";
 import Vue3EasyDataTable from "vue3-easy-data-table";
@@ -107,10 +107,14 @@ const rowClick = (item: ClickRowArgument) => {
     // console.log(item);
 
     // pop-up modal to set user field
-    visModal.value = true
     user.value = item['user']
     admin.value = item['admin']
     active.value = item['active']
+    if (!isUserOnline(user.value)) {
+        visModal.value = true
+    } else {
+        alert("only offline user can be set")
+    }
 };
 
 ////////////////////////////////////////////////////////////
