@@ -1,4 +1,3 @@
-import { createApp } from "vue";
 import unoverlay from 'unoverlay-vue'
 import App from "@/App.vue";
 

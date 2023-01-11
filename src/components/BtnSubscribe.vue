@@ -5,7 +5,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { selKind, selItem, selEntity, selCollection, lsSubscribed, putSubscribe, LoadCurrentList, getListSubscription } from "@/share/share";
 
 const sub_style = ref("subscribed-style");

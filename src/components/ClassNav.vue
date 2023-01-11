@@ -13,7 +13,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { selClsPath, selChildren, Refresh } from "@/share/share";
 
 const childSelect = ref(null);

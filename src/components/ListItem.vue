@@ -20,7 +20,6 @@
 
 <script setup lang="ts">
 
-import { ref } from "vue";
 import { selItem, lsEntity, lsCollection, lsSubscribed, LoadCurrentList, Refresh, selEntity, selCollection, aim, selClsPath, selChildren, } from "@/share/share";
 
 const sel_kind = ref('entity');

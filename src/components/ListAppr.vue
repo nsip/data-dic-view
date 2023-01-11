@@ -14,7 +14,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from "vue";
 import { selItem, lsEntity, lsCollection, LoadCurrentList, Refresh } from "@/share/share";
 
 const sel_style = ref("selected-style");
