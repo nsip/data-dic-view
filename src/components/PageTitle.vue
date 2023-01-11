@@ -9,7 +9,6 @@
 
 <script setup lang="ts">
 
-import { ref } from 'vue';
 import { loginUser, putLogout } from "@/share/share";
 import { IP_SIGN } from "@/share/ip"
 import PageTitleModal from '@/components/PageTitleModal.vue'
@@ -27,9 +26,13 @@ const confirm = async (result: any) => {
     // logout
     const rt = await putLogout()
 
-    // redirect to sign page
+    // redirect to sign page. If public IP, change Port to '80'
     if (rt) {
-        location.replace(`${IP_SIGN}`);
+        let redirectIP = IP_SIGN
+        if (!IP_SIGN.includes('127.0.0.1')) {
+            redirectIP = IP_SIGN.replace(":8000", ":80")
+        }
+        location.replace(redirectIP);
     }
 }
 
